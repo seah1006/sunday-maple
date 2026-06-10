@@ -1,12 +1,12 @@
 date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_context,is_major_event,is_special,time_limited,is_discontinued,is_future,no_event_week,cycle_days
 2017-03-12,주문의 흔적 강화 비용 30% 할인,,주문의흔적_비용할인,강화,30%,,False,False,,True,False,False,
 2017-03-12,"(리부트, 리부트2월드 : 하루 종일 드롭률 2배)",,리부트_드롭률,수집기타,2배,,False,False,,True,False,False,
-2017-03-12,돌발미션 일일 클리어 가능 횟수 2배,(3회→6회),돌발미션,사냥효율,2배,,False,False,,False,False,False,
+2017-03-12,돌발미션 일일 클리어 가능 횟수 2배,(3회→6회),돌발미션,사냥효율,2배,,False,False,,True,False,False,
 2017-03-12,돌발미션 클리어 경험치 2배,,돌발미션,사냥효율,2배,,False,False,,True,False,False,
 2017-03-19,,,,,,,False,False,,,False,True,
 2017-03-26,"스타포스 5, 10, 15성에서 강화 시도 시 성공확률 100%",,스타포스_성공확률,강화,100%,도전! 메이플 레인보우!,False,False,,False,False,False,
 2017-03-26,룬 경험치 버프 효과 +100%,,룬_경험치버프,성장,+100%,도전! 메이플 레인보우!,False,False,,False,False,False,
-2017-03-26,룬 경험치 버프 지속시간 2배,(3분→6분),룬_경험치버프,성장,2배,도전! 메이플 레인보우!,False,False,(3분→6분),False,False,False,
+2017-03-26,룬 경험치 버프 지속시간 2배,(3분→6분),룬_경험치버프,성장,2배,도전! 메이플 레인보우!,False,False,(3분→6분),True,False,False,
 2017-04-02,아케인리버 1~6지역 일일 컨텐츠 획득 보상 2배,,아케인리버_보상,사냥효율,2배,달콤한 질주 : 더 꿀,False,False,,True,False,False,
 2017-04-02,폴로와 프리토의 현상금 사냥 경험치 1.5배,,현상금_경험치,사냥효율,1.5배,달콤한 질주 : 더 꿀,False,False,,True,False,False,
 2017-04-09,어빌리티 재설정 비용 50% 할인,,어빌리티_재설정할인,강화,50%,달콤한 질주 : 더 꿀,False,False,,False,False,False,
@@ -16,7 +16,7 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2017-04-16,99콤보 마다 콤보킬 구슬 추가 생성,,콤보킬_경험치,성장,,,False,False,,True,False,False,
 2017-04-23,스타포스 강화 비용 30% 할인,,스타포스_비용할인,강화,30%,,False,False,,False,False,False,
 2017-04-23,소울 조각 사용 시 위대한 소울 획득 확률 5배,,위대한소울_확률,수집기타,5배,,False,False,,False,False,False,
-2017-04-23,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,,False,False,,False,False,False,
+2017-04-23,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,,False,False,,True,False,False,
 2017-04-30,아케인리버 1~6지역 일일 컨텐츠 획득 보상 2배,,아케인리버_보상,사냥효율,2배,우주 Like 메이플?,True,False,,True,False,False,28
 2017-05-07,소울 조각 사용 시 위대한 소울 획득 확률 5배,,위대한소울_확률,수집기타,5배,우주 Like 메이플?,True,False,,False,False,False,14
 2017-05-14,스타포스 강화 비용 30% 할인,,스타포스_비용할인,강화,30%,우주 Like 메이플?,True,False,,False,False,False,21
@@ -25,11 +25,11 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2017-06-04,,,,,,우주 Like 메이플?,True,False,,,False,True,
 2017-06-11,"스타포스 5, 10, 15성에서 강화 시도 시 성공확률 100%",,스타포스_성공확률,강화,100%,우주 Like 메이플?,True,False,,False,False,False,77
 2017-06-18,,,,,,우주 Like 메이플?,True,False,,,False,True,
-2017-06-25,돌발미션 일일 클리어 가능 횟수 2배,(3회→6회),돌발미션,사냥효율,2배,NOVA,True,False,,False,False,False,105
+2017-06-25,돌발미션 일일 클리어 가능 횟수 2배,(3회→6회),돌발미션,사냥효율,2배,NOVA,True,False,,True,False,False,105
 2017-06-25,돌발미션 클리어 경험치 2배,,돌발미션,사냥효율,2배,NOVA,True,False,,True,False,False,105
 2017-06-25,폴로와 프리토의 현상금 사냥 경험치 1.5배,,현상금_경험치,사냥효율,1.5배,NOVA,True,False,,True,False,False,84
 2017-07-02,룬 경험치 버프 효과 +100%,,룬_경험치버프,성장,+100%,NOVA,True,False,,False,False,False,98
-2017-07-02,룬 경험치 버프 지속시간 2배,(3분→6분),룬_경험치버프,성장,2배,NOVA,True,False,(3분→6분),False,False,False,98
+2017-07-02,룬 경험치 버프 지속시간 2배,(3분→6분),룬_경험치버프,성장,2배,NOVA,True,False,(3분→6분),True,False,False,98
 2017-07-02,"버닝 필드 더 빠른 버닝 단계 상승, 버닝 단계 유지 시간 증가",,버닝,성장,,NOVA,True,False,,True,False,False,84
 2017-07-02,버닝 필드 최고 15단계까지 상승,,버닝,성장,15단계,NOVA,True,False,,True,False,False,84
 2017-07-09,스타포스 강화 비용 30% 할인,,스타포스_비용할인,강화,30%,NOVA,True,False,,False,False,False,56
@@ -40,11 +40,11 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2017-08-06,,,,,,NOVA,True,False,,,False,True,
 2017-08-13,스타포스 강화 비용 30% 할인,,스타포스_비용할인,강화,30%,NOVA,True,False,,False,False,False,35
 2017-08-20,,,,,,NOVA,True,False,,,False,True,
-2017-08-27,룬 경험치 버프 지속시간 2배,(3분→6분),룬_경험치버프,성장,2배,NOVA,True,False,(3분→6분),False,False,False,56
-2017-08-27,보스파티 결성 버프 효과 증가,(10%→30%),보스파티_버프,사냥효율,,NOVA,True,False,,False,False,False,
-2017-09-03,돌발미션 일일 클리어 가능 횟수 2배,(3회→6회),돌발미션,사냥효율,2배,NOVA,True,False,,False,False,False,70
+2017-08-27,룬 경험치 버프 지속시간 2배,(3분→6분),룬_경험치버프,성장,2배,NOVA,True,False,(3분→6분),True,False,False,56
+2017-08-27,보스파티 결성 버프 효과 증가,(10%→30%),보스파티_버프,사냥효율,,NOVA,True,False,,True,False,False,
+2017-09-03,돌발미션 일일 클리어 가능 횟수 2배,(3회→6회),돌발미션,사냥효율,2배,NOVA,True,False,,True,False,False,70
 2017-09-03,돌발미션 클리어 경험치 2배,,돌발미션,사냥효율,2배,NOVA,True,False,,True,False,False,70
-2017-09-03,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,NOVA,True,False,,False,False,False,133
+2017-09-03,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,NOVA,True,False,,True,False,False,133
 2017-09-10,"스타포스 5, 10, 15성에서 강화 시도 시 성공확률 100%",,스타포스_성공확률,강화,100%,NOVA,True,False,,False,False,False,49
 2017-09-10,폴로와 프리토의 현상금 사냥 경험치 1.5배,,현상금_경험치,사냥효율,1.5배,NOVA,True,False,,True,False,False,42
 2017-09-10,불꽃늑대 퇴장 시 획득하는 경험치 1.5배,,불꽃늑대_경험치,사냥효율,1.5배,NOVA,True,False,,True,False,False,
@@ -61,10 +61,10 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2017-11-05,메이플 유니온 일일퀘스트 코인 지급량 7배,,유니온_코인,성장,7배,고스트 콜렉터즈,False,False,,True,False,False,
 2017-11-05,메이플 유니온 프리셋 쿠폰 1개 지급,,유니온프리셋_지급,수집기타,1개,고스트 콜렉터즈,False,False,,True,False,False,
 2017-11-12,아케인리버 1~6지역 일일 컨텐츠 획득 보상 2배,,아케인리버_보상,사냥효율,2배,도전! 메이플 레인보우!,False,False,,True,False,False,49
-2017-11-12,돌발미션 일일 클리어 가능 횟수 2배,(3회→6회),돌발미션,사냥효율,2배,도전! 메이플 레인보우!,False,False,,False,False,False,70
+2017-11-12,돌발미션 일일 클리어 가능 횟수 2배,(3회→6회),돌발미션,사냥효율,2배,도전! 메이플 레인보우!,False,False,,True,False,False,70
 2017-11-12,돌발미션 클리어 경험치 2배,,돌발미션,사냥효율,2배,도전! 메이플 레인보우!,False,False,,True,False,False,70
 2017-11-19,룬 경험치 버프 효과 +100%,,룬_경험치버프,성장,+100%,도전! 메이플 레인보우!,False,False,,False,False,False,84
-2017-11-19,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,도전! 메이플 레인보우!,False,False,,False,False,False,77
+2017-11-19,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,도전! 메이플 레인보우!,False,False,,True,False,False,77
 2017-11-26,소울 조각 사용 시 위대한 소울 획득 확률 5배,,위대한소울_확률,수집기타,5배,폴로와 프리토의 헌팅위크,False,False,,False,False,False,70
 2017-11-26,콤보킬 경험치 획득량 +300%,,콤보킬_경험치,성장,+300%,폴로와 프리토의 헌팅위크,False,False,,False,False,False,224
 2017-11-26,폴로와 프리토의 현상금 사냥 경험치 2배,,현상금_경험치,사냥효율,2배,폴로와 프리토의 헌팅위크,False,False,,True,False,False,77
@@ -89,8 +89,8 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2018-02-11,콤보킬 경험치 획득량 +300%,,콤보킬_경험치,성장,+300%,ARK,True,False,,False,False,False,77
 2018-02-18,10성 이하에서 스타포스 강화 성공 시 1+1 강화,,스타포스_1+1강화,강화,10성,ARK,True,False,,False,False,False,
 2018-02-25,,,,,,ARK,True,False,,,False,True,
-2018-03-04,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,토벤 머리 용사님을 도와줘!,False,False,,False,False,False,105
-2018-03-04,엘리트 몬스터 마일리지 꾸러미 일일 사용 가능 횟수 4배,(5회→20회),엘리트마일리지,사냥효율,4배,토벤 머리 용사님을 도와줘!,False,False,,False,False,False,
+2018-03-04,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,토벤 머리 용사님을 도와줘!,False,False,,True,False,False,105
+2018-03-04,엘리트 몬스터 마일리지 꾸러미 일일 사용 가능 횟수 4배,(5회→20회),엘리트마일리지,사냥효율,4배,토벤 머리 용사님을 도와줘!,False,False,,True,False,False,
 2018-03-11,경험치 2배 쿠폰(30분) 2장 지급,,경험치쿠폰_지급,성장,2배,토벤 머리 용사님을 도와줘!,False,False,,True,False,False,28
 2018-03-11,소울 조각 사용 시 위대한 소울 획득 확률 5배,,위대한소울_확률,수집기타,5배,토벤 머리 용사님을 도와줘!,False,False,,False,False,False,105
 2018-03-18,주문의 흔적 강화 비용 50% 할인,,주문의흔적_비용할인,강화,50%,높이높이 왕관 쌓기,False,False,,False,False,False,140
@@ -104,11 +104,11 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2018-04-01,메이플 유니온 일일퀘스트 코인 지급량 7배,,유니온_코인,성장,7배,헤이스트,False,False,,True,False,False,147
 2018-04-01,메이플 유니온 프리셋 쿠폰 1개 지급,,유니온프리셋_지급,수집기타,1개,헤이스트,False,False,,True,False,False,147
 2018-04-08,아케인리버 1~6지역 일일 컨텐츠 획득 보상 2배,,아케인리버_보상,사냥효율,2배,헤이스트,False,False,,True,False,False,14
-2018-04-08,월드 통합 파티퀘스트 일일 입장 횟수 2배,(5회→10회),파티퀘스트,사냥효율,2배,헤이스트,False,False,,False,False,False,
-2018-04-08,월드 통합 파티퀘스트 파티 포인트 획득량 5배,(10→50),파티퀘스트,사냥효율,5배,헤이스트,False,False,,False,False,False,
+2018-04-08,월드 통합 파티퀘스트 일일 입장 횟수 2배,(5회→10회),파티퀘스트,사냥효율,2배,헤이스트,False,False,,True,False,False,
+2018-04-08,월드 통합 파티퀘스트 파티 포인트 획득량 5배,(10→50),파티퀘스트,사냥효율,5배,헤이스트,False,False,,True,False,False,
 2018-04-15,몬스터 컬렉션 탐험 필요 시간 50% 단축,,몬스터컬렉션,수집기타,50%,메이플 해시태그,False,False,,True,False,False,126
 2018-04-15,몬스터 컬렉션 신규 몬스터 등록 확률 추가 100%,,몬스터컬렉션,수집기타,100%,메이플 해시태그,False,False,,False,False,False,126
-2018-04-15,돌발미션 일일 클리어 가능 횟수 5배,(3회→15회),돌발미션,사냥효율,5배,메이플 해시태그,False,False,,False,False,False,154
+2018-04-15,돌발미션 일일 클리어 가능 횟수 5배,(3회→15회),돌발미션,사냥효율,5배,메이플 해시태그,False,False,,True,False,False,154
 2018-04-15,돌발미션이 더욱 자주 발생,,돌발미션,사냥효율,,메이플 해시태그,False,False,,True,False,False,154
 2018-04-15,돌발미션 클리어 경험치 2배,,돌발미션,사냥효율,2배,메이플 해시태그,False,False,,True,False,False,154
 2018-04-22,경험치 3배 쿠폰(15분) 2장 지급,,경험치쿠폰_지급,성장,3배,메이플 해시태그,False,False,,True,False,False,42
@@ -172,16 +172,16 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2018-11-18,데미지 스킨 선택 지급(샤방샤방/샤방샤방(Ver.2)/샤방샤방(Ver.3)),,데미지스킨_지급,수집기타,,명탐정 페페의 탐정사무소,False,False,,False,False,False,
 2018-11-18,어빌리티 재설정 비용 50% 할인,,어빌리티_재설정할인,강화,50%,명탐정 페페의 탐정사무소,False,False,,False,False,False,70
 2018-11-25,콤보킬 경험치 획득량 +300%,,콤보킬_경험치,성장,+300%,명탐정 페페의 탐정사무소,False,False,,False,False,False,140
-2018-11-25,돌발미션 일일 클리어 가능 횟수 3배,(3회→9회),돌발미션,사냥효율,3배,명탐정 페페의 탐정사무소,False,False,,False,False,False,140
+2018-11-25,돌발미션 일일 클리어 가능 횟수 3배,(3회→9회),돌발미션,사냥효율,3배,명탐정 페페의 탐정사무소,False,False,,True,False,False,140
 2018-11-25,돌발미션이 더욱 자주 발생,,돌발미션,사냥효율,,명탐정 페페의 탐정사무소,False,False,,True,False,False,140
 2018-11-25,돌발미션 클리어 경험치 3배,,돌발미션,사냥효율,3배,명탐정 페페의 탐정사무소,False,False,,True,False,False,140
 2018-12-02,10성 이하에서 스타포스 강화 성공 시 1+1 강화,,스타포스_1+1강화,강화,10성,택티컬 릴레이,False,False,,False,False,False,140
-2018-12-02,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,택티컬 릴레이,False,False,,False,False,False,273
+2018-12-02,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,택티컬 릴레이,False,False,,True,False,False,273
 2018-12-09,아케인리버 1~6지역 일일 컨텐츠 획득 보상 2배,,아케인리버_보상,사냥효율,2배,택티컬 릴레이,False,False,,True,False,False,84
 2018-12-09,폴로와 프리토의 현상금 사냥 경험치 2배,,현상금_경험치,사냥효율,2배,택티컬 릴레이,False,False,,True,False,False,161
 2018-12-09,불꽃늑대 퇴장 시 획득하는 경험치 2배,,불꽃늑대_경험치,사냥효율,2배,택티컬 릴레이,False,False,,True,False,False,161
-2018-12-16,영원한 환생의 불꽃 5개 사용 시마다 1개 지급,(월드 당 최대 10개),환생의불꽃_영원한,강화,5개,카밀라의 크리스마스 베이커리,False,False,,False,False,False,
-2018-12-16,강력한 환생의 불꽃 5개 사용 시마다 1개 지급,(월드 당 최대 10개),환생의불꽃_강력한,강화,5개,카밀라의 크리스마스 베이커리,False,False,,False,False,False,
+2018-12-16,영원한 환생의 불꽃 5개 사용 시마다 1개 지급,(월드 당 최대 10개),환생의불꽃_영원한,강화,5개,카밀라의 크리스마스 베이커리,False,False,,True,False,False,
+2018-12-16,강력한 환생의 불꽃 5개 사용 시마다 1개 지급,(월드 당 최대 10개),환생의불꽃_강력한,강화,5개,카밀라의 크리스마스 베이커리,False,False,,True,False,False,
 2018-12-23,몬스터 파크 클리어 경험치 추가 50%,,몬스터파크_경험치,성장,50%,카밀라의 크리스마스 베이커리,False,False,,True,False,False,77
 2018-12-23,몬스터파크 클리어 시 성장의 일요일 상자 지급량 2배,,몬스터파크_경험치,성장,2배,카밀라의 크리스마스 베이커리,False,False,,True,False,False,77
 2018-12-30,어빌리티 재설정 비용 50% 할인,,어빌리티_재설정할인,강화,50%,어드벤처,True,False,,False,False,False,42
@@ -204,7 +204,7 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2019-03-31,불꽃늑대 퇴장 시 획득하는 경험치 2배,,불꽃늑대_경험치,사냥효율,2배,돌아온 토벤 머리 용사,False,False,,True,False,False,112
 2019-04-07,몬스터 컬렉션 신규 몬스터 등록 확률 추가 100%,,몬스터컬렉션,수집기타,100%,돌아온 토벤 머리 용사,False,False,,False,False,False,168
 2019-04-07,몬스터 컬렉션 '의문의 모몽' 1개 지급,,몬스터컬렉션,수집기타,1개,돌아온 토벤 머리 용사,False,False,,True,False,False,168
-2019-04-07,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,돌아온 토벤 머리 용사,False,False,,False,False,False,126
+2019-04-07,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,돌아온 토벤 머리 용사,False,False,,True,False,False,126
 2019-04-14,선택 아케인심볼 교환권 20개 지급,,심볼교환권_지급,수집기타,20개,사냥 가속! 헤이스트,False,False,,True,False,False,175
 2019-04-14,폭풍 성장의 비약 1개 지급,,성장의비약_지급,성장,1개,사냥 가속! 헤이스트,False,False,,True,False,False,294
 2019-04-21,스타포스 강화 비용 30% 할인,,스타포스_비용할인,강화,30%,사냥 가속! 헤이스트,False,False,,False,False,False,28
@@ -225,11 +225,11 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2019-06-16,어빌리티 재설정 비용 50% 할인,,어빌리티_재설정할인,강화,50%,뉴트로 타임,True,True,,False,False,False,49
 2019-06-23,폴로와 프리토의 현상금 사냥 경험치 2배,,현상금_경험치,사냥효율,2배,GLORY,True,False,,True,False,False,84
 2019-06-23,불꽃늑대 퇴장 시 획득하는 경험치 2배,,불꽃늑대_경험치,사냥효율,2배,GLORY,True,False,,True,False,False,84
-2019-06-23,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,GLORY,True,False,,False,False,False,77
+2019-06-23,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,GLORY,True,False,,True,False,False,77
 2019-06-30,10성 이하에서 스타포스 강화 성공 시 1+1 강화,,스타포스_1+1강화,강화,10성,GLORY,True,False,,False,False,False,49
 2019-06-30,선택 아케인심볼 교환권 20개 지급,,심볼교환권_지급,수집기타,20개,GLORY,True,False,,True,False,False,77
 2019-06-30,폭풍 성장의 비약 1개 지급,,성장의비약_지급,성장,1개,GLORY,True,False,,True,False,False,77
-2019-07-07,돌발미션 일일 클리어 가능 횟수 3배,(3회→9회),돌발미션,사냥효율,3배,GLORY,True,False,,False,False,False,224
+2019-07-07,돌발미션 일일 클리어 가능 횟수 3배,(3회→9회),돌발미션,사냥효율,3배,GLORY,True,False,,True,False,False,224
 2019-07-07,돌발미션이 더욱 자주 발생,,돌발미션,사냥효율,,GLORY,True,False,,True,False,False,224
 2019-07-07,돌발미션 클리어 경험치 3배,,돌발미션,사냥효율,3배,GLORY,True,False,,True,False,False,224
 2019-07-14,"스타포스 5, 10, 15성에서 강화 시도 시 성공확률 100%",,스타포스_성공확률,강화,100%,GLORY,True,False,,False,False,False,49
@@ -240,7 +240,7 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2019-08-04,스타포스 강화 비용 30% 할인,,스타포스_비용할인,강화,30%,GLORY,True,False,,False,False,False,56
 2019-08-11,폴로와 프리토의 현상금 사냥 경험치 2배,,현상금_경험치,사냥효율,2배,GLORY,True,False,,True,False,False,49
 2019-08-11,불꽃늑대 퇴장 시 획득하는 경험치 2배,,불꽃늑대_경험치,사냥효율,2배,GLORY,True,False,,True,False,False,49
-2019-08-11,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,GLORY,True,False,,False,False,False,49
+2019-08-11,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,GLORY,True,False,,True,False,False,49
 2019-08-18,"스타포스 5, 10, 15성에서 강화 시도 시 성공확률 100%",,스타포스_성공확률,강화,100%,GLORY,True,False,,False,False,False,35
 2019-08-25,,,,,,GLORY,True,False,,,False,True,
 2019-09-01,10성 이하에서 스타포스 강화 성공 시 1+1 강화,,스타포스_1+1강화,강화,10성,보름달 도깨비 야시장,True,False,,False,False,False,63
@@ -252,7 +252,7 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2019-09-15,경험치 3배 쿠폰(15분) 5장 지급,,경험치쿠폰_지급,성장,3배,보름달 도깨비 야시장,True,False,,True,False,False,91
 2019-09-22,폴로와 프리토의 현상금 사냥 경험치 2배,,현상금_경험치,사냥효율,2배,보름달 도깨비 야시장,True,False,,True,False,False,42
 2019-09-22,불꽃늑대 퇴장 시 획득하는 경험치 2배,,불꽃늑대_경험치,사냥효율,2배,보름달 도깨비 야시장,True,False,,True,False,False,42
-2019-09-22,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,보름달 도깨비 야시장,True,False,,False,False,False,42
+2019-09-22,사냥 시 소환되는 엘리트 몬스터 수 증가,(1마리→2마리),엘리트몬스터_증가,사냥효율,,보름달 도깨비 야시장,True,False,,True,False,False,42
 2019-09-29,스타포스 강화 비용 30% 할인,,스타포스_비용할인,강화,30%,요정 웡키의 요술램프,False,False,,False,False,False,56
 2019-10-06,몬스터 파크 클리어 경험치 추가 50%,,몬스터파크_경험치,성장,50%,요정 웡키의 요술램프,False,False,,True,False,False,287
 2019-10-13,선택 아케인심볼 교환권 20개 지급,,심볼교환권_지급,수집기타,20개,헤이스트 플러스,False,False,,True,False,False,105

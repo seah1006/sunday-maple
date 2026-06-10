@@ -44,7 +44,7 @@
 | `is_major_event` | bool | 4주 이상 대형 이벤트 여부 (원문 `**볼드**` 표기 기준) | True |
 | `is_special` | bool | `reward_raw`, `reward_trailing`, `event_context` 중 `타임` 포함 여부. 스페셜 여부는 카테고리가 아닌 플래그로만 표시 | False |
 | `time_limited` | str (nullable) | 하루종일 / 시간제 구분 | 하루종일 |
-| `is_discontinued` | bool (nullable) | by_type 원문 `(단종)` 표기 기준의 raw 단위 보상 속성. `reward_raw`가 null인 no-event/future 빈 블록은 null. by_type exact raw 매칭이 없는 non-null 보상은 False로 채우고 무결성 리포트에 목록을 출력한다 | False |
+| `is_discontinued` | bool (nullable) | by_type 원문 `(단종)` 표기 기준의 원문 전체 문자열 단위 보상 속성. `reward_raw` 본문 또는 `reward_raw + reward_trailing` 재구성 문자열이 by_type 단종 원문 집합에 있으면 True다. `reward_raw`가 null인 no-event/future 빈 블록은 null | False |
 | `is_future` | bool | 기준일(2026-06-10) 이후 예정 날짜 여부 | False |
 | `no_event_week` | bool | 원문이 명시적으로 "아예 없음/없음"인 주차 여부 | False |
 | `cycle_days` | int (nullable) | 직전 동일 `reward_norm` 등장일로부터의 경과일. 고유 `(date, reward_norm)` 기준으로 산출 후 원본 행에 merge하므로 같은 날 같은 norm 묶음은 같은 값을 공유한다. 각 norm 첫 등장, no-event, 미래 빈 블록은 null | 35 |
@@ -74,7 +74,7 @@
 
 미래 빈 블록 12행은 processed에 유지한다. 이 행들은 `reward_raw/reward_norm/category/cycle_days`가 null이고 `is_future=True`, `no_event_week=False`로 구분된다. 분석 시 실제 과거 이벤트만 볼 때는 `is_future == False`를 필터링한다.
 
-by_type 기준 단종 고유 `reward_raw`는 71개다. Phase 6 병합은 decision-1에 따라 exact `reward_raw` 기준으로만 수행한다. 이 기준에서 tidy에 True로 병합된 고유 `reward_raw`는 60개이며, by_type 단종 11개는 by_date에서 괄호 접미 제거 등 다른 exact 문자열로 등장한다. unmatched non-null tidy reward 14개/59행은 False로 채우고 무결성 리포트에 출력한다. alias/정규화 기반 보정은 이번 범위에서 임의 적용하지 않는다.
+by_type 기준 단종 원문은 71개다. Phase 7부터 단종 여부는 exact `reward_raw` 본문만이 아니라 `reward_raw + reward_trailing` 원문 전체 문자열까지 함께 대조한다. 이 규칙으로 괄호 접미가 날짜별 뷰에서 분리된 단종 보상 11종을 True로 정정한다. `사냥 시 소환되는 엘리트 몬스터 수 증가`는 같은 `reward_raw` 안에서도 `(1마리→2마리)`는 단종, `(1마리→3마리)`는 현행이므로 행별로 `is_discontinued`가 갈리는 정상 혼재 사례다.
 
 ---
 
@@ -92,7 +92,7 @@ by_type 기준 단종 고유 `reward_raw`는 71개다. Phase 6 병합은 decisio
 | 이벤트 맥락 | `event_context` | 완료 | by_date 헤더/주간 배너 기반 |
 | 대형 이벤트 여부 | `is_major_event` | 완료 | 원문 볼드 major 기준 |
 | 스페셜 여부 | `is_special` | 완료 | `타임` 포함 플래그 |
-| 단종 여부 | `is_discontinued` | 완료 | by_type exact raw 병합; unmatched raw는 False |
+| 단종 여부 | `is_discontinued` | 완료 | by_type 단종 원문 집합을 `reward_raw` 본문과 `reward_raw + reward_trailing` 전체 문자열로 대조 |
 | 시간 제한 | `time_limited` | 완료 | `reward_trailing` 기반 |
 | 미래 여부 | `is_future` | 추가 유지 | 미래 빈 블록 보존용 |
 | no-event 여부 | `no_event_week` | 추가 유지 | 명시적 없음 센티넬 |
@@ -117,4 +117,4 @@ by_type 기준 단종 고유 `reward_raw`는 71개다. Phase 6 병합은 decisio
 | 2026-06-10 | cycle_days 산출 | `cycle_days`는 raw가 아닌 `reward_norm` 단위 재등장 주기로 산출한다. 같은 날 같은 norm 묶음은 고유 `(date, reward_norm)` 기준으로 같은 주기를 공유한다. |
 | 2026-06-10 | cycle_days 장기 gap 유지 | `cycle_days > 1500` 2건은 단종 후 부활/장기휴면의 정상 원값으로 보고 별도 플래그 없이 유지한다. |
 | 2026-06-10 | raw-cycle 67건 출력-only | by_type stated cycle과 by_date raw-cycle 대조에서 computed missing 67건은 명칭변경·문자열 차이 케이스로 판단한다. 양쪽 값이 모두 있는 경우 mismatch 0이 핵심 신호이므로 추가 보정 없이 출력-only로 유지한다. |
-| 2026-06-10 | is_discontinued 병합 | `is_discontinued`는 by_type의 `(단종)` 표기를 exact `reward_raw` 기준으로 tidy에 병합한다. by_type에 없는 non-null raw는 False로 채우고, null raw 행은 null로 유지한다. exact raw 기준 tidy True 고유 raw는 60개이며 by_type 단종 raw 71개와의 차이는 리뷰 대상으로 남긴다. |
+| 2026-06-10 | is_discontinued 병합 | `is_discontinued`는 by_type의 `(단종)` 표기를 `reward_raw` 본문 또는 `reward_raw + reward_trailing` 원문 전체 문자열 기준으로 tidy에 병합한다. 단종 원문 매칭 수는 71개이며, 같은 `reward_raw` 안에서 단종/현행이 갈리는 엘리트 몬스터 수 증가 사례는 정상 혼재로 둔다. |
