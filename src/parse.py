@@ -8,6 +8,9 @@ from typing import Any
 DATE_RE = re.compile(r"\d{4}\.\d{2}\.\d{2}")
 TYPE_DATE_RE = re.compile(r"^(?:\(\+(\d+)일\))?(\d{4}\.\d{2}\.\d{2})(.*)$")
 DATE_HEADER_RE = re.compile(r"^(\d{4}\.\d{2}\.\d{2})\s*(.*)$")
+WEEK_HEADER_RE = re.compile(r"^(\d{4}\.\d{2}\.\d{2})~(\d{4}\.\d{2}\.\d{2})(.*)$")
+INLINE_DAILY_RE = re.compile(r"^(\d{4}\.\d{2}\.\d{2})\([가-힣]\)\s*-\s*(.+)$")
+INLINE_REWARD_SPLIT_RE = re.compile(r",\s+(?=[^\d])")
 MARKER_RE = re.compile(r"\[\[/?[BS]\]\]")
 TRAILING_RE = re.compile(r"(\([^()]*\))+$")
 
@@ -55,6 +58,7 @@ def parse_by_date(text: str) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     current: dict[str, Any] | None = None
     current_has_rows = False
+    active_week_context: dict[str, Any] | None = None
 
     def finish_current() -> None:
         nonlocal current_has_rows
@@ -74,11 +78,23 @@ def parse_by_date(text: str) -> list[dict[str, Any]]:
         if not line:
             continue
 
+        week_context = _parse_week_header(line)
+        if week_context is not None:
+            finish_current()
+            active_week_context = week_context
+            continue
+
+        inline_daily = _parse_inline_daily(line, active_week_context)
+        if inline_daily is not None:
+            records.extend(inline_daily)
+            continue
+
         header = _parse_date_header(line)
         if header is not None:
             finish_current()
             current = header
             current_has_rows = False
+            active_week_context = None
             continue
 
         if current is None:
@@ -172,6 +188,59 @@ def _parse_date_header(line: str) -> dict[str, Any] | None:
         "event_context": event_context,
         "is_major_event": is_major_event,
     }
+
+
+def _parse_week_header(line: str) -> dict[str, Any] | None:
+    match = WEEK_HEADER_RE.match(line)
+    if not match:
+        return None
+
+    _start_date, _end_date, context_text = match.groups()
+    event_context: str | None = None
+    is_major_event = False
+
+    major = re.search(r"\[\[B\]\]\s*<([^<>]+)>\s*\[\[/B\]\]", line)
+    if major:
+        event_context = major.group(1).strip()
+        is_major_event = True
+    else:
+        clean_context = _strip_markers(context_text).strip()
+        small = re.search(r"<([^<>]+)>", clean_context)
+        if small:
+            event_context = small.group(1).strip()
+        elif clean_context:
+            event_context = clean_context
+
+    return {
+        "event_context": event_context,
+        "is_major_event": is_major_event,
+    }
+
+
+def _parse_inline_daily(
+    line: str, active_week_context: dict[str, Any] | None
+) -> list[dict[str, Any]] | None:
+    match = INLINE_DAILY_RE.match(line)
+    if not match:
+        return None
+
+    raw_date, reward_text = match.groups()
+    context = active_week_context or {"event_context": None, "is_major_event": False}
+    records: list[dict[str, Any]] = []
+
+    for reward_part in INLINE_REWARD_SPLIT_RE.split(reward_text):
+        reward_raw, reward_trailing = _split_trailing(_strip_markers(reward_part))
+        records.append(
+            {
+                "date": to_date(raw_date),
+                **context,
+                "no_event_week": False,
+                "reward_raw": reward_raw,
+                "reward_trailing": reward_trailing,
+            }
+        )
+
+    return records
 
 
 def _is_no_event_sentinel(line: str) -> bool:

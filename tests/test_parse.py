@@ -127,3 +127,129 @@ def test_weekday_exception_does_not_break_date_parse():
         "stated_cycle_days": 60,
         "trailing": "(목)",
     }
+
+
+POWER_UP_WEEK_TEXT = """\
+2023.01.12~2023.01.18[[B]] [[/B]][[B]]<요정 웡키의 웡스토랑 - 마이크의 파워업 위크>[[/B]]
+2023.01.12(목) - 10성 이하에서 스타포스 강화 성공 시 1+1 강화
+2023.01.13(금) - 소울 조각 사용 시 위대한 소울 획득 확률 5배
+2023.01.14(토) - 스타포스 5, 10, 15성에서 강화 시도 시 성공확률 100%(샤이닝 스타포스 타임), 스타포스 강화 비용 30% 할인(샤이닝 스타포스 타임)
+2023.01.15(일) - 미라클 타임(오전 8시~오후 11시 30분)
+2023.01.16(월) - 주문의 흔적 강화 비용 50% 할인
+2023.01.17(화) - 어빌리티 재설정 비용 50% 할인
+2023.01.18(수) - 스타포스 강화 비용 30% 할인
+"""
+
+
+def test_week_banner_sets_context():
+    records = parse_by_date(
+        "2023.01.12~2023.01.18[[B]] [[/B]][[B]]<요정 웡키의 웡스토랑 - 마이크의 파워업 위크>[[/B]]"
+    )
+    assert records == []
+
+
+def test_inline_daily_rewards():
+    records = parse_by_date(POWER_UP_WEEK_TEXT)
+    assert records == [
+        {
+            "date": "2023-01-12",
+            "event_context": "요정 웡키의 웡스토랑 - 마이크의 파워업 위크",
+            "is_major_event": True,
+            "no_event_week": False,
+            "reward_raw": "10성 이하에서 스타포스 강화 성공 시 1+1 강화",
+            "reward_trailing": None,
+        },
+        {
+            "date": "2023-01-13",
+            "event_context": "요정 웡키의 웡스토랑 - 마이크의 파워업 위크",
+            "is_major_event": True,
+            "no_event_week": False,
+            "reward_raw": "소울 조각 사용 시 위대한 소울 획득 확률 5배",
+            "reward_trailing": None,
+        },
+        {
+            "date": "2023-01-14",
+            "event_context": "요정 웡키의 웡스토랑 - 마이크의 파워업 위크",
+            "is_major_event": True,
+            "no_event_week": False,
+            "reward_raw": "스타포스 5, 10, 15성에서 강화 시도 시 성공확률 100%",
+            "reward_trailing": "(샤이닝 스타포스 타임)",
+        },
+        {
+            "date": "2023-01-14",
+            "event_context": "요정 웡키의 웡스토랑 - 마이크의 파워업 위크",
+            "is_major_event": True,
+            "no_event_week": False,
+            "reward_raw": "스타포스 강화 비용 30% 할인",
+            "reward_trailing": "(샤이닝 스타포스 타임)",
+        },
+        {
+            "date": "2023-01-15",
+            "event_context": "요정 웡키의 웡스토랑 - 마이크의 파워업 위크",
+            "is_major_event": True,
+            "no_event_week": False,
+            "reward_raw": "미라클 타임",
+            "reward_trailing": "(오전 8시~오후 11시 30분)",
+        },
+        {
+            "date": "2023-01-16",
+            "event_context": "요정 웡키의 웡스토랑 - 마이크의 파워업 위크",
+            "is_major_event": True,
+            "no_event_week": False,
+            "reward_raw": "주문의 흔적 강화 비용 50% 할인",
+            "reward_trailing": None,
+        },
+        {
+            "date": "2023-01-17",
+            "event_context": "요정 웡키의 웡스토랑 - 마이크의 파워업 위크",
+            "is_major_event": True,
+            "no_event_week": False,
+            "reward_raw": "어빌리티 재설정 비용 50% 할인",
+            "reward_trailing": None,
+        },
+        {
+            "date": "2023-01-18",
+            "event_context": "요정 웡키의 웡스토랑 - 마이크의 파워업 위크",
+            "is_major_event": True,
+            "no_event_week": False,
+            "reward_raw": "스타포스 강화 비용 30% 할인",
+            "reward_trailing": None,
+        },
+    ]
+
+
+def test_inline_multi_reward_comma_split():
+    records = parse_by_date(
+        "2023.01.14(토) - 스타포스 5, 10, 15성에서 강화 시도 시 성공확률 100%(샤이닝 스타포스 타임), 스타포스 강화 비용 30% 할인(샤이닝 스타포스 타임)"
+    )
+    assert [record["reward_raw"] for record in records] == [
+        "스타포스 5, 10, 15성에서 강화 시도 시 성공확률 100%",
+        "스타포스 강화 비용 30% 할인",
+    ]
+
+
+def test_existing_by_date_unchanged():
+    text = """\
+2017.04.30[[B]] <우주 Like 메이플?>[[/B]]
+스타포스 강화 비용 30% 할인(샤이닝 스타포스 타임)
+2017.05.07 (도전! 메이플 레인보우!)
+경험치 2배
+"""
+    assert parse_by_date(text) == [
+        {
+            "date": "2017-04-30",
+            "event_context": "우주 Like 메이플?",
+            "is_major_event": True,
+            "no_event_week": False,
+            "reward_raw": "스타포스 강화 비용 30% 할인",
+            "reward_trailing": "(샤이닝 스타포스 타임)",
+        },
+        {
+            "date": "2017-05-07",
+            "event_context": "도전! 메이플 레인보우!",
+            "is_major_event": False,
+            "no_event_week": False,
+            "reward_raw": "경험치 2배",
+            "reward_trailing": None,
+        },
+    ]
