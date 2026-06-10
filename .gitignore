@@ -1,0 +1,32 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Editor ---
+.vscode/
+.idea/
+
+# --- OMC / Codex 작업 산출물 (임시) ---
+.omc/
+.codex/
+docs/_codex_*.txt
+
+# --- 데이터: 재생성 가능한 캐시만 제외 ---
+# raw(원본 수집물)와 processed(최종 tidy)는 추적 → 집에서 바로 작업 가능
+data/interim/
+
+# --- 대용량/임시 ---
+*.log
+*.tmp
