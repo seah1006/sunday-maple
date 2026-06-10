@@ -44,6 +44,7 @@
 | `is_major_event` | bool | 4주 이상 대형 이벤트 여부 (원문 `**볼드**` 표기 기준) | True |
 | `is_special` | bool | `reward_raw`, `reward_trailing`, `event_context` 중 `타임` 포함 여부. 스페셜 여부는 카테고리가 아닌 플래그로만 표시 | False |
 | `time_limited` | str (nullable) | 하루종일 / 시간제 구분 | 하루종일 |
+| `is_discontinued` | bool (nullable) | by_type 원문 `(단종)` 표기 기준의 raw 단위 보상 속성. `reward_raw`가 null인 no-event/future 빈 블록은 null. by_type exact raw 매칭이 없는 non-null 보상은 False로 채우고 무결성 리포트에 목록을 출력한다 | False |
 | `is_future` | bool | 기준일(2026-06-10) 이후 예정 날짜 여부 | False |
 | `no_event_week` | bool | 원문이 명시적으로 "아예 없음/없음"인 주차 여부 | False |
 | `cycle_days` | int (nullable) | 직전 동일 `reward_norm` 등장일로부터의 경과일. 고유 `(date, reward_norm)` 기준으로 산출 후 원본 행에 merge하므로 같은 날 같은 norm 묶음은 같은 값을 공유한다. 각 norm 첫 등장, no-event, 미래 빈 블록은 null | 35 |
@@ -73,9 +74,34 @@
 
 미래 빈 블록 12행은 processed에 유지한다. 이 행들은 `reward_raw/reward_norm/category/cycle_days`가 null이고 `is_future=True`, `no_event_week=False`로 구분된다. 분석 시 실제 과거 이벤트만 볼 때는 `is_future == False`를 필터링한다.
 
+by_type 기준 단종 고유 `reward_raw`는 71개다. Phase 6 병합은 decision-1에 따라 exact `reward_raw` 기준으로만 수행한다. 이 기준에서 tidy에 True로 병합된 고유 `reward_raw`는 60개이며, by_type 단종 11개는 by_date에서 괄호 접미 제거 등 다른 exact 문자열로 등장한다. unmatched non-null tidy reward 14개/59행은 False로 채우고 무결성 리포트에 출력한다. alias/정규화 기반 보정은 이번 범위에서 임의 적용하지 않는다.
+
 ---
 
-## 6. 의사결정 로그
+## 6. CLAUDE.md 목표 스키마 매핑
+
+`CLAUDE.md` 파일은 수정하지 않고, 최종 tidy가 목표 스키마를 어떻게 충족하는지 본 문서에 기록한다.
+
+| CLAUDE.md 목표 컬럼 | tidy 컬럼 | 상태 | 비고 |
+|---|---|---|---|
+| 날짜 | `date` | 완료 | YYYY-MM-DD |
+| 원문 보상 | `reward_raw` | 완료 | 관측 단위 |
+| 정규화 보상 | `reward_norm` | 완료 | null norm은 no-event/future |
+| 카테고리 | `category` | 완료 | `강화/성장/사냥효율/수집기타`; `스페셜`은 미사용 |
+| 주기 | `cycle_days` | 완료 | norm 단위, 고유일 기준 |
+| 이벤트 맥락 | `event_context` | 완료 | by_date 헤더/주간 배너 기반 |
+| 대형 이벤트 여부 | `is_major_event` | 완료 | 원문 볼드 major 기준 |
+| 스페셜 여부 | `is_special` | 완료 | `타임` 포함 플래그 |
+| 단종 여부 | `is_discontinued` | 완료 | by_type exact raw 병합; unmatched raw는 False |
+| 시간 제한 | `time_limited` | 완료 | `reward_trailing` 기반 |
+| 미래 여부 | `is_future` | 추가 유지 | 미래 빈 블록 보존용 |
+| no-event 여부 | `no_event_week` | 추가 유지 | 명시적 없음 센티넬 |
+| 보상 접미 | `reward_trailing` | 추가 유지 | 원문 괄호 접미 보존 |
+| 보상 강도 | `reward_magnitude` | 추가 유지 | 첫 번째 수치 토큰 |
+
+---
+
+## 7. 의사결정 로그
 
 > 보상 통합·제외·예외 처리 결정을 날짜와 근거와 함께 누적한다. (전처리 역량 평가의 핵심)
 
@@ -89,3 +115,6 @@
 | 2026-06-10 | 관측 단위 확정 | 관측 단위는 `reward_raw`, 무결성 키는 `(date, reward_raw)`로 확정한다. `(date, reward_norm)` 중복은 동반 지급된 별개 보상이 같은 분석 라벨로 묶인 경우이므로 허용한다. |
 | 2026-06-10 | 미래 빈 블록 유지 | 미래 예정일 중 보상 미공개 빈 블록 12행은 삭제하지 않고 `is_future=True`로 유지한다. |
 | 2026-06-10 | cycle_days 산출 | `cycle_days`는 raw가 아닌 `reward_norm` 단위 재등장 주기로 산출한다. 같은 날 같은 norm 묶음은 고유 `(date, reward_norm)` 기준으로 같은 주기를 공유한다. |
+| 2026-06-10 | cycle_days 장기 gap 유지 | `cycle_days > 1500` 2건은 단종 후 부활/장기휴면의 정상 원값으로 보고 별도 플래그 없이 유지한다. |
+| 2026-06-10 | raw-cycle 67건 출력-only | by_type stated cycle과 by_date raw-cycle 대조에서 computed missing 67건은 명칭변경·문자열 차이 케이스로 판단한다. 양쪽 값이 모두 있는 경우 mismatch 0이 핵심 신호이므로 추가 보정 없이 출력-only로 유지한다. |
+| 2026-06-10 | is_discontinued 병합 | `is_discontinued`는 by_type의 `(단종)` 표기를 exact `reward_raw` 기준으로 tidy에 병합한다. by_type에 없는 non-null raw는 False로 채우고, null raw 행은 null로 유지한다. exact raw 기준 tidy True 고유 raw는 60개이며 by_type 단종 raw 71개와의 차이는 리뷰 대상으로 남긴다. |

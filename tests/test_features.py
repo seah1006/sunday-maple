@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.features import compute_cycle_days
+from src.features import compute_cycle_days, merge_is_discontinued
 
 
 def test_cycle_days_basic():
@@ -65,3 +65,44 @@ def test_cycle_days_first_occurrence_nan():
     assert pd.isna(result.iloc[1])
     assert result.iloc[2] == 7
     assert result.iloc[3] == 14
+
+
+def test_merge_is_discontinued_basic_flags_and_missing_policy():
+    tidy = pd.DataFrame(
+        {
+            "reward_raw": [
+                "단종 보상",
+                "현행 보상",
+                None,
+                "by_type에 없는 보상",
+            ]
+        }
+    )
+    parsed_by_type = pd.DataFrame(
+        {
+            "reward_raw": ["단종 보상", "현행 보상"],
+            "is_discontinued": [True, False],
+        }
+    )
+
+    result = merge_is_discontinued(tidy, parsed_by_type)
+
+    assert result.tolist() == [True, False, pd.NA, False]
+    assert str(result.dtype) == "boolean"
+
+
+def test_merge_is_discontinued_rejects_conflicting_raw_flags():
+    tidy = pd.DataFrame({"reward_raw": ["혼재 보상"]})
+    parsed_by_type = pd.DataFrame(
+        {
+            "reward_raw": ["혼재 보상", "혼재 보상"],
+            "is_discontinued": [True, False],
+        }
+    )
+
+    try:
+        merge_is_discontinued(tidy, parsed_by_type)
+    except ValueError as exc:
+        assert "conflicting is_discontinued flags" in str(exc)
+    else:
+        raise AssertionError("expected ValueError for conflicting raw flags")
