@@ -760,10 +760,10 @@ date,reward_raw,reward_trailing,reward_norm,category,reward_magnitude,event_cont
 2024-03-17,주문의 흔적 강화 비용 50% 할인,,주문의흔적_비용할인,강화,50%,꿈속의 레헬른,True,False,,False,False,False,28
 2024-03-24,10성 이하에서 스타포스 강화 성공 시 1+1 강화,,스타포스_1+1강화,강화,10성,유니온 릴레이,False,False,,False,False,False,63
 2024-03-24,주문의 흔적 강화 비용 50% 할인,,주문의흔적_비용할인,강화,50%,유니온 릴레이,False,False,,False,False,False,7
-2024-04-01,메이플 운영자의 특별한 선물 받기!,,선물_기타지급,수집기타,,월) (유니온 릴레이,False,False,,True,False,False,92
-2024-04-01,"폴로와 프리토, 에스페시아의 현상금 사냥 경험치 2배",,현상금_경험치,사냥효율,2배,월) (유니온 릴레이,False,False,,False,False,False,15
-2024-04-01,불꽃늑대 퇴장 시 획득하는 경험치 2배,,불꽃늑대_경험치,사냥효율,2배,월) (유니온 릴레이,False,False,,True,False,False,15
-2024-04-01,몬스터 파크 클리어 경험치 추가 250%,,몬스터파크_경험치,성장,250%,월) (유니온 릴레이,False,False,,False,False,False,15
+2024-04-01,메이플 운영자의 특별한 선물 받기!,,선물_기타지급,수집기타,,유니온 릴레이,False,False,,True,False,False,92
+2024-04-01,"폴로와 프리토, 에스페시아의 현상금 사냥 경험치 2배",,현상금_경험치,사냥효율,2배,유니온 릴레이,False,False,,False,False,False,15
+2024-04-01,불꽃늑대 퇴장 시 획득하는 경험치 2배,,불꽃늑대_경험치,사냥효율,2배,유니온 릴레이,False,False,,True,False,False,15
+2024-04-01,몬스터 파크 클리어 경험치 추가 250%,,몬스터파크_경험치,성장,250%,유니온 릴레이,False,False,,False,False,False,15
 2024-04-07,"스타포스 5, 10, 15성에서 강화 시도 시 성공확률 100%",,스타포스_성공확률,강화,100%,우주 스타 핑크빈!,False,False,,False,False,False,56
 2024-04-14,룬 경험치 버프 효과 +100%,,룬_경험치버프,성장,+100%,우주 스타 핑크빈!,False,False,,False,False,False,28
 2024-04-14,콤보킬 경험치 획득량 +300%,,콤보킬_경험치,성장,+300%,우주 스타 핑크빈!,False,False,,False,False,False,28

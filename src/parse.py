@@ -8,6 +8,7 @@ from typing import Any
 DATE_RE = re.compile(r"\d{4}\.\d{2}\.\d{2}")
 TYPE_DATE_RE = re.compile(r"^(?:\(\+(\d+)일\))?(\d{4}\.\d{2}\.\d{2})(.*)$")
 DATE_HEADER_RE = re.compile(r"^(\d{4}\.\d{2}\.\d{2})\s*(.*)$")
+DATE_HEADER_WEEKDAY_RE = re.compile(r"^\([월화수목금토일]\)\s*")
 WEEK_HEADER_RE = re.compile(r"^(\d{4}\.\d{2}\.\d{2})~(\d{4}\.\d{2}\.\d{2})(.*)$")
 INLINE_DAILY_RE = re.compile(r"^(\d{4}\.\d{2}\.\d{2})\([가-힣]\)\s*-\s*(.+)$")
 INLINE_REWARD_SPLIT_RE = re.compile(r",\s+(?=[^\d])")
@@ -170,6 +171,7 @@ def _parse_date_header(line: str) -> dict[str, Any] | None:
 
     raw_date, context_text = match.groups()
     context_text = context_text.strip()
+    context_text = DATE_HEADER_WEEKDAY_RE.sub("", context_text)
     event_context: str | None = None
     is_major_event = False
 

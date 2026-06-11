@@ -12,6 +12,8 @@
 | 수집 원본 | `data/raw/` | 크롤링한 원본 HTML 및 추출 원시 텍스트. **읽기 전용, 절대 수정 금지** | `01_collect.ipynb` |
 | 중간 파싱 | `data/interim/` | 파싱 중간 산출물 (재실행 캐시) | `02_parse_clean.ipynb` |
 | 최종 tidy | `data/processed/tidy_rewards.csv` | 분석 입력용 정형 데이터(Phase 4 정규화 포함) | `02_parse_clean.ipynb` |
+| 교차검증 | `data/interim/reward_inventory.csv` | by_type/by_date 보상 출현 빈도와 단종 속성 대조 산출물 | `03_crossval.ipynb` |
+| 분석 그림 | `outputs/figures/` | EDA 및 모델 진단용 그림 산출물 | `04_eda.ipynb`, `05_model.ipynb` |
 
 ---
 
@@ -75,6 +77,8 @@
 미래 빈 블록 12행은 processed에 유지한다. 이 행들은 `reward_raw/reward_norm/category/cycle_days`가 null이고 `is_future=True`, `no_event_week=False`로 구분된다. 분석 시 실제 과거 이벤트만 볼 때는 `is_future == False`를 필터링한다.
 
 by_type 기준 단종 원문은 71개다. Phase 7부터 단종 여부는 exact `reward_raw` 본문만이 아니라 `reward_raw + reward_trailing` 원문 전체 문자열까지 함께 대조한다. 이 규칙으로 괄호 접미가 날짜별 뷰에서 분리된 단종 보상 11종을 True로 정정한다. `사냥 시 소환되는 엘리트 몬스터 수 증가`는 같은 `reward_raw` 안에서도 `(1마리→2마리)`는 단종, `(1마리→3마리)`는 현행이므로 행별로 `is_discontinued`가 갈리는 정상 혼재 사례다.
+
+일요일이 아닌 날짜는 총 11행이며 원문 예외로 유지한다. `2023-01-12`~`2023-01-18` 파워업 위크 인라인 일별 보상 7행(2023-01-14는 2개 보상)과 `2024-04-01(월)` 유니온 릴레이 4행이다. `2024-04-01(월) (유니온 릴레이)`처럼 날짜 헤더에 선행 요일이 붙는 경우 요일 토큰은 이벤트 맥락에서 제거하고 `event_context='유니온 릴레이'`로 저장한다.
 
 ---
 
@@ -154,3 +158,5 @@ by_type 기준 단종 원문은 71개다. Phase 7부터 단종 여부는 exact `
 | 2026-06-10 | cycle_days 장기 gap 유지 | `cycle_days > 1500` 2건은 단종 후 부활/장기휴면의 정상 원값으로 보고 별도 플래그 없이 유지한다. |
 | 2026-06-10 | raw-cycle 67건 출력-only | by_type stated cycle과 by_date raw-cycle 대조에서 computed missing 67건은 명칭변경·문자열 차이 케이스로 판단한다. 양쪽 값이 모두 있는 경우 mismatch 0이 핵심 신호이므로 추가 보정 없이 출력-only로 유지한다. |
 | 2026-06-10 | is_discontinued 병합 | `is_discontinued`는 by_type의 `(단종)` 표기를 `reward_raw` 본문 또는 `reward_raw + reward_trailing` 원문 전체 문자열 기준으로 tidy에 병합한다. 단종 원문 매칭 수는 71개이며, 같은 `reward_raw` 안에서 단종/현행이 갈리는 엘리트 몬스터 수 증가 사례는 정상 혼재로 둔다. |
+| 2026-06-11 | Q3 단종 집계 단위 | EDA Q3의 단종 보상 마지막 등장 연도는 고유 `reward_raw` 기준으로 집계한다. `reward_trailing` 결측을 groupby 키에 포함하면 pandas 기본 `dropna=True`로 단종 보상 상당수가 누락되므로 사용하지 않는다. 기대 합계는 by_type 단종 원문 수와 같은 71개다. |
+| 2026-06-11 | 날짜 헤더 선행 요일 제거 | `YYYY.MM.DD(요일) (이벤트명)` 형태의 날짜별 뷰 헤더는 `(요일)`을 이벤트 맥락으로 보지 않는다. 선행 요일 토큰을 제거한 뒤 소형 이벤트 괄호를 해석해 `2024-04-01` 4행의 `event_context`를 `유니온 릴레이`로 정정한다. |

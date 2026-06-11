@@ -80,6 +80,15 @@ def test_by_date_no_context_header():
     }
 
 
+def test_by_date_weekday_prefixed_small_event_header():
+    parsed = parse_date_header("2024.04.01(월) (유니온 릴레이)")
+    assert parsed == {
+        "date": "2024-04-01",
+        "event_context": "유니온 릴레이",
+        "is_major_event": False,
+    }
+
+
 def test_by_date_no_event_week_sentinel():
     records = parse_by_date("[[S]]2017.03.19[[/S]]\n[[S]]아예 없음[[/S]]")
     assert records == [
