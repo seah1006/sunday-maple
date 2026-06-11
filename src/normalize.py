@@ -202,7 +202,6 @@ def extract_magnitude(reward_raw: str) -> str | None:
     if not text:
         return None
 
-    # Keep one coarse magnitude token for auditing after numeric variants are normalized.
     for pattern in MAGNITUDE_PATTERNS:
         match = pattern.search(text)
         if match:

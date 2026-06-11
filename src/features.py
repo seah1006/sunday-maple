@@ -4,12 +4,6 @@ import pandas as pd
 
 
 def compute_cycle_days(tidy: pd.DataFrame) -> pd.Series:
-    """Return norm-level recurrence gaps aligned to the input tidy index.
-
-    The feature is computed on unique (date, reward_norm) observations, then
-    merged back so same-day bundles sharing a norm receive the same value.
-    Rows with null reward_norm keep NA.
-    """
     required = {"date", "reward_norm"}
     missing = required - set(tidy.columns)
     if missing:
@@ -36,12 +30,6 @@ def compute_cycle_days(tidy: pd.DataFrame) -> pd.Series:
 
 
 def merge_is_discontinued(tidy: pd.DataFrame, parsed_by_type: pd.DataFrame) -> pd.Series:
-    """Return full-source reward discontinued flags aligned to the tidy index.
-
-    `reward_raw` null rows stay missing. A non-null tidy row is discontinued
-    when either its body (`reward_raw`) or reconstructed full source string
-    (`reward_raw + reward_trailing`) appears in the by_type discontinued set.
-    """
     for frame_name, frame in [("tidy", tidy), ("parsed_by_type", parsed_by_type)]:
         if "reward_raw" not in frame.columns:
             raise KeyError(f"{frame_name} missing required column: reward_raw")
