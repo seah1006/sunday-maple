@@ -1,0 +1,156 @@
+import pandas as pd
+import pytest
+
+from src.predict_dataset import build_prediction_frame
+
+
+def _tidy(rows):
+    return pd.DataFrame(
+        [
+            {
+                "date": date,
+                "reward_norm": reward,
+                "category": category,
+                "is_future": False,
+                "no_event_week": False,
+            }
+            for date, reward, category in rows
+        ]
+    )
+
+
+def test_prediction_features_do_not_change_when_future_rows_are_removed():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-14", "B", "cat2"),
+            ("2024-01-21", "A", "cat1"),
+            ("2024-01-28", "B", "cat2"),
+            ("2024-02-04", "A", "cat1"),
+            ("2024-02-11", "B", "cat2"),
+            ("2024-02-18", "A", "cat1"),
+            ("2024-02-25", "B", "cat2"),
+        ]
+    )
+    full = build_prediction_frame(tidy, top_n=2, roll_k=2)
+    truncated = build_prediction_frame(tidy[tidy["date"] <= "2024-02-04"], top_n=2, roll_k=2)
+
+    columns = [
+        "days_since_last",
+        "past_count",
+        "past_rate",
+        "roll_gap_mean",
+        "roll_gap_median",
+        "lag1_appeared",
+        "category",
+        "month",
+        "quarter",
+        "weekofyear",
+    ]
+    full_row = full.loc[
+        (full["date"] == pd.Timestamp("2024-02-04")) & (full["reward_norm"] == "B"),
+        columns,
+    ].reset_index(drop=True)
+    truncated_row = truncated.loc[
+        (truncated["date"] == pd.Timestamp("2024-02-04")) & (truncated["reward_norm"] == "B"),
+        columns,
+    ].reset_index(drop=True)
+
+    pd.testing.assert_frame_equal(full_row, truncated_row)
+
+
+def test_prediction_target_matches_same_date_reward_membership():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-07", "B", "cat2"),
+            ("2024-01-14", "A", "cat1"),
+            ("2024-01-21", "B", "cat2"),
+        ]
+    )
+
+    result = build_prediction_frame(tidy, top_n=2)
+
+    target = result.loc[result["date"] == pd.Timestamp("2024-01-14"), ["reward_norm", "y"]]
+    assert target.set_index("reward_norm")["y"].to_dict() == {"A": 1, "B": 0}
+
+
+def test_prediction_first_occurrence_rules_are_numeric():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-14", "A", "cat1"),
+            ("2024-01-21", "B", "cat2"),
+        ]
+    )
+
+    result = build_prediction_frame(tidy, top_n=2)
+    first_b = result.loc[
+        (result["date"] == pd.Timestamp("2024-01-07")) & (result["reward_norm"] == "B")
+    ].iloc[0]
+    later_b = result.loc[
+        (result["date"] == pd.Timestamp("2024-01-14")) & (result["reward_norm"] == "B")
+    ].iloc[0]
+
+    assert first_b["days_since_last"] == 0
+    assert first_b["past_count"] == 0
+    assert later_b["days_since_last"] == 7
+    assert later_b["past_count"] == 0
+    assert pd.isna(first_b["roll_gap_mean"])
+
+
+def test_candidate_set_is_stable_under_future_rows():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-07", "B", "cat2"),
+            ("2024-01-14", "A", "cat1"),
+            ("2024-01-14", "B", "cat2"),
+            ("2024-01-21", "A", "cat1"),
+            ("2024-01-28", "C", "cat3"),
+            ("2024-02-04", "C", "cat3"),
+            ("2024-02-11", "C", "cat3"),
+            ("2024-02-18", "C", "cat3"),
+        ]
+    )
+
+    full = build_prediction_frame(tidy, top_n=2, candidate_cutoff="2024-01-22")
+    changed_future = tidy.loc[tidy["date"] <= "2024-02-04"].copy()
+    truncated = build_prediction_frame(changed_future, top_n=2, candidate_cutoff="2024-01-22")
+
+    assert set(full["reward_norm"].unique()) == {"A", "B"}
+    assert set(truncated["reward_norm"].unique()) == {"A", "B"}
+
+
+def test_candidate_cutoff_changes_selection_vs_full():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-07", "B", "cat2"),
+            ("2024-01-14", "A", "cat1"),
+            ("2024-01-14", "B", "cat2"),
+            ("2024-01-21", "A", "cat1"),
+            ("2024-01-28", "C", "cat3"),
+            ("2024-02-04", "C", "cat3"),
+            ("2024-02-11", "C", "cat3"),
+            ("2024-02-18", "C", "cat3"),
+        ]
+    )
+
+    full = build_prediction_frame(tidy, top_n=2)
+    cutoff = build_prediction_frame(tidy, top_n=2, candidate_cutoff="2024-01-22")
+
+    assert set(full["reward_norm"].unique()) == {"A", "C"}
+    assert set(cutoff["reward_norm"].unique()) == {"A", "B"}
+
+
+def test_candidate_cutoff_before_data_raises():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-14", "B", "cat2"),
+        ]
+    )
+
+    with pytest.raises(ValueError):
+        build_prediction_frame(tidy, top_n=1, candidate_cutoff="2024-01-01")
