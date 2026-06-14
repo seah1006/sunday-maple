@@ -130,6 +130,78 @@ def build_prediction_frame(
     return pd.DataFrame(rows, columns=["date", "reward_norm", "y", *FEATURE_COLUMNS])
 
 
+def build_inference_frame(
+    tidy: pd.DataFrame,
+    target_date: pd.Timestamp | str,
+    top_n: int = 20,
+    roll_k: int = 5,
+    candidate_cutoff: pd.Timestamp | str | None = None,
+) -> pd.DataFrame:
+    if roll_k < 1:
+        raise ValueError("roll_k must be >= 1")
+
+    target = pd.to_datetime(target_date)
+    eligible = _eligible_rows(tidy)
+    columns = ["date", "reward_norm", *FEATURE_COLUMNS]
+    if eligible.empty:
+        return pd.DataFrame(columns=columns)
+
+    candidate_source = eligible
+    if candidate_cutoff is not None:
+        cutoff = pd.to_datetime(candidate_cutoff)
+        candidate_source = eligible.loc[eligible["date"] < cutoff]
+        if candidate_source.empty:
+            raise ValueError("candidate_cutoff leaves no eligible rows for candidate selection")
+
+    candidates = _candidate_rewards(candidate_source, top_n)
+    categories = _category_map(eligible)
+    observed = eligible.drop_duplicates(["date", "reward_norm"])
+    prior_dates_index = pd.Index(sorted(observed.loc[observed["date"] < target, "date"].drop_duplicates()), name="date")
+    previous_date = prior_dates_index[-1] if len(prior_dates_index) else None
+    previous_rewards = (
+        set(observed.loc[observed["date"] == previous_date, "reward_norm"])
+        if previous_date is not None
+        else set()
+    )
+    dates_by_reward = {
+        reward: list(group["date"].sort_values())
+        for reward, group in observed.groupby("reward_norm", sort=False)
+    }
+    first_date = pd.Index(sorted(observed["date"].drop_duplicates())).min()
+    rows = []
+
+    for reward in candidates:
+        reward_dates = dates_by_reward.get(reward, [])
+        prior_dates = [seen for seen in reward_dates if seen < target]
+        past_count = len(prior_dates)
+        if prior_dates:
+            days_since_last = int((target - prior_dates[-1]).days)
+        else:
+            days_since_last = int((target - first_date).days)
+
+        gaps = pd.Series(prior_dates).diff().dropna().dt.days.to_numpy() if len(prior_dates) >= 2 else np.array([])
+        recent_gaps = gaps[-roll_k:]
+
+        rows.append(
+            {
+                "date": target,
+                "reward_norm": reward,
+                "days_since_last": days_since_last,
+                "past_count": past_count,
+                "past_rate": past_count / len(prior_dates_index) if len(prior_dates_index) else 0.0,
+                "roll_gap_mean": float(np.mean(recent_gaps)) if len(recent_gaps) else np.nan,
+                "roll_gap_median": float(np.median(recent_gaps)) if len(recent_gaps) else np.nan,
+                "lag1_appeared": int(reward in previous_rewards),
+                "category": categories.get(reward, pd.NA),
+                "month": int(target.month),
+                "quarter": int(target.quarter),
+                "weekofyear": int(target.isocalendar().week),
+            }
+        )
+
+    return pd.DataFrame(rows, columns=columns)
+
+
 def write_prediction_frame(
     tidy_path: str | Path = "data/processed/tidy_rewards.csv",
     output_path: str | Path = "data/interim/predict_dataset.csv",

@@ -1,7 +1,8 @@
+import numpy as np
 import pandas as pd
 import pytest
 
-from src.predict_dataset import build_prediction_frame
+from src.predict_dataset import FEATURE_COLUMNS, build_inference_frame, build_prediction_frame
 
 
 def _tidy(rows):
@@ -154,3 +155,94 @@ def test_candidate_cutoff_before_data_raises():
 
     with pytest.raises(ValueError):
         build_prediction_frame(tidy, top_n=1, candidate_cutoff="2024-01-01")
+
+
+def test_inference_frame_shape_and_no_target():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-14", "B", "cat2"),
+            ("2024-01-21", "A", "cat1"),
+            ("2024-01-28", "C", "cat3"),
+        ]
+    )
+
+    result = build_inference_frame(tidy, target_date="2024-02-04", top_n=3)
+
+    assert len(result) == 3
+    assert list(result.columns) == ["date", "reward_norm", *FEATURE_COLUMNS]
+    assert "y" not in result.columns
+    assert result["date"].eq(pd.Timestamp("2024-02-04")).all()
+
+
+def test_inference_matches_training_features_at_same_asof():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-07", "B", "cat2"),
+            ("2024-01-14", "A", "cat1"),
+            ("2024-01-21", "B", "cat2"),
+            ("2024-01-28", "A", "cat1"),
+            ("2024-01-28", "C", "cat3"),
+        ]
+    )
+    d_last = pd.Timestamp("2024-01-28")
+
+    training = build_prediction_frame(tidy, top_n=3, roll_k=2, candidate_cutoff="2024-01-22")
+    inference = build_inference_frame(tidy, target_date=d_last, top_n=3, roll_k=2, candidate_cutoff="2024-01-22")
+    training_last = (
+        training.loc[training["date"] == d_last, ["reward_norm", *FEATURE_COLUMNS]]
+        .sort_values("reward_norm")
+        .reset_index(drop=True)
+    )
+    inference_last = (
+        inference[["reward_norm", *FEATURE_COLUMNS]]
+        .sort_values("reward_norm")
+        .reset_index(drop=True)
+    )
+
+    pd.testing.assert_frame_equal(training_last, inference_last)
+
+
+def test_inference_uses_only_past_of_target():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-14", "A", "cat1"),
+            ("2024-01-21", "B", "cat2"),
+            ("2024-01-28", "A", "cat1"),
+            ("2024-02-04", "B", "cat2"),
+        ]
+    )
+
+    result = build_inference_frame(tidy, target_date="2024-01-21", top_n=2)
+    a_row = result.loc[result["reward_norm"] == "A"].iloc[0]
+    b_row = result.loc[result["reward_norm"] == "B"].iloc[0]
+
+    assert a_row["days_since_last"] == 7
+    assert a_row["past_count"] == 2
+    assert b_row["days_since_last"] == 14
+    assert b_row["past_count"] == 0
+    assert result["past_rate"].between(0, 1).all()
+    assert np.isfinite(result["days_since_last"]).all()
+
+
+def test_inference_candidate_cutoff_consistency():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-07", "B", "cat2"),
+            ("2024-01-14", "A", "cat1"),
+            ("2024-01-14", "B", "cat2"),
+            ("2024-01-21", "A", "cat1"),
+            ("2024-01-28", "C", "cat3"),
+            ("2024-02-04", "C", "cat3"),
+            ("2024-02-11", "C", "cat3"),
+            ("2024-02-18", "C", "cat3"),
+        ]
+    )
+
+    training = build_prediction_frame(tidy, top_n=2, candidate_cutoff="2024-01-22")
+    inference = build_inference_frame(tidy, target_date="2024-02-25", top_n=2, candidate_cutoff="2024-01-22")
+
+    assert set(inference["reward_norm"].unique()) == set(training["reward_norm"].unique())
