@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>선데이메이플 보상 패턴 분석 · 발표 스크립트</title>
+<style>
+  :root{
+    --ink:#1f2430; --muted:#6b7280; --line:#e5e7eb;
+    --accent:#2563eb; --accent-soft:#eff4ff; --warn:#b45309; --warn-soft:#fff7ed;
+    --ok:#047857; --ok-soft:#ecfdf5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+    color:var(--ink); line-height:1.7; margin:0;
+    background:#f7f8fa;
+  }
+  .page{max-width:880px; margin:0 auto; padding:48px 40px 80px;}
+  h1{font-size:28px; margin:0 0 6px; letter-spacing:-0.3px;}
+  .sub{color:var(--muted); margin:0 0 4px;}
+  .meta{color:var(--muted); font-size:14px; margin:0 0 28px;}
+  h2{
+    font-size:21px; margin:38px 0 4px; padding-top:18px;
+    border-top:2px solid var(--line);
+  }
+  h2 .tag{font-size:13px; color:var(--accent); font-weight:600; display:block; margin-bottom:2px;}
+  h3{font-size:16px; margin:22px 0 6px; color:var(--ink);}
+  p{margin:8px 0;}
+  .screen{
+    background:var(--accent-soft); border:1px solid #d6e2ff; border-radius:8px;
+    padding:10px 14px; font-size:14px; color:#1e3a8a; margin:10px 0 14px;
+  }
+  .screen b{color:#1e3a8a;}
+  .script{
+    border-left:3px solid var(--accent); padding:4px 0 4px 16px; margin:12px 0;
+  }
+  .script p{margin:6px 0;}
+  .note{
+    background:var(--warn-soft); border:1px solid #fed7aa; border-radius:8px;
+    padding:8px 14px; font-size:14px; color:var(--warn); margin:12px 0;
+  }
+  .ok{
+    background:var(--ok-soft); border:1px solid #a7f3d0; border-radius:8px;
+    padding:8px 14px; font-size:14px; color:var(--ok); margin:12px 0;
+  }
+  .time{
+    display:inline-block; background:#1f2430; color:#fff; font-size:12px;
+    border-radius:999px; padding:2px 10px; margin-left:8px; vertical-align:middle;
+  }
+  table{border-collapse:collapse; width:100%; margin:14px 0; font-size:14px;}
+  th,td{border:1px solid var(--line); padding:7px 10px; text-align:left;}
+  th{background:#f3f4f6; font-weight:600;}
+  td.num,th.num{text-align:right;}
+  .lead{font-size:15px;}
+  .kicker{color:var(--muted); font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px;}
+  ul{margin:8px 0 8px 4px; padding-left:20px;}
+  li{margin:4px 0;}
+  .qa{background:#fff; border:1px solid var(--line); border-radius:8px; padding:4px 18px; margin:12px 0;}
+  .qa h3{color:var(--accent); margin-top:14px;}
+  .codewalk{background:#fbfbfd; border:1px dashed #c7cdd6; border-radius:8px; padding:4px 16px 14px; margin:16px 0;}
+  .cw-title{font-weight:700; color:#374151; font-size:14px; margin:12px 0 8px;}
+  .cw-item{margin:12px 0;}
+  .codeline{display:block; background:#0f172a; color:#e2e8f0; font-family:Consolas,"D2Coding",monospace; font-size:12.5px; padding:7px 11px; border-radius:6px; white-space:pre-wrap; word-break:break-all; margin:0 0 5px;}
+  .why{margin:3px 0 0; font-size:14px;}
+  .why b{color:var(--accent);}
+  .foot{color:var(--muted); font-size:13px; margin-top:40px; border-top:1px solid var(--line); padding-top:14px;}
+  @media print{
+    body{background:#fff;}
+    .page{max-width:none; padding:0 12mm;}
+    h2{break-before:auto; page-break-inside:avoid;}
+    .screen,.note,.ok,.qa,.script{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <p class="kicker">데이터처리실습 기말 발표 · 스피커 스크립트</p>
+  <h1>선데이메이플 보상 패턴 분석</h1>
+  <p class="sub">다음 선데이는 "무엇"인가 — 9년치 보상 기록으로 다음 회차를 예측하다</p>
+  <p class="meta">발표 노트북: <code>notebooks/08_presentation.ipynb</code> · 기준 시간 8~10분 + 질의응답 · 분석 범위 2017-03 ~ 2026-06</p>
+
+  <div class="ok">
+    <b>발표 전 체크</b> — ① <code>08_presentation.ipynb</code>를 커널 재시작 후 전체 실행해 둘 것(예측 셀의 Prophet 적합에 수십 초 소요). ② 그림·표가 모두 렌더된 상태로 화면에 띄워 두고, 이 스크립트는 손에 들거나 발표자 노트로 둔다.
+  </div>
+
+  <h2><span class="tag">전체 흐름 · 시간 배분</span>한눈에</h2>
+  <table>
+    <thead><tr><th>구간</th><th>노트북 위치</th><th>핵심 메시지</th><th class="num">시간</th></tr></thead>
+    <tbody>
+      <tr><td>도입</td><td>표지</td><td>"다음 선데이가 무엇인지 맞혀보자"</td><td class="num">0:45</td></tr>
+      <tr><td>1. 수집</td><td>§1</td><td>인벤 1건을 두 뷰로 보관, 재크롤링 없음</td><td class="num">1:00</td></tr>
+      <tr><td>2. 전처리</td><td>§2</td><td>괄호 충돌 파싱 → tidy 14컬럼, 무결성 통과 <b>(핵심)</b></td><td class="num">2:30</td></tr>
+      <tr><td>3. 시각화</td><td>§3</td><td>보상 구성·주기·단종의 변화</td><td class="num">2:00</td></tr>
+      <tr><td>4. 예측</td><td>§4</td><td>두 방법 비교 + 이번 주 적중 검증 <b>(클라이맥스)</b></td><td class="num">2:30</td></tr>
+      <tr><td>5. 결론</td><td>§5</td><td>정리 + 한계</td><td class="num">0:45</td></tr>
+    </tbody>
+  </table>
+  <p class="note">시간이 빠듯하면 §3 시각화에서 그림 2개만(카테고리 비중·회차당 보상 수) 보여주고 주기·단종은 한 줄로 넘긴다. 절대 줄이지 말 것: §2 무결성과 §4 06-14 적중 검증.</p>
+
+  <!-- 도입 -->
+  <h2><span class="tag">도입</span>후킹<span class="time">0:45</span></h2>
+  <div class="screen">화면: <b>표지 셀</b></div>
+  <div class="script">
+    <p>"메이플스토리에는 매주 일요일 보상을 주는 <b>선데이메이플</b>이라는 이벤트가 있습니다. 유저 입장에서 가장 궁금한 건 하나예요 — <b>이번 주는 뭐가 나올까?</b>"</p>
+    <p>"저희는 2017년부터 2026년까지 9년치 보상 기록을 직접 모아 정형화하고, 그 패턴으로 <b>다음 회차에 무엇이 나올지</b>를 예측해 봤습니다. 오늘은 데이터를 모으고, 다듬고, 들여다보고, 예측하는 네 단계를 이 노트북 하나로 처음부터 끝까지 보여드리겠습니다."</p>
+  </div>
+  <p class="note">팁: 청중에게 "여러분이라면 다음 주에 뭐가 나올 것 같으세요?"라고 한 번 던지고 넘어가면 §4 적중 검증에서 회수할 수 있다.</p>
+
+  <!-- 1 수집 -->
+  <h2><span class="tag">1. 데이터 수집</span>어디서, 어떻게 모았나<span class="time">1:00</span></h2>
+  <div class="screen">화면: <b>§1 — 출처 메타 + 종류별/날짜별 원문 앞부분</b></div>
+  <div class="script">
+    <p>"데이터는 인벤의 정리 게시글 한 곳에서 가져왔습니다. 이 글이 같은 정보를 <b>두 가지 뷰</b>로 보여줘요 — 보상 <b>종류별</b> 목록과 <b>날짜별</b> 목록. 이 둘을 모두 보관해 두면 나중에 서로 교차검증할 수 있습니다."</p>
+    <p>"중요한 점 두 가지. 첫째, 발표 중에는 <b>재크롤링하지 않고</b> 보관해 둔 원문만 읽습니다 — 크롤링 예절이자 재현성을 위해서죠. 둘째, 원본은 끝까지 <b>읽기 전용</b>으로만 다뤘습니다."</p>
+  </div>
+  <div class="codewalk">
+    <p class="cw-title">코드에서 짚을 부분 (§1 셀)</p>
+    <div class="cw-item">
+      <code class="codeline">ROOT = Path.cwd()
+if not (ROOT / "data").exists():
+    ROOT = ROOT.parent</code>
+      <p class="why"><b>왜 썼나:</b> 노트북을 <code>notebooks/</code>에서 열든 프로젝트 루트에서 열든 경로가 깨지지 않게 하려고요. 발표 환경이 바뀌어도 같은 코드가 돌아야 하니까 맨 앞에서 기준 경로를 잡습니다.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">by_type_text = (raw_dir / "view_by_type.txt").read_text(encoding="utf-8")
+by_date_text = (raw_dir / "view_by_date.txt").read_text(encoding="utf-8")</code>
+      <p class="why"><b>왜 썼나:</b> 여기서 <u>크롤링을 다시 하지 않고</u> 보관본 두 개만 읽습니다. 같은 글의 '종류별'·'날짜별' 두 뷰라서, 뒤에서 서로 교차검증하려고 둘 다 들고 옵니다. <code>encoding="utf-8"</code>은 한글 깨짐 방지.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">TODAY = pd.Timestamp("2026-06-10")
+logging.getLogger("cmdstanpy").disabled = True</code>
+      <p class="why"><b>왜 썼나:</b> <code>TODAY</code>는 '아직 공개 안 된 미래 회차'를 가르는 기준선입니다 — 전처리 노트북과 <u>같은 값으로 고정</u>해야 동일한 결과가 재현됩니다. 아래 로그 끄는 줄은 뒤에서 Prophet이 로그를 잔뜩 뱉어 발표 화면이 지저분해지는 걸 막으려고 미리 꺼둔 겁니다.</p>
+    </div>
+  </div>
+
+  <!-- 2 전처리 -->
+  <h2><span class="tag">2. 데이터 전처리 · 핵심</span>원문을 tidy 데이터로<span class="time">2:30</span></h2>
+  <div class="screen">화면: <b>§2 — tidy.head() + 무결성 요약 표</b></div>
+  <div class="script">
+    <p>"이 프로젝트에서 가장 손이 많이 간 부분입니다. 원문이 사람이 쓴 글이라 괄호가 전부 다른 뜻이에요. <b>(+28일)</b>은 주기, <b>(단종)</b>은 상태, <b>&lt;이벤트명&gt;</b>은 대형 이벤트, <b>(이벤트명)</b>은 소형, 거기에 <b>(월)·(토)</b> 같은 요일 표기까지 섞여 있습니다. 이걸 정규식으로 충돌 없이 갈라내는 게 첫 관문이었습니다."</p>
+    <p>"그다음 9년간 바뀐 표기를 정규화로 흡수했어요. 예를 들어 '샤이닝 스타포스 타임' 같은 별칭은 대표 보상명으로 통합하고, 환생의 불꽃과 솔 에르다처럼 성격이 다른 건 일부러 갈라뒀습니다. 이런 판단은 전부 근거와 함께 문서로 남겼습니다."</p>
+    <p>"결과는 <b>한 행이 한 관측치</b>, 즉 '특정 날짜에 등장한 보상 하나'인 tidy 데이터 <b>14컬럼</b>입니다."</p>
+  </div>
+  <h3>화면의 숫자를 짚으며</h3>
+  <table>
+    <thead><tr><th>항목</th><th class="num">값</th><th>한마디</th></tr></thead>
+    <tbody>
+      <tr><td>전체 행</td><td class="num">1,160</td><td>미래 빈 블록·무보상 주차 포함</td></tr>
+      <tr><td>분석 대상 행</td><td class="num">1,118</td><td>보상명이 있고 미래가 아닌 행</td></tr>
+      <tr><td>(date, reward_raw) 중복</td><td class="num">0</td><td>관측 단위가 깨끗함</td></tr>
+      <tr><td>단종 고유 보상</td><td class="num">71</td><td>원문 (단종) 표기 기준</td></tr>
+      <tr><td>일요일 아닌 행</td><td class="num">11</td><td>파워업 위크·유니온 릴레이 예외, 설명 가능</td></tr>
+    </tbody>
+  </table>
+  <div class="script">
+    <p>"여기서 강조하고 싶은 건 <b>무결성 검증</b>입니다. 같은 (날짜, 보상) 중복이 0이고, 일요일이 아닌 11개 행도 전부 공휴일 대체 같은 이유로 설명됩니다. 그리고 종류별 뷰와 날짜별 뷰를 맞대본 일치율이 <b>0.726</b>이었어요 — 단일 출처라는 한계 안에서 두 뷰가 같은 이야기를 한다는 걸 확인한 거죠."</p>
+  </div>
+  <div class="note">예상 질문 대비: "왜 (date, reward_norm) 중복은 안 지웠나?" → 같은 날 함께 지급된 <b>별개 보상</b>이라 의도적으로 유지. 관측 단위는 reward_raw다.</div>
+  <div class="codewalk">
+    <p class="cw-title">코드에서 짚을 부분 (§2 셀 — 이 프로젝트의 핵심)</p>
+    <div class="cw-item">
+      <code class="codeline">by_type_records = parse_by_type(by_type_text)
+by_date_records = parse_by_date(by_date_text)</code>
+      <p class="why"><b>왜 썼나:</b> 괄호 충돌을 푸는 정규식 파싱은 직접 짜지 않고 <code>src/parse.py</code> 함수를 불러 씁니다. <u>같은 로직을 노트북마다 베껴 쓰면 어긋나기 때문에</u> 한 곳에 두고 재사용하고, 그 함수는 단위 테스트로 따로 검증해 뒀습니다. <code>(+N일)</code>·<code>(단종)</code>·<code>&lt;이벤트&gt;</code> 구분이 다 이 안에 들어 있어요.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">def is_special(row): ... return "타임" in text
+def time_limited(trailing): ... "하루 종일" / "오전" / r"\d+분"</code>
+      <p class="why"><b>왜 썼나:</b> <code>is_special</code>은 '스타포스 <u>타임</u>' 같은 스페셜 썬데이 표기를 잡으려고, <code>time_limited</code>는 '하루 종일'인지 '오전 N시~' 같은 시간제인지 가르려고 만든 작은 파생 함수입니다. 이런 표기가 9년간 계속 바뀌어서 규칙으로 흡수했습니다.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">tidy_prenorm["is_future"] = pd.to_datetime(tidy_prenorm["date"]) > TODAY</code>
+      <p class="why"><b>왜 썼나:</b> 아직 보상이 안 정해진 미래 회차를 <u>지우지 않고</u> 플래그만 답니다. '원본은 함부로 버리지 않는다'는 원칙이라, 분석할 때 빼더라도 데이터엔 남겨 둡니다.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">tidy["reward_norm"]   = ... normalize_reward(...)
+tidy["cycle_days"]    = compute_cycle_days(tidy)
+tidy["is_discontinued"] = merge_is_discontinued(tidy, parsed_by_type)</code>
+      <p class="why"><b>왜 썼나:</b> 흔들리는 원문 보상명을 대표 라벨로 통합하고(<code>normalize</code>), 직전 등장으로부터 며칠 지났는지(<code>cycle_days</code>), 단종 여부를 붙입니다. 단종은 '종류별 뷰'에서 뽑아 '날짜별' 데이터에 합치는데, <u>뷰가 둘이라 이렇게 교차로 채워 넣는 것</u>이 핵심입니다.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">analysis = tidy.loc[tidy["reward_norm"].notna() & ~tidy["is_future"].astype(bool)]</code>
+      <p class="why"><b>왜 썼나:</b> 전체 1,160행 중 '보상명이 있고, 미래가 아닌' 1,118행만 실제 분석에 씁니다. 미래 빈 칸·무보상 주차를 여기서 한 번에 걸러요.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">assert quality_summary["total_rows"] == 1160
+assert quality_summary["date_reward_raw_duplicates"] == 0
+assert quality_summary["non_sunday_rows"] == 11</code>
+      <p class="why"><b>왜 썼나 (꼭 강조):</b> 무결성을 <u>말이 아니라 코드로 강제</u>합니다. 행 수나 중복 수가 기대와 다르면 <code>assert</code>에서 실행이 멈춰요. 그래서 이 노트북이 끝까지 돌았다는 건 곧 '숫자가 검증됐다'는 뜻입니다.</p>
+    </div>
+  </div>
+
+  <!-- 3 시각화 -->
+  <h2><span class="tag">3. 시각화</span>9년간 무엇이 변했나<span class="time">2:00</span></h2>
+  <div class="screen">화면: <b>§3 — 그림 4개(카테고리 비중 / 회차당 보상 수 / 주기 분포 / 단종 분포)</b></div>
+  <div class="script">
+    <p><b>[그림 1 · 카테고리 비중]</b> "초기엔 사냥효율 보상이 가장 큰 축이었는데, 시간이 지나며 <b>강화와 성장</b> 쪽으로 무게가 옮겨갑니다."</p>
+    <p><b>[그림 2 · 회차당 보상 수]</b> "한 회차에 주는 보상 수가 꾸준히 늘었어요. 2017년 <b>약 2개</b>에서 2025년 <b>약 3.5개</b>로. 운영이 점점 후해졌다고 읽을 수 있습니다."</p>
+    <p><b>[그림 3 · 재등장 주기]</b> "보상이 다시 나오기까지 걸리는 날의 중앙값은 <b>42일</b>입니다. 주력 보상들은 <b>28일 주기</b>로 묶이고, 어떤 건 수백 일에 한 번 나옵니다. 이 주기성이 뒤 예측의 핵심 신호예요."</p>
+    <p><b>[그림 4 · 단종 분포]</b> "사라진 보상은 성장·사냥효율·수집기타 계열에 몰려 있습니다. 보상 포트폴리오가 계속 재편돼 왔다는 뜻이죠."</p>
+  </div>
+  <div class="codewalk">
+    <p class="cw-title">코드에서 짚을 부분 (§3 셀)</p>
+    <div class="cw-item">
+      <code class="codeline">set_korean_font()</code>
+      <p class="why"><b>왜 썼나:</b> matplotlib이 기본값이면 한글이 네모로 깨집니다. Windows 맑은 고딕을 잡아주는 헬퍼를 그림 그리기 직전에 호출합니다.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">category_share = category_year.div(category_year.sum(axis=1), axis=0)</code>
+      <p class="why"><b>왜 썼나:</b> 그냥 개수로 보면 게임 인기에 따라 전체가 같이 늘어 구성 변화가 안 보여요. 그래서 <u>연도별 합으로 나눠 '비중'</u>으로 바꿉니다. 그래야 '사냥효율→강화·성장' 이동이 드러납니다.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">cycle_capped = cycle_values.clip(upper=365)
+bins=[0, 14, 28, 42, 56, 84, 112, 180, 365]</code>
+      <p class="why"><b>왜 썼나:</b> 주기에 수백~수천 일짜리 꼬리가 있어서 그대로 그리면 막대가 다 왼쪽에 뭉칩니다. 365일 초과는 마지막 칸에 몰아넣어(<code>clip</code>) <u>자주 도는 구간이 잘 보이게</u> 했습니다. 구간 경계도 14·28·42처럼 실제 주기에 맞췄어요.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">analysis[...].drop_duplicates(["reward_raw", "category"]).groupby("category").size()</code>
+      <p class="why"><b>왜 썼나:</b> 단종을 '행 수'로 세면 자주 나오던 보상이 과대평가됩니다. <code>drop_duplicates</code>로 <u>고유 보상 단위</u>로 바꿔 세야 '어떤 종류가 정리됐나'가 공정하게 나옵니다.</p>
+    </div>
+  </div>
+
+  <!-- 4 예측 -->
+  <h2><span class="tag">4. 예측 · 클라이맥스</span>다음 선데이는 무엇인가<span class="time">2:30</span></h2>
+  <div class="screen">화면: <b>§4 — 백테스트 비교표</b></div>
+  <div class="script">
+    <p>"이제 본론입니다. 두 가지 방법으로 '다음에 뭐가 나올지'를 예측했어요. 하나는 <b>분류기</b> — 경과일, 과거 출현율, 최근 주기 같은 피처로 후보별 등장 여부를 점수화합니다. 다른 하나는 강의에서 배운 <b>Prophet</b> — 보상별 등장 시계열의 28일 주기와 연간 변동을 학습합니다."</p>
+    <p>"공정하게 같은 후보, 같은 지표로 비교했습니다. 지표는 <b>date_hit_rate</b> — 매 회차 상위 후보가 실제 보상을 하나라도 맞히는 비율이에요."</p>
+  </div>
+  <table>
+    <thead><tr><th>방법</th><th class="num">date_hit_rate</th></tr></thead>
+    <tbody>
+      <tr><td>간격규칙(베이스라인)</td><td class="num">0.348</td></tr>
+      <tr><td>사전확률(베이스라인)</td><td class="num">0.362</td></tr>
+      <tr><td><b>랜덤포레스트</b></td><td class="num"><b>0.449</b></td></tr>
+      <tr><td>Prophet</td><td class="num">0.420</td></tr>
+    </tbody>
+  </table>
+  <div class="script">
+    <p>"두 방법 다 베이스라인보다 낫고, <b>랜덤포레스트가 가장 높습니다.</b> 다만 Prophet도 만만치 않아요 — 둘이 보는 신호가 다릅니다. 이게 뒤에서 재밌어집니다."</p>
+  </div>
+
+  <h3>이번 주 적중 검증 — 발표의 하이라이트</h3>
+  <div class="screen">화면: <b>§4 — 06-14 게이트 전/후 표 + 실제 보상 순위</b></div>
+  <div class="script">
+    <p>"말로만 예측이라고 하면 안 믿으시겠죠. 그래서 <b>실제로 맞혀봤습니다.</b> 2026년 6월 14일 선데이의 실제 보상은 <b>몬스터파크 경험치</b>와 <b>선물 지급</b>이었어요."</p>
+    <p>"처음엔 문제가 있었습니다. 모델이 <b>오래 안 나온 보상</b>을 '주기상 임박했다'고 착각해서, 사실은 <b>단종된</b> 현상금·불꽃늑대 같은 걸 상위에 올렸어요. 실제 정답인 몬스터파크는 <b>9위</b>로 밀려 있었죠."</p>
+    <p>"그래서 <b>180일 재증 게이트</b>를 넣었습니다 — 기준일 전 6개월 넘게 안 나온 보상은 후보에서 빼는 거죠. 이 임계값은 활성 보상과 휴면 보상이 갈리는 간격 분포의 빈 구간에서 정한 거지, 정답을 보고 맞춘 게 아닙니다."</p>
+    <p>"게이트를 넣자 몬스터파크가 <b>5위로 올라와</b> 상위 5개 안에 들어왔습니다. 적중 0/2에서 <b>1/2</b>로요. 다만 '선물 지급'은 여전히 못 잡았는데, 이런 특별 보상은 과거 주기만으론 설명이 안 된다는 솔직한 한계입니다."</p>
+  </div>
+  <div class="ok">한 문장 요약(꼭 말하기): "버그를 발견하고, 도메인 지식으로 게이트를 설계해, <b>실제 이번 주 보상을 상위 5개 안에서 맞혔다.</b>"</div>
+
+  <h3>다음 주 예보 — 2026-06-21</h3>
+  <div class="screen">화면: <b>§4 — RF vs Prophet 상위 5 비교표</b></div>
+  <table>
+    <thead><tr><th class="num">순위</th><th>랜덤포레스트</th><th class="num">점수</th><th>Prophet</th><th class="num">yhat</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td>몬스터컬렉션</td><td class="num">41.7%</td><td>몬스터파크_경험치</td><td class="num">0.402</td></tr>
+      <tr><td class="num">2</td><td>스타포스_비용할인</td><td class="num">39.3%</td><td>주문의흔적_비용할인</td><td class="num">0.330</td></tr>
+      <tr><td class="num">3</td><td>주문의흔적_비용할인</td><td class="num">36.7%</td><td>룬_경험치버프</td><td class="num">0.318</td></tr>
+      <tr><td class="num">4</td><td>어빌리티_재설정할인</td><td class="num">34.3%</td><td>콤보킬_경험치</td><td class="num">0.281</td></tr>
+      <tr><td class="num">5</td><td>엘리트몬스터_증가</td><td class="num">27.7%</td><td>스타포스_비용할인</td><td class="num">0.157</td></tr>
+    </tbody>
+  </table>
+  <div class="script">
+    <p>"다음 주 예보를 두 방법으로 나란히 놓으면 <b>서로 다른 신호</b>를 봅니다. 랜덤포레스트는 몬스터컬렉션을 1위로, Prophet은 6월 14일에 막 나왔던 몬스터파크를 다시 1위로 둡니다. 어느 쪽도 절대적으로 옳다고 할 수 없어요."</p>
+    <p>"숫자에 주의할 점 — 이 퍼센트와 yhat은 <b>보정된 확률이 아니라 상대 강도 점수</b>입니다. 상위 5개는 '확정 예보'가 아니라 '눈여겨볼 후보'로 봐주세요."</p>
+  </div>
+  <div class="codewalk">
+    <p class="cw-title">코드에서 짚을 부분 (§4 셀 — 누수 방지가 관건)</p>
+    <div class="cw-item">
+      <code class="codeline">prediction_frame = build_prediction_frame(tidy, candidate_cutoff=SPLIT_CUTOFF)
+train = ...[date &lt; SPLIT_CUTOFF];  test = ...[date &gt;= SPLIT_CUTOFF]</code>
+      <p class="why"><b>왜 썼나:</b> 후보 목록과 학습을 <u>2025-01-01 이전 데이터로만</u> 정합니다. 미래를 보고 과거를 맞히면 반칙(데이터 누수)이라, 시간으로 잘라 백테스트합니다.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">def date_hit(group): k = int(group["y"].sum()); return group.nlargest(k,"score")["y"].max()</code>
+      <p class="why"><b>왜 썼나:</b> 평가 지표를 <code>date_hit_rate</code>로 잡은 이유입니다 — 그 회차에 실제 보상이 k개면 <u>상위 k개를 뽑아 하나라도 맞혔나</u>를 봅니다. 발표 질문('다음에 뭐 나와?')에 가장 직접적인 지표예요.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">RandomForestClassifier(..., class_weight="balanced", random_state=42)</code>
+      <p class="why"><b>왜 썼나:</b> 어떤 보상이 '등장'하는 경우는 드물어서(불균형) <code>class_weight="balanced"</code>로 보정합니다. <code>random_state=42</code>는 매번 같은 결과가 나오게 시드를 고정한 것 — 재현성.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">series = build_weekly_series(tidy, reward, SPLIT_CUTOFF)
+forecast = fit_predict_reward(series, test_dates)</code>
+      <p class="why"><b>왜 썼나:</b> Prophet 쪽은 보상마다 '주차별 등장 0/1' 시계열을 만들어, <u>역시 train 기간만으로 적합</u>한 뒤 test 날짜를 예측합니다. 분류기와 똑같은 분할·똑같은 지표로 비교해야 공정하니까요.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">gate_candidates(..., recency_gate_days=DEFAULT_RECENCY_GATE_DAYS, domain_discontinued=DOMAIN_DISCONTINUED)</code>
+      <p class="why"><b>왜 썼나 (핵심 결정):</b> 모델이 오래 안 나온 단종 보상을 상위로 올리던 버그를 잡는 부분입니다. <u>180일 넘게 안 나온 후보를 빼고</u>(<code>recency_gate</code>), 데이터 표기로 안 잡히는 건 도메인 목록으로 추가 제외합니다.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">def predict_classifier(tidy_source, target_date, gate): ...
+X_target = X_target.reindex(columns=X_all.columns, fill_value=0)</code>
+      <p class="why"><b>왜 썼나:</b> 같은 함수에 <code>gate</code> 스위치를 둬서 06-14를 '게이트 전/후'로 비교합니다. <code>reindex</code>는 추론 데이터의 더미 컬럼을 <u>학습 때 본 컬럼과 똑같이 정렬</u>해 모양이 어긋나지 않게 맞추는 안전장치예요.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">tidy_with_manual = pd.concat([tidy, manual_for_tidy])
+rf_0621 = predict_classifier(tidy_with_manual, "2026-06-21", gate=True)</code>
+      <p class="why"><b>왜 썼나:</b> 6-21을 예보할 땐 6-14에 <u>막 등장한 보상</u>을 '직전 이력'으로 넣어야 주기 계산이 맞습니다. 6-14 실제값은 원본을 안 건드리려고 <code>manual_obs</code> 보조 파일로 따로 받아 합칩니다.</p>
+    </div>
+    <div class="cw-item">
+      <code class="codeline">assert round(... "랜덤포레스트" ...) == 0.4493
+assert excluded_rewards.isdisjoint(set(rf_0621["reward_norm"]))</code>
+      <p class="why"><b>왜 썼나:</b> 백테스트 수치가 리포트와 같은지, 단종 4종이 예보에서 정말 빠졌는지를 <u>코드가 스스로 확인</u>합니다. 발표 중 숫자가 흔들릴 일이 없다는 보증입니다.</p>
+    </div>
+  </div>
+
+  <!-- 5 결론 -->
+  <h2><span class="tag">5. 결론</span>정리<span class="time">0:45</span></h2>
+  <div class="screen">화면: <b>§5 — 결론 셀</b></div>
+  <div class="script">
+    <p>"정리하겠습니다. 선데이메이플 보상은 <b>한 회차당 수가 늘었고</b>, 최근으로 올수록 <b>강화·성장</b>이 중심입니다. 단종은 성장·사냥효율·수집기타에 몰렸고요."</p>
+    <p>"예측에서는 랜덤포레스트가 약간 앞섰지만 <b>단일 승자는 없었습니다.</b> 그리고 두 방법 모두 <b>사라진 보상을 따로 걸러줘야</b> 했다는 게 핵심 교훈이에요 — 모델만으론 운영상 죽은 보상을 못 가립니다."</p>
+    <p>"무엇보다, 이 프로젝트의 무게중심은 화려한 모델이 아니라 <b>9년치 원문을 믿을 수 있는 데이터로 만드는 과정</b>에 있었습니다. 감사합니다."</p>
+  </div>
+
+  <!-- QA -->
+  <h2><span class="tag">질의응답 대비</span>예상 질문 &amp; 답</h2>
+  <div class="qa">
+    <h3>Q. 데이터가 인벤 한 곳이면 신뢰할 수 있나요?</h3>
+    <p>공식 공지 3개 회차로 스팟체크했고 정규 보상은 모두 일치했습니다. 이벤트 연동 일회성 보상은 원문에 빠지기도 해서, 분석 범위를 "정규 선데이메이플 보상"으로 명시했습니다.</p>
+    <h3>Q. 180일 게이트는 결과를 보고 맞춘 거 아닌가요?</h3>
+    <p>아닙니다. 활성 후보는 112일 이하, 휴면 후보는 329일 이상으로 갈렸고 그 사이 빈 구간에서 180일을 잡았습니다. 6-14 정답과는 독립적입니다.</p>
+    <h3>Q. 정확도가 0.45면 낮은 것 아닌가요?</h3>
+    <p>매 회차 후보군에서 실제 보상을 하나라도 맞히는 비율이고, 베이스라인 0.36 대비 의미 있게 높습니다. 보상 종류가 많고 운영 편성이 개입하는 문제라 절대 수치보다 baseline 대비 개선이 핵심입니다.</p>
+    <h3>Q. 왜 예측을 보조 목표라고 하나요?</h3>
+    <p>이 과제의 평가 핵심이 수집·전처리·EDA의 완성도이기 때문입니다. 예측은 그 위에서 데이터가 쓸모 있음을 보여주는 응용입니다.</p>
+    <h3>Q. 노트북이 7개던데 발표는 왜 1개인가요?</h3>
+    <p>파이프라인은 단계별 재현성을 위해 7개로 분리했고(수집→전처리→교차검증→EDA→예측), 발표용으로는 그 흐름을 한 노트북에서 라이브로 보여주는 08을 따로 만들었습니다.</p>
+  </div>
+
+  <p class="foot">
+    이 스크립트는 <code>notebooks/08_presentation.ipynb</code>의 섹션 순서와 <code>outputs/report/final_report.md</code>의 확정 수치에 맞춰 작성됨.
+    수치는 노트북 재실행 시 동일하게 재현되며, 발표 직전 한 번 전체 실행을 권장.
+  </p>
+
+</div>
+</body>
+</html>

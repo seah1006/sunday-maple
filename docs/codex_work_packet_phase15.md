@@ -59,9 +59,9 @@
 
 ## 작업 3 — 인쇄용 HTML 재생성 (`outputs/report/`)
 
-**수정 대상**: `outputs/report/final_report.html` (루트 `build_html.py`로 재생성).
+**수정 대상**: `outputs/report/final_report.html` (`outputs/report/build_html.py`로 재생성).
 
-**변경 목표**: 작업 1의 새 리포트를 반영해 `python build_html.py`(기존 스크립트) 재실행. 그림 base64 내장 방식 유지. 새 절이 HTML에 반영됐는지 확인.
+**변경 목표**: 작업 1의 새 리포트를 반영해 `outputs/report/build_html.py`(기존 스크립트) 재실행. 그림 base64 내장 방식 유지. 새 절이 HTML에 반영됐는지 확인.
 
 **검증 요구사항**: HTML 재생성 성공, 새 §6 포함, 기존 그림 7개 내장 유지.
 

@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.predict_dataset import FEATURE_COLUMNS, build_inference_frame, build_prediction_frame
+from src.predict_dataset import DOMAIN_DISCONTINUED, FEATURE_COLUMNS, build_inference_frame, build_prediction_frame
 
 
 def _tidy(rows):
@@ -167,7 +167,7 @@ def test_inference_frame_shape_and_no_target():
         ]
     )
 
-    result = build_inference_frame(tidy, target_date="2024-02-04", top_n=3)
+    result = build_inference_frame(tidy, target_date="2024-02-04", top_n=3, recency_gate_days=None)
 
     assert len(result) == 3
     assert list(result.columns) == ["date", "reward_norm", *FEATURE_COLUMNS]
@@ -189,7 +189,14 @@ def test_inference_matches_training_features_at_same_asof():
     d_last = pd.Timestamp("2024-01-28")
 
     training = build_prediction_frame(tidy, top_n=3, roll_k=2, candidate_cutoff="2024-01-22")
-    inference = build_inference_frame(tidy, target_date=d_last, top_n=3, roll_k=2, candidate_cutoff="2024-01-22")
+    inference = build_inference_frame(
+        tidy,
+        target_date=d_last,
+        top_n=3,
+        roll_k=2,
+        candidate_cutoff="2024-01-22",
+        recency_gate_days=None,
+    )
     training_last = (
         training.loc[training["date"] == d_last, ["reward_norm", *FEATURE_COLUMNS]]
         .sort_values("reward_norm")
@@ -215,7 +222,7 @@ def test_inference_uses_only_past_of_target():
         ]
     )
 
-    result = build_inference_frame(tidy, target_date="2024-01-21", top_n=2)
+    result = build_inference_frame(tidy, target_date="2024-01-21", top_n=2, recency_gate_days=None)
     a_row = result.loc[result["reward_norm"] == "A"].iloc[0]
     b_row = result.loc[result["reward_norm"] == "B"].iloc[0]
 
@@ -243,6 +250,74 @@ def test_inference_candidate_cutoff_consistency():
     )
 
     training = build_prediction_frame(tidy, top_n=2, candidate_cutoff="2024-01-22")
-    inference = build_inference_frame(tidy, target_date="2024-02-25", top_n=2, candidate_cutoff="2024-01-22")
+    inference = build_inference_frame(
+        tidy,
+        target_date="2024-02-25",
+        top_n=2,
+        candidate_cutoff="2024-01-22",
+        recency_gate_days=None,
+    )
 
     assert set(inference["reward_norm"].unique()) == set(training["reward_norm"].unique())
+
+
+def test_inference_recency_gate_excludes_stale_candidate():
+    tidy = _tidy(
+        [
+            ("2023-01-01", "A", "cat1"),
+            ("2023-01-08", "A", "cat1"),
+            ("2024-12-01", "B", "cat2"),
+            ("2024-12-08", "B", "cat2"),
+        ]
+    )
+
+    result = build_inference_frame(tidy, target_date="2025-05-18", top_n=2, recency_gate_days=180)
+
+    assert "A" not in set(result["reward_norm"])
+    assert "B" in set(result["reward_norm"])
+
+
+def test_inference_recency_gate_keeps_recent_candidate():
+    tidy = _tidy(
+        [
+            ("2025-01-05", "A", "cat1"),
+            ("2025-01-12", "A", "cat1"),
+            ("2025-05-04", "B", "cat2"),
+        ]
+    )
+
+    result = build_inference_frame(tidy, target_date="2025-06-29", top_n=2, recency_gate_days=180)
+
+    assert "B" in set(result["reward_norm"])
+
+
+def test_inference_domain_discontinued_excludes_candidate():
+    reward = next(iter(DOMAIN_DISCONTINUED))
+    tidy = _tidy(
+        [
+            ("2025-05-04", reward, "cat1"),
+            ("2025-05-11", reward, "cat1"),
+            ("2025-05-18", "A", "cat2"),
+        ]
+    )
+
+    result = build_inference_frame(tidy, target_date="2025-06-29", top_n=2, recency_gate_days=180)
+
+    assert reward not in set(result["reward_norm"])
+
+
+def test_inference_recency_gate_uses_only_before_target():
+    tidy = _tidy(
+        [
+            ("2024-01-07", "A", "cat1"),
+            ("2024-01-14", "A", "cat1"),
+            ("2025-06-29", "A", "cat1"),
+            ("2025-07-06", "A", "cat1"),
+            ("2025-05-04", "B", "cat2"),
+        ]
+    )
+
+    result = build_inference_frame(tidy, target_date="2025-06-29", top_n=2, recency_gate_days=180)
+
+    assert "A" not in set(result["reward_norm"])
+    assert "B" in set(result["reward_norm"])

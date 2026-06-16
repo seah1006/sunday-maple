@@ -19,6 +19,9 @@ FEATURE_COLUMNS = [
     "weekofyear",
 ]
 
+DEFAULT_RECENCY_GATE_DAYS = 180
+DOMAIN_DISCONTINUED = {"스타포스_1+1강화"}
+
 
 def _eligible_rows(tidy: pd.DataFrame) -> pd.DataFrame:
     required = {"date", "reward_norm", "category", "is_future", "no_event_week"}
@@ -47,6 +50,37 @@ def _candidate_rewards(eligible: pd.DataFrame, top_n: int) -> list[str]:
         .sort_values(["count", "reward_norm"], ascending=[False, True], kind="mergesort")
     )
     return counts["reward_norm"].head(top_n).tolist()
+
+
+def gate_candidates(
+    eligible: pd.DataFrame,
+    candidates: list[str],
+    target_date: pd.Timestamp | str,
+    recency_gate_days: int | None = DEFAULT_RECENCY_GATE_DAYS,
+    domain_discontinued: set[str] | frozenset[str] | None = None,
+) -> list[str]:
+    target = pd.to_datetime(target_date)
+    discontinued = DOMAIN_DISCONTINUED if domain_discontinued is None else set(domain_discontinued)
+    observed = eligible.drop_duplicates(["date", "reward_norm"])
+    result = []
+
+    for reward in candidates:
+        if reward in discontinued:
+            continue
+        if recency_gate_days is None:
+            result.append(reward)
+            continue
+        prior_dates = observed.loc[
+            (observed["reward_norm"] == reward) & (observed["date"] < target),
+            "date",
+        ]
+        if prior_dates.empty:
+            continue
+        days_since_last = int((target - prior_dates.max()).days)
+        if days_since_last <= recency_gate_days:
+            result.append(reward)
+
+    return result
 
 
 def _category_map(eligible: pd.DataFrame) -> dict[str, object]:
@@ -136,6 +170,8 @@ def build_inference_frame(
     top_n: int = 20,
     roll_k: int = 5,
     candidate_cutoff: pd.Timestamp | str | None = None,
+    recency_gate_days: int | None = DEFAULT_RECENCY_GATE_DAYS,
+    domain_discontinued: set[str] | frozenset[str] | None = None,
 ) -> pd.DataFrame:
     if roll_k < 1:
         raise ValueError("roll_k must be >= 1")
@@ -153,7 +189,13 @@ def build_inference_frame(
         if candidate_source.empty:
             raise ValueError("candidate_cutoff leaves no eligible rows for candidate selection")
 
-    candidates = _candidate_rewards(candidate_source, top_n)
+    candidates = gate_candidates(
+        eligible,
+        _candidate_rewards(candidate_source, top_n),
+        target,
+        recency_gate_days=recency_gate_days,
+        domain_discontinued=domain_discontinued,
+    )
     categories = _category_map(eligible)
     observed = eligible.drop_duplicates(["date", "reward_norm"])
     prior_dates_index = pd.Index(sorted(observed.loc[observed["date"] < target, "date"].drop_duplicates()), name="date")
