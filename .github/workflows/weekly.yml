@@ -13,10 +13,6 @@ jobs:
   collect:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      VISION_API_KEY: ${{ secrets.VISION_API_KEY }}
-      VISION_PROVIDER: gemini
-      VISION_MODEL: gemini-3.5-flash-lite
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,6 +26,10 @@ jobs:
           key: vision-${{ runner.os }}-${{ github.run_id }}
           restore-keys: vision-${{ runner.os }}-
       - run: python -m src.weekly collect
+        env:
+          VISION_API_KEY: ${{ secrets.VISION_API_KEY }}
+          VISION_PROVIDER: gemini
+          VISION_MODEL: gemini-3.5-flash-lite
       - name: 미검토 데이터 PR 생성
         env:
           GH_TOKEN: ${{ github.token }}

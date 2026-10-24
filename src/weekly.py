@@ -13,6 +13,19 @@ from src.site_data import export_site_data, _clean
 from src.vision import load_env, cached_extract_rewards, PROMPT_VERSION
 
 
+def notice_review_summary(notice, detail, images, saved):
+    lines = [f'## {notice.id} {notice.start_date} {notice.title}', '', f'공지: {notice.url}', f'프롬프트: {PROMPT_VERSION}', '']
+    lines += [f'이미지: [{index}]({url})' for index, url in enumerate(detail.image_urls, 1)]
+    lines += [f'원본: {image.as_posix()}' for image in images]
+    lines += ['', '| 원문 | 정규화 | scope | 검토 |', '|---|---|---|---|']
+    for row in saved.itertuples():
+        norm = row.reward_norm if pd.notna(row.reward_norm) else '미등록'
+        lines.append(f'| {row.reward_raw.replace(chr(124), chr(47))} | {norm} | {row.scope} | 미검토 |')
+    unmapped = saved.loc[saved.reward_norm.isna()]
+    lines += ['', '미등록: ' + (', '.join(unmapped.reward_raw) if len(unmapped) else '없음'), '정정문: ' + (detail.correction_text or '없음'), '', 'PR 브랜치에서 이미지와 대조하고 미등록·오인식 행을 먼저 수정한 뒤 승인하세요.', '```sh', f'python -m src.weekly approve --notice-ids {notice.id} --review-method image_checked', '```', 'Windows 로컬에서는 python 대신 py를 사용하세요. 사용자 승인 후에만 머지하며 자동 머지하지 않습니다.', '']
+    return lines
+
+
 def collect(official_path='data/observations/official.csv'):
     path = Path(official_path)
     existing = pd.read_csv(path) if path.exists() else pd.DataFrame(columns=['notice_id', 'reward_norm'])
@@ -34,14 +47,7 @@ def collect(official_path='data/observations/official.csv'):
         rows = cached_extract_rewards(notice.id, [image.read_bytes() for image in images], detail.correction_text, provider=os.environ.get('VISION_PROVIDER', 'gemini'), model=os.environ.get('VISION_MODEL', 'gemini-3.5-flash-lite'), api_key=os.environ['VISION_API_KEY'])
         known = set(pd.read_csv('data/processed/tidy_rewards.csv').reward_norm.dropna()) | set(existing.reward_norm.dropna())
         saved = store_extracted(notice, rows, provider=os.environ.get('VISION_PROVIDER', 'gemini'), model=os.environ.get('VISION_MODEL', 'gemini-3.5-flash-lite'), out_dir=path.parent, known_rewards=known)
-        summary += [f'## {notice.id} {notice.start_date} {notice.title}', '', f'공지: {notice.url}', f'프롬프트: {PROMPT_VERSION}', '']
-        summary += [f'이미지: {url}' for url in detail.image_urls]
-        summary += [f'원본: {image.as_posix()}' for image in images]
-        summary += ['', '| 원문 | 정규화 | scope | 검토 |', '|---|---|---|---|']
-        for row in saved.itertuples():
-            summary.append(f'| {row.reward_raw.replace(chr(124), chr(47))} | {row.reward_norm or "미등록"} | {row.scope} | 미검토 |')
-        unmapped = saved.loc[saved.reward_norm.isna()]
-        summary += ['', '미등록: ' + (', '.join(unmapped.reward_raw) if len(unmapped) else '없음'), '정정문: ' + (detail.correction_text or '없음'), '']
+        summary += notice_review_summary(notice, detail, images, saved)
     text = '\n'.join(summary) + '\n'
     output = Path('data/interim/weekly_summary.md')
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -126,7 +132,7 @@ def main(argv=None):
     commands.add_parser('forecast')
     commands.add_parser('score')
     approval = commands.add_parser('approve')
-    approval.add_argument('--pr-rows', type=int, nargs='+', required=True)
+    approval.add_argument('--pr-rows', '--notice-ids', dest='pr_rows', type=int, nargs='+', required=True)
     approval.add_argument('--review-method', required=True)
     args = parser.parse_args(argv)
     if args.command == 'approve':

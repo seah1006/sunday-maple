@@ -39,3 +39,5 @@ web/public/data/
 # --- 비밀값 ---
 .env
 
+
+web/public/figures/

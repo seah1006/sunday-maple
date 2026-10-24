@@ -59,3 +59,35 @@ def test_collect_no_new_does_not_call_vision(tmp_path, monkeypatch):
     monkeypatch.setattr(weekly, 'list_sunday_notices', lambda **kwargs: [])
     monkeypatch.setattr(weekly, 'load_env', lambda: pytest.fail('새 공지 없을 때 키를 요구하면 안 됨'))
     assert collect(path) == 0
+
+
+def test_review_summary_includes_notice_image_and_approval_command():
+    from pathlib import Path
+    from types import SimpleNamespace
+    from src.weekly import notice_review_summary
+    notice = SimpleNamespace(id=1405, start_date='2026-10-25', title='썬데이 메이플', url='https://maplestory.nexon.com/News/Event/1405')
+    detail = SimpleNamespace(image_urls=['https://lwi.nexon.com/notice.png'], correction_text='200% → 100%')
+    rows = pd.DataFrame({'reward_raw':['룬 경험치'], 'reward_norm':['룬_경험치버프'], 'scope':['all']})
+    text = '\n'.join(notice_review_summary(notice, detail, [Path('raw.png')], rows))
+    assert '1405' in text
+    assert '[1](https://lwi.nexon.com/notice.png)' in text
+    assert 'python -m src.weekly approve --notice-ids 1405 --review-method image_checked' in text
+    assert '자동 머지하지 않습니다' in text
+
+
+@pytest.mark.parametrize('flag', ['--notice-ids', '--pr-rows'])
+def test_approve_notice_ids_alias(monkeypatch, flag):
+    from src import weekly
+    calls = []
+    monkeypatch.setattr(weekly, 'approve', lambda ids, method: calls.append((ids, method)) or 2)
+    weekly.main(['approve', flag, '1405', '1406', '--review-method', 'image_checked'])
+    assert calls == [([1405,1406], 'image_checked')]
+
+
+def test_vision_secret_is_scoped_to_collect_step():
+    from pathlib import Path
+    text = Path('.github/workflows/weekly.yml').read_text(encoding='utf-8')
+    assert '    env:\n' not in text.replace('        env:\n', '')
+    collect_step = text.split('      - run: python -m src.weekly collect')[1].split('      - name:')[0]
+    assert 'VISION_API_KEY: ${{ secrets.VISION_API_KEY }}' in collect_step
+    assert text.count('VISION_API_KEY:') == 1

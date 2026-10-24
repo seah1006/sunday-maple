@@ -1,3 +1,5 @@
+import { AboutPage } from './About'
+import { InsightsPage } from './Insights'
 import { useEffect, useState } from 'react'
 import { HashRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { loadSiteData } from './data'
@@ -19,7 +21,7 @@ export function ForecastPage({ data }: { data: SiteData }) {
 export function SiteLayout({ data }: { data: SiteData }) {
  const location=useLocation()
  useEffect(()=>{window.scrollTo(0,0)},[location.pathname])
- return <><header><NavLink className="brand" to="/">썬데이 메이플 <span>예보</span></NavLink><nav aria-label="주 메뉴"><NavLink to="/" end>예측</NavLink><NavLink to="/track">적중 기록</NavLink><NavLink to="/history">역대 이력</NavLink></nav></header><main><div className="data-badge">데이터 기준 {data.meta.data_through}<span> · 생성 {formatGeneratedAt(data.meta.generated_at)}</span></div><Routes><Route path="/" element={<ForecastPage data={data} />} /><Route path="/track" element={<TrackPage data={data} />} /><Route path="/history" element={<HistoryPage data={data} />} /><Route path="*" element={<p>찾을 수 없는 페이지입니다. 위 메뉴로 이동해 주세요.</p>} /></Routes></main><footer><strong>썬데이 메이플 예보</strong><p>넥슨과 무관한 비공식 프로젝트</p><p>출처: <a href="https://www.inven.co.kr/board/maple/2304/20563" target="_blank" rel="noreferrer">인벤 역대 썬데이메이플 정리</a> · <a href="https://maplestory.nexon.com/News/Event" target="_blank" rel="noreferrer">메이플스토리 공식 공지</a></p></footer></>
+ return <><header><NavLink className="brand" to="/">썬데이 메이플 <span>예보</span></NavLink><nav aria-label="주 메뉴"><NavLink to="/" end>예측</NavLink><NavLink to="/track">적중 기록</NavLink><NavLink to="/history">역대 이력</NavLink><NavLink to="/insights">분석 요약</NavLink><NavLink to="/about">방법론</NavLink></nav></header><main><div className="data-badge">데이터 기준 {data.meta.data_through}<span> · 생성 {formatGeneratedAt(data.meta.generated_at)}</span></div><Routes><Route path="/" element={<ForecastPage data={data} />} /><Route path="/track" element={<TrackPage data={data} />} /><Route path="/history" element={<HistoryPage data={data} />} /><Route path="/insights" element={<InsightsPage />} /><Route path="/about" element={<AboutPage data={data} />} /><Route path="*" element={<p>찾을 수 없는 페이지입니다. 위 메뉴로 이동해 주세요.</p>} /></Routes></main><footer><strong>썬데이 메이플 예보</strong><p>넥슨과 무관한 비공식 프로젝트</p><p>출처: <a href="https://www.inven.co.kr/board/maple/2304/20563" target="_blank" rel="noreferrer">인벤 역대 썬데이메이플 정리</a> · <a href="https://maplestory.nexon.com/News/Event" target="_blank" rel="noreferrer">메이플스토리 공식 공지</a></p></footer></>
 }
 
 export default function App() {
