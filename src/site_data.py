@@ -61,8 +61,8 @@ def export_site_data(out="data/site", target_date=None, skip_prophet=False):
     rewards = []
     for reward, group in analysis.groupby("reward_norm", sort=True):
         categories = group.category.dropna().mode()
-        rewards.append({"reward_norm": reward, "category": categories.iloc[0] if len(categories) else None, "appearances": len(group), "first_seen": group.date.min(), "last_seen": group.date.max(), "median_cycle_days": group.cycle_days.median(), "is_discontinued": bool(group.is_discontinued.fillna(False).any())})
-    payloads = {"meta": meta, "forecast": {"target_date": target, "classifier": classifier.to_dict("records"), "prophet": prophet, "excluded": excluded}, "backtest": {"split_cutoff": SPLIT_CUTOFF, "metrics": metrics.to_dict("records"), "per_date": per_date.rename(columns={"rf_top": "predicted", "rf_hit": "hit"}).to_dict("records")}, "history": history[::-1], "rewards": rewards}
+        rewards.append({"reward_norm": reward, "category": categories.iloc[0] if len(categories) else None, "appearances": group.date.nunique(), "first_seen": group.date.min(), "last_seen": group.date.max(), "median_cycle_days": group.cycle_days.median(), "is_discontinued": bool(group.is_discontinued.fillna(False).any())})
+    payloads = {"meta": meta, "forecast": {"target_date": target, "classifier": classifier.to_dict("records"), "prophet": prophet, "excluded": excluded}, "backtest": {"split_cutoff": SPLIT_CUTOFF, "metrics": metrics.to_dict("records"), "per_date": per_date.assign(rf_hit=per_date.rf_hit.astype("Int64")).rename(columns={"rf_top": "predicted", "rf_hit": "hit"}).to_dict("records")}, "history": history[::-1], "rewards": rewards}
     output = Path(out)
     output.mkdir(parents=True, exist_ok=True)
     for name, payload in payloads.items():

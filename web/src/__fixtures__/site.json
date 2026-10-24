@@ -1,0 +1,370 @@
+{
+  "backtest": {
+    "split_cutoff": "2025-01-01",
+    "metrics": [
+      {
+        "method": "gap_rule",
+        "label": "간격규칙",
+        "accuracy": 0.416,
+        "f1": 0.201,
+        "roc_auc": 0.52,
+        "date_hit_rate": 0.348
+      },
+      {
+        "method": "prior_rate",
+        "label": "사전확률",
+        "accuracy": 0.888,
+        "f1": 0.0,
+        "roc_auc": 0.701,
+        "date_hit_rate": 0.362
+      },
+      {
+        "method": "logistic",
+        "label": "로지스틱",
+        "accuracy": 0.532,
+        "f1": 0.298,
+        "roc_auc": 0.748,
+        "date_hit_rate": 0.391
+      },
+      {
+        "method": "random_forest",
+        "label": "랜덤포레스트",
+        "accuracy": 0.755,
+        "f1": 0.278,
+        "roc_auc": 0.731,
+        "date_hit_rate": 0.449
+      },
+      {
+        "method": "prophet",
+        "label": "Prophet",
+        "accuracy": null,
+        "f1": null,
+        "roc_auc": null,
+        "date_hit_rate": 0.42
+      }
+    ],
+    "per_date": [
+      {
+        "date": "2026-05-31",
+        "actual": [
+          "스타포스_비용할인"
+        ],
+        "predicted": [
+          "스타포스_1+1강화"
+        ],
+        "hit": 0
+      },
+      {
+        "date": "2026-06-07",
+        "actual": [
+          "룬_경험치버프",
+          "콤보킬_경험치"
+        ],
+        "predicted": [
+          "스타포스_1+1강화",
+          "스타포스_성공확률"
+        ],
+        "hit": 0
+      }
+    ]
+  },
+  "forecast": {
+    "target_date": "2026-06-21",
+    "classifier": [
+      {
+        "rank": 1,
+        "reward_norm": "몬스터컬렉션",
+        "category": "수집기타",
+        "score": 0.667,
+        "days_since_last": 119,
+        "last_seen": "2026-02-22"
+      },
+      {
+        "rank": 2,
+        "reward_norm": "스타포스_비용할인",
+        "category": "강화",
+        "score": 0.577,
+        "days_since_last": 21,
+        "last_seen": "2026-05-31"
+      },
+      {
+        "rank": 3,
+        "reward_norm": "엘리트몬스터_증가",
+        "category": "사냥효율",
+        "score": 0.463,
+        "days_since_last": 119,
+        "last_seen": "2026-02-22"
+      },
+      {
+        "rank": 4,
+        "reward_norm": "주문의흔적_비용할인",
+        "category": "강화",
+        "score": 0.453,
+        "days_since_last": 63,
+        "last_seen": "2026-04-19"
+      },
+      {
+        "rank": 5,
+        "reward_norm": "어빌리티_재설정할인",
+        "category": "강화",
+        "score": 0.447,
+        "days_since_last": 35,
+        "last_seen": "2026-05-17"
+      },
+      {
+        "rank": 6,
+        "reward_norm": "미라클타임",
+        "category": "강화",
+        "score": 0.256,
+        "days_since_last": 42,
+        "last_seen": "2026-05-10"
+      },
+      {
+        "rank": 7,
+        "reward_norm": "몬스터파크_경험치",
+        "category": "성장",
+        "score": 0.25,
+        "days_since_last": 7,
+        "last_seen": "2026-06-14"
+      },
+      {
+        "rank": 8,
+        "reward_norm": "룬_경험치버프",
+        "category": "성장",
+        "score": 0.23,
+        "days_since_last": 14,
+        "last_seen": "2026-06-07"
+      },
+      {
+        "rank": 9,
+        "reward_norm": "콤보킬_경험치",
+        "category": "성장",
+        "score": 0.23,
+        "days_since_last": 14,
+        "last_seen": "2026-06-07"
+      },
+      {
+        "rank": 10,
+        "reward_norm": "위대한소울_확률",
+        "category": "수집기타",
+        "score": 0.217,
+        "days_since_last": 35,
+        "last_seen": "2026-05-17"
+      }
+    ],
+    "prophet": [
+      {
+        "reward_norm": "몬스터파크_경험치",
+        "yhat": 0.402,
+        "rank": 1
+      },
+      {
+        "reward_norm": "주문의흔적_비용할인",
+        "yhat": 0.33,
+        "rank": 2
+      },
+      {
+        "reward_norm": "룬_경험치버프",
+        "yhat": 0.318,
+        "rank": 3
+      },
+      {
+        "reward_norm": "콤보킬_경험치",
+        "yhat": 0.281,
+        "rank": 4
+      },
+      {
+        "reward_norm": "스타포스_비용할인",
+        "yhat": 0.157,
+        "rank": 5
+      },
+      {
+        "reward_norm": "어빌리티_재설정할인",
+        "yhat": 0.128,
+        "rank": 6
+      },
+      {
+        "reward_norm": "엘리트몬스터_증가",
+        "yhat": 0.127,
+        "rank": 7
+      },
+      {
+        "reward_norm": "몬스터컬렉션",
+        "yhat": 0.113,
+        "rank": 8
+      },
+      {
+        "reward_norm": "미라클타임",
+        "yhat": 0.061,
+        "rank": 9
+      },
+      {
+        "reward_norm": "위대한소울_확률",
+        "yhat": 0.045,
+        "rank": 10
+      }
+    ],
+    "excluded": [
+      {
+        "reward_norm": "스타포스_1+1강화",
+        "reason": "domain_discontinued"
+      },
+      {
+        "reward_norm": "스타포스_성공확률",
+        "reason": "recency_gate"
+      },
+      {
+        "reward_norm": "불꽃늑대_경험치",
+        "reason": "recency_gate"
+      },
+      {
+        "reward_norm": "현상금_경험치",
+        "reason": "recency_gate"
+      },
+      {
+        "reward_norm": "심볼교환권_지급",
+        "reason": "recency_gate"
+      },
+      {
+        "reward_norm": "경험치쿠폰_지급",
+        "reason": "recency_gate"
+      },
+      {
+        "reward_norm": "경험치_배수버프",
+        "reason": "recency_gate"
+      },
+      {
+        "reward_norm": "성장의비약_지급",
+        "reason": "recency_gate"
+      },
+      {
+        "reward_norm": "아케인리버_보상",
+        "reason": "recency_gate"
+      },
+      {
+        "reward_norm": "돌발미션",
+        "reason": "recency_gate"
+      }
+    ]
+  },
+  "history": [
+    {
+      "date": "2026-06-14",
+      "event_context": null,
+      "is_special": false,
+      "rewards": [
+        {
+          "reward_raw": null,
+          "reward_norm": "몬스터파크_경험치",
+          "category": "성장"
+        },
+        {
+          "reward_raw": null,
+          "reward_norm": "선물_기타지급",
+          "category": "수집기타"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-07",
+      "event_context": "메이플 어택!",
+      "is_special": false,
+      "rewards": [
+        {
+          "reward_raw": "룬 재등장 및 재사용 대기시간 감소",
+          "reward_norm": "룬_재등장감소",
+          "category": "성장"
+        },
+        {
+          "reward_raw": "룬 경험치 버프 효과 +100%",
+          "reward_norm": "룬_경험치버프",
+          "category": "성장"
+        },
+        {
+          "reward_raw": "콤보킬 경험치 획득량 +300%",
+          "reward_norm": "콤보킬_경험치",
+          "category": "성장"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-31",
+      "event_context": "메이플 어택!",
+      "is_special": true,
+      "rewards": [
+        {
+          "reward_raw": "스타포스 강화 비용 30% 할인",
+          "reward_norm": "스타포스_비용할인",
+          "category": "강화"
+        },
+        {
+          "reward_raw": "21성 이하에서 스타포스 강화 시 파괴 확률 30% 감소",
+          "reward_norm": "스타포스_파괴방지",
+          "category": "강화"
+        },
+        {
+          "reward_raw": "흔적 복구 비용 20% 할인",
+          "reward_norm": "흔적복구_비용할인",
+          "category": "강화"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "generated_at": "2026-10-24T00:30:33.838393+00:00",
+    "data_through": "2026-06-14",
+    "backtest_data_through": "2026-06-07",
+    "target_date": "2026-06-21",
+    "sources": [
+      {
+        "name": "인벤 역대 썬데이메이플 정리",
+        "url": "https://www.inven.co.kr/board/maple/2304/20563",
+        "fetched_at": "2026-06-10T06:08:50.763291+00:00"
+      },
+      {
+        "name": "수동 관측(공식 공지 확인)",
+        "path": "data/interim/manual_obs_20260614.csv"
+      }
+    ],
+    "split_cutoff": "2025-01-01",
+    "random_seed": 42
+  },
+  "rewards": [
+    {
+      "reward_norm": "HEXA스탯_강화확률",
+      "category": "강화",
+      "appearances": 8,
+      "first_seen": "2024-07-21",
+      "last_seen": "2026-04-19",
+      "median_cycle_days": 91.0,
+      "is_discontinued": false
+    },
+    {
+      "reward_norm": "VIP부스터_지급",
+      "category": "수집기타",
+      "appearances": 4,
+      "first_seen": "2024-03-10",
+      "last_seen": "2024-12-08",
+      "median_cycle_days": 91.0,
+      "is_discontinued": true
+    },
+    {
+      "reward_norm": "경험치_배수버프",
+      "category": "성장",
+      "appearances": 7,
+      "first_seen": "2018-04-29",
+      "last_seen": "2022-09-11",
+      "median_cycle_days": 161.0,
+      "is_discontinued": true
+    },
+    {
+      "reward_norm": "경험치쿠폰_지급",
+      "category": "성장",
+      "appearances": 20,
+      "first_seen": "2017-04-16",
+      "last_seen": "2024-02-11",
+      "median_cycle_days": 56.0,
+      "is_discontinued": true
+    }
+  ]
+}

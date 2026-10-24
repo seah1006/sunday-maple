@@ -47,7 +47,7 @@
   {
     "reward_norm": "돌발미션",
     "category": "사냥효율",
-    "appearances": 18,
+    "appearances": 8,
     "first_seen": "2017-03-12",
     "last_seen": "2019-07-07",
     "median_cycle_days": 140.0,
@@ -56,7 +56,7 @@
   {
     "reward_norm": "룬_경험치버프",
     "category": "성장",
-    "appearances": 90,
+    "appearances": 88,
     "first_seen": "2017-03-26",
     "last_seen": "2026-06-07",
     "median_cycle_days": 28.0,
@@ -92,7 +92,7 @@
   {
     "reward_norm": "몬스터컬렉션",
     "category": "수집기타",
-    "appearances": 78,
+    "appearances": 40,
     "first_seen": "2017-12-10",
     "last_seen": "2026-02-22",
     "median_cycle_days": 63.0,
@@ -101,7 +101,7 @@
   {
     "reward_norm": "몬스터파크_경험치",
     "category": "성장",
-    "appearances": 84,
+    "appearances": 83,
     "first_seen": "2018-10-07",
     "last_seen": "2026-06-14",
     "median_cycle_days": 21.0,
@@ -119,7 +119,7 @@
   {
     "reward_norm": "버닝",
     "category": "성장",
-    "appearances": 7,
+    "appearances": 5,
     "first_seen": "2017-04-09",
     "last_seen": "2024-08-18",
     "median_cycle_days": 168.0,
@@ -146,7 +146,7 @@
   {
     "reward_norm": "선물_기타지급",
     "category": "수집기타",
-    "appearances": 6,
+    "appearances": 5,
     "first_seen": "2022-09-18",
     "last_seen": "2026-06-14",
     "median_cycle_days": 469.0,
@@ -173,7 +173,7 @@
   {
     "reward_norm": "솔에르다_접속지급",
     "category": "수집기타",
-    "appearances": 9,
+    "appearances": 5,
     "first_seen": "2023-12-31",
     "last_seen": "2026-02-08",
     "median_cycle_days": 189.0,
@@ -272,7 +272,7 @@
   {
     "reward_norm": "우르스",
     "category": "성장",
-    "appearances": 4,
+    "appearances": 2,
     "first_seen": "2018-04-01",
     "last_seen": "2018-10-28",
     "median_cycle_days": 210.0,
@@ -362,7 +362,7 @@
   {
     "reward_norm": "파티퀘스트",
     "category": "사냥효율",
-    "appearances": 2,
+    "appearances": 1,
     "first_seen": "2018-04-08",
     "last_seen": "2018-04-08",
     "median_cycle_days": null,

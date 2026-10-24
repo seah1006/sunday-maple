@@ -31,3 +31,11 @@ data/interim/*
 # --- 대용량/임시 ---
 *.log
 *.tmp
+
+web/node_modules/
+web/dist/
+web/public/data/
+
+# --- 비밀값 ---
+.env
+

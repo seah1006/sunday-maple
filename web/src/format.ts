@@ -1,0 +1,5 @@
+export const displayName = (rewardNorm: string) => rewardNorm.replaceAll('_', ' ')
+export const formatScore = (score: number) => (score * 100).toFixed(1)
+export const formatDate = (date: string) => date.slice(0, 10)
+export const daysAgo = (date: string, reference: string) => Math.floor((Date.parse(reference) - Date.parse(date)) / 86400000)
+export const formatGeneratedAt = (date: string) => new Intl.DateTimeFormat('ko-KR', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Seoul' }).format(new Date(date))

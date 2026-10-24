@@ -147,6 +147,18 @@ jupyter notebook   # 또는 jupyter lab
 
 주요 의존성: `requests`, `beautifulsoup4`, `pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `mlxtend`. (동적 페이지 수집이 필요하면 `selenium` 또는 `playwright` 추가)
 
+### 프론트엔드 로컬 실행
+
+```powershell
+cd web
+npm install
+npm run dev
+npm run lint
+npm run test -- --run
+npm run build
+npm run preview
+```
+
 ## 테스트
 
 파싱 로직이 프로젝트의 핵심이므로 `src/parse.py`의 함수는 단위 테스트로 검증한다.
