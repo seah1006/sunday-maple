@@ -22,7 +22,7 @@
       "label": "로지스틱",
       "accuracy": 0.532,
       "f1": 0.298,
-      "roc_auc": 0.748,
+      "roc_auc": 0.749,
       "date_hit_rate": 0.391
     },
     {
