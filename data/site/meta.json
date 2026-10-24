@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-10-24T00:19:41.319379+00:00",
+  "data_through": "2026-06-14",
+  "backtest_data_through": "2026-06-07",
+  "target_date": "2026-06-21",
+  "sources": [
+    {
+      "name": "인벤 역대 썬데이메이플 정리",
+      "url": "https://www.inven.co.kr/board/maple/2304/20563",
+      "fetched_at": "2026-06-10T06:08:50.763291+00:00"
+    },
+    {
+      "name": "수동 관측(공식 공지 확인)",
+      "path": "data/interim/manual_obs_20260614.csv"
+    }
+  ],
+  "split_cutoff": "2025-01-01",
+  "random_seed": 42
+}
