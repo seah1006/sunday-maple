@@ -24,7 +24,8 @@
 
 ### 비전 모델
 
-- 제공사·모델은 **사용자 승인 대기**다. 코드는 제공사 독립 인터페이스로 만들고, HTTP는 `requests`로 직접 호출한다(SDK 의존성 추가 금지).
+- **제공사: Gemini 무료 티어 (사용자 결정 2026-10-24).** 기본 모델 `gemini-3.5-flash-lite`(가격 페이지에서 무료 티어 입력 "Free of charge", 유료 $0.30/1M 확인). 검증셋 정확도가 낮으면 같은 무료 티어인 `gemini-3.8-flash`와 비교한다. 호출은 Gemini REST `generateContent`(이미지 inline base64, `responseMimeType: application/json`). 어댑터는 gemini만 실구현하고, 다른 제공사는 같은 인터페이스에 나중에 추가할 수 있게만 둔다(anthropic/openai 어댑터는 만들지 않는다). HTTP는 `requests`로 직접 호출한다(SDK 의존성 추가 금지).
+- 무료 티어는 분당 요청 제한이 있을 수 있다. 429 응답이면 `Retry-After` 또는 30초 대기 후 최대 3회 재시도하고, 이미지 간 기본 간격은 5초.
 - 키는 환경변수 `VISION_API_KEY`, 제공사는 `VISION_PROVIDER`(`gemini` | `anthropic` | `openai`), 모델은 `VISION_MODEL`. 로컬은 저장소 루트 `.env`(gitignore)에서 읽는 30줄 이내 로더를 직접 만든다(python-dotenv 금지).
 - **키가 없으면 실호출 단계(작업 5, 6)는 건너뛰고** handoff에 남긴다. 나머지는 목(mock) 테스트로 완료한다.
 
@@ -57,10 +58,10 @@
 
 - `extract_rewards(image_bytes, correction_text, *, provider, model, api_key) -> list[dict]`. 반환 `[{ "reward_raw": "몬스터파크 클리어 경험치 추가 250%" }]`.
 - 프롬프트(한국어): "썬데이 메이플 공지 이미지에서 혜택 블록의 큰 제목 줄만, 이미지에 적힌 그대로 JSON 배열로. 설명·주의사항·계산표·버튼 문구 제외. 정정 텍스트가 주어지면 그 수치를 우선." 응답은 JSON만 받도록 지정하고 파싱 실패 시 1회 재시도.
-- 제공사별 어댑터 3개(gemini/anthropic/openai)는 각 REST 형식으로 `requests.post`. 이미지는 base64.
+- gemini 어댑터를 `requests.post`로 구현. 이미지는 base64. 제공사 선택은 딕셔너리 디스패치 하나로(어댑터 하나만 등록).
 - 캐시: `data/interim/vision_cache/{id}_{model}.json`(gitignore 대상 `data/interim/*` 안이라 자동 무시). 같은 이미지·모델은 다시 호출하지 않는다.
 - 호출마다 입력/출력 토큰 수(응답에 있으면)를 캐시에 기록.
-- 테스트: `requests.post`를 목으로 바꿔 세 어댑터의 요청 형식과 응답 파싱, 재시도, 캐시 적중 검증.
+- 테스트: `requests.post`를 목으로 바꿔 gemini 어댑터의 요청 형식과 응답 파싱, JSON 파싱 실패 재시도, 429 재시도, 캐시 적중 검증.
 
 ## 작업 3 — 정규화 연결과 미등록 보상
 

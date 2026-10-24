@@ -1,0 +1,79 @@
+date,notice_id,title,is_special,reward_raw,reward_norm,category,source_url,extracted_by,reviewed,note,scope,review_method
+2026-06-14,1330,썬데이 메이플,False,몬스터파크 클리어 경험치 추가 250%,몬스터파크_경험치,성장,https://maplestory.nexon.com/News/Event/1330,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-06-14,1330,썬데이 메이플,False,썬데이 메이플 선물 지급,선물_기타지급,수집기타,https://maplestory.nexon.com/News/Event/1330,gemini:gemini-3.5-flash-lite,True,"구성품: 악몽의 메아리+ 3, VIP 사우나 이용권 4; Claude 이미지 대조 후 선물 제목으로 병합",all,image_checked
+2026-06-21,1350,스페셜 썬데이 메이플,True,트레져 헌터 경험치 3배,트레져헌터_경험치,사냥효율,https://maplestory.nexon.com/News/Event/1350,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-06-21,1350,스페셜 썬데이 메이플,True,룬 재등장 및 재사용 대기시간 감소,룬_재등장감소,성장,https://maplestory.nexon.com/News/Event/1350,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-06-21,1350,스페셜 썬데이 메이플,True,룬 경험치 버프 효과 + 100% (기본 경험치의 3배),룬_경험치버프,성장,https://maplestory.nexon.com/News/Event/1350,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-06-21,1350,스페셜 썬데이 메이플,True,콤보킬 경험치 획득량 +300%,콤보킬_경험치,성장,https://maplestory.nexon.com/News/Event/1350,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-06-21,1350,스페셜 썬데이 메이플,True,몬스터파크 클리어 경험치 추가 250%,몬스터파크_경험치,성장,https://maplestory.nexon.com/News/Event/1350,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-06-21,1350,스페셜 썬데이 메이플,True,사냥을 통해 획득할 수 있는 솔 에르다 획득량 2배 증가,솔에르다_사냥,사냥효율,https://maplestory.nexon.com/News/Event/1350,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-06-28,1352,스페셜 썬데이 메이플,True,어빌리티 재설정 비용 50% 할인,어빌리티_재설정할인,강화,https://maplestory.nexon.com/News/Event/1352,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-06-28,1352,스페셜 썬데이 메이플,True,미라클 타임,미라클타임,강화,https://maplestory.nexon.com/News/Event/1352,gemini:gemini-3.5-flash-lite,True,세부 항목: 잠재능력과 에디셔널 잠재능력 재설정 시 등급이 승급될 확률 2배!; 큐브 아이템 사용 시 잠재능력과 에디셔널 잠재능력 등급이 승급될 확률 2배!; 인벤 관례에 따라 미라클 타임 제목1행으로 병합,all,image_checked
+2026-07-05,1354,스페셜 썬데이 메이플,True,스타포스 강화 비용 30% 할인,스타포스_비용할인,강화,https://maplestory.nexon.com/News/Event/1354,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,pattern_approved
+2026-07-05,1354,스페셜 썬데이 메이플,True,21성 이하에서 스타포스 강화 시 파괴 확률 30% 감소,스타포스_파괴방지,강화,https://maplestory.nexon.com/News/Event/1354,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,pattern_approved
+2026-07-05,1354,스페셜 썬데이 메이플,True,흔적 복구 비용 20% 할인,흔적복구_비용할인,강화,https://maplestory.nexon.com/News/Event/1354,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,pattern_approved
+2026-07-12,1355,스페셜 썬데이 메이플,True,어빌리티 재설정 비용 50% 할인,어빌리티_재설정할인,강화,https://maplestory.nexon.com/News/Event/1355,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-12,1355,스페셜 썬데이 메이플,True,트레져 헌터 경험치 3배,트레져헌터_경험치,사냥효율,https://maplestory.nexon.com/News/Event/1355,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-12,1355,스페셜 썬데이 메이플,True,주문의 흔적 강화 비용 50% 할인,주문의흔적_비용할인,강화,https://maplestory.nexon.com/News/Event/1355,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-12,1355,스페셜 썬데이 메이플,True,10성 이하에서 스타포스 강화 성공 시 1+1 강화,스타포스_1+1강화,강화,https://maplestory.nexon.com/News/Event/1355,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-12,1355,스페셜 썬데이 메이플,True,몬스터파크 클리어 경험치 추가 250%,몬스터파크_경험치,성장,https://maplestory.nexon.com/News/Event/1355,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-12,1355,스페셜 썬데이 메이플,True,"[HEXA 스탯] 메인 스탯이 5레벨 이상일 때, 메인 스탯의 강화 확률 20% 증가",HEXA스탯_강화확률,강화,https://maplestory.nexon.com/News/Event/1355,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-12,1355,스페셜 썬데이 메이플,True,소울 조각 사용 시 위대한 소울 획득 확률 5배!,위대한소울_확률,수집기타,https://maplestory.nexon.com/News/Event/1355,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-12,1355,스페셜 썬데이 메이플,True,몬스터 컬렉션 신규 몬스터 등록 확률 추가 100%,몬스터컬렉션,수집기타,https://maplestory.nexon.com/News/Event/1355,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-12,1355,스페셜 썬데이 메이플,True,몬스터 컬렉션 '의문의 모몽' 3개 지급,몬스터컬렉션,수집기타,https://maplestory.nexon.com/News/Event/1355,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-12,1355,스페셜 썬데이 메이플,True,사냥 시 소환되는 엘리트 몬스터 수 증가,엘리트몬스터_증가,사냥효율,https://maplestory.nexon.com/News/Event/1355,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-19,1356,스페셜 썬데이 메이플,True,접속 시간 2분마다 솔 에르다 조각 교환권 1개 누적,솔에르다_접속지급,수집기타,https://maplestory.nexon.com/News/Event/1356,gemini:gemini-3.5-flash-lite,True,special_time_header: 솔 에르다 타임 (scope=all),all,image_checked
+2026-07-19,1356,스페셜 썬데이 메이플,True,"누적 접속 시간 2시간 달성 시, 솔 에르다 조각 교환권 10개 추가 지급",솔에르다_접속지급,수집기타,https://maplestory.nexon.com/News/Event/1356,gemini:gemini-3.5-flash-lite,True,special_time_header: 솔 에르다 타임 (scope=all),all,image_checked
+2026-07-19,1356,스페셜 썬데이 메이플,True,"누적 접속 시간 3시간 달성 시, 솔 에르다 1개 추가 지급",솔에르다_접속지급,수집기타,https://maplestory.nexon.com/News/Event/1356,gemini:gemini-3.5-flash-lite,True,special_time_header: 솔 에르다 타임 (scope=all),all,image_checked
+2026-07-19,1356,스페셜 썬데이 메이플,True,사냥을 통해 획득할 수 있는 솔 에르다 3배 증가,솔에르다_사냥,사냥효율,https://maplestory.nexon.com/News/Event/1356,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-19,1356,스페셜 썬데이 메이플,True,몬스터파크 클리어 경험치 추가 250%,몬스터파크_경험치,성장,https://maplestory.nexon.com/News/Event/1356,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-07-26,1365,스페셜 썬데이 메이플,True,트레져 헌터 경험치 3배,트레져헌터_경험치,사냥효율,https://maplestory.nexon.com/News/Event/1365,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-07-26,1365,스페셜 썬데이 메이플,True,룬 재등장 및 재사용 대기시간 감소,룬_재등장감소,성장,https://maplestory.nexon.com/News/Event/1365,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-07-26,1365,스페셜 썬데이 메이플,True,룬 경험치 버프 효과 +100%,룬_경험치버프,성장,https://maplestory.nexon.com/News/Event/1365,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-07-26,1365,스페셜 썬데이 메이플,True,콤보킬 경험치 획득량 +300%,콤보킬_경험치,성장,https://maplestory.nexon.com/News/Event/1365,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-07-26,1365,스페셜 썬데이 메이플,True,몬스터파크 클리어 경험치 추가 250% 증가,몬스터파크_경험치,성장,https://maplestory.nexon.com/News/Event/1365,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-07-26,1365,스페셜 썬데이 메이플,True,사냥을 통해 획득할 수 있는 솔 에르다 2배 증가,솔에르다_사냥,사냥효율,https://maplestory.nexon.com/News/Event/1365,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-02,1367,스페셜 썬데이 메이플,True,어빌리티 재설정 비용 50% 할인,어빌리티_재설정할인,강화,https://maplestory.nexon.com/News/Event/1367,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-02,1367,스페셜 썬데이 메이플,True,미라클 타임,미라클타임,강화,https://maplestory.nexon.com/News/Event/1367,gemini:gemini-3.5-flash-lite,True,세부 항목: 잠재능력과 에디셔널 잠재능력 재설정 시 등급이 승급될 확률 2배!; 큐브 아이템 사용 시 잠재능력과 에디셔널 잠재능력 등급이 승급될 확률 2배!; 인벤 관례에 따라 미라클 타임 제목1행으로 병합,all,pattern_approved
+2026-08-09,1368,스페셜 썬데이 메이플,True,접속 시간 2분마다 솔 에르다 조각 교환권 1개 누적,솔에르다_접속지급,수집기타,https://maplestory.nexon.com/News/Event/1368,gemini:gemini-3.5-flash-lite,True,special_time_header: 솔 에르다 타임 (scope=all),all,pattern_approved
+2026-08-09,1368,스페셜 썬데이 메이플,True,"누적 접속 시간 2시간 달성 시, 솔 에르다 조각 교환권 10개 추가 지급",솔에르다_접속지급,수집기타,https://maplestory.nexon.com/News/Event/1368,gemini:gemini-3.5-flash-lite,True,special_time_header: 솔 에르다 타임 (scope=all),all,pattern_approved
+2026-08-09,1368,스페셜 썬데이 메이플,True,"누적 접속 시간 3시간 달성 시, 솔 에르다 1개 추가 지급",솔에르다_접속지급,수집기타,https://maplestory.nexon.com/News/Event/1368,gemini:gemini-3.5-flash-lite,True,special_time_header: 솔 에르다 타임 (scope=all),all,pattern_approved
+2026-08-09,1368,스페셜 썬데이 메이플,True,사냥을 통해 획득할 수 있는 솔 에르다 3배 증가,솔에르다_사냥,사냥효율,https://maplestory.nexon.com/News/Event/1368,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-09,1368,스페셜 썬데이 메이플,True,몬스터파크 클리어 경험치 추가 250% 증가,몬스터파크_경험치,성장,https://maplestory.nexon.com/News/Event/1368,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-16,1369,스페셜 썬데이 메이플,True,스타포스 강화 비용 30% 할인,스타포스_비용할인,강화,https://maplestory.nexon.com/News/Event/1369,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,pattern_approved
+2026-08-16,1369,스페셜 썬데이 메이플,True,21성 이하에서 스타포스 강화 시 파괴 확률 30% 감소,스타포스_파괴방지,강화,https://maplestory.nexon.com/News/Event/1369,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,pattern_approved
+2026-08-16,1369,스페셜 썬데이 메이플,True,흔적 복구 비용 20% 할인,흔적복구_비용할인,강화,https://maplestory.nexon.com/News/Event/1369,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,pattern_approved
+2026-08-16,1369,스페셜 썬데이 메이플,True,"[HEXA 스탯] 메인 스탯이 5레벨 이상일 때, 메인 스탯의 강화 확률 20% 증가",HEXA스탯_강화확률,강화,https://maplestory.nexon.com/News/Event/1369,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-23,1375,썬데이 메이플,False,룬 재등장 및 재사용 대기시간 감소,룬_재등장감소,성장,https://maplestory.nexon.com/News/Event/1375,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-23,1375,썬데이 메이플,False,룬 경험치 버프 효과 +100%,룬_경험치버프,성장,https://maplestory.nexon.com/News/Event/1375,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-23,1375,썬데이 메이플,False,콤보킬 경험치 획득량 +300%,콤보킬_경험치,성장,https://maplestory.nexon.com/News/Event/1375,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-23,1375,썬데이 메이플,False,몬스터파크 클리어 경험치 추가 250% 증가,몬스터파크_경험치,성장,https://maplestory.nexon.com/News/Event/1375,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-30,1376,썬데이 메이플,False,트레저 헌터 경험치 3배,트레져헌터_경험치,사냥효율,https://maplestory.nexon.com/News/Event/1376,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-30,1376,썬데이 메이플,False,사냥을 통해 획득할 수 있는 솔 에르다 2배 증가,솔에르다_사냥,사냥효율,https://maplestory.nexon.com/News/Event/1376,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-08-30,1376,썬데이 메이플,False,주문의 흔적 강화 비용 50% 할인,주문의흔적_비용할인,강화,https://maplestory.nexon.com/News/Event/1376,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-09-06,1377,스페셜 썬데이 메이플,True,스타포스 강화 비용 30% 할인,스타포스_비용할인,강화,https://maplestory.nexon.com/News/Event/1377,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,pattern_approved
+2026-09-06,1377,스페셜 썬데이 메이플,True,21성 이하에서 스타포스 강화 시 파괴 확률 30% 감소,스타포스_파괴방지,강화,https://maplestory.nexon.com/News/Event/1377,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,pattern_approved
+2026-09-06,1377,스페셜 썬데이 메이플,True,흔적 복구 비용 20% 할인,흔적복구_비용할인,강화,https://maplestory.nexon.com/News/Event/1377,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,pattern_approved
+2026-09-13,1379,썬데이 메이플,False,룬 재 등장 및 재사용 대기시간 감소,룬_재등장감소,성장,https://maplestory.nexon.com/News/Event/1379,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-09-13,1379,썬데이 메이플,False,룬 경험치 버프 효과 +100%,룬_경험치버프,성장,https://maplestory.nexon.com/News/Event/1379,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-09-13,1379,썬데이 메이플,False,콤보킬 경험치 획득량 +300%,콤보킬_경험치,성장,https://maplestory.nexon.com/News/Event/1379,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-09-13,1379,썬데이 메이플,False,몬스터 컬렉션 신규 몬스터 등록 확률 추가 100%,몬스터컬렉션,수집기타,https://maplestory.nexon.com/News/Event/1379,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-09-13,1379,썬데이 메이플,False,몬스터 컬렉션 '의문의 모몽' 3개 지급,몬스터컬렉션,수집기타,https://maplestory.nexon.com/News/Event/1379,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-09-13,1379,썬데이 메이플,False,사냥 시 소환되는 엘리트 몬스터 수 증가,엘리트몬스터_증가,사냥효율,https://maplestory.nexon.com/News/Event/1379,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-09-20,1390,썬데이 메이플,False,소울 조각 사용 시 위대한 소울 획득 확률 5배!,위대한소울_확률,수집기타,https://maplestory.nexon.com/News/Event/1390,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-09-20,1390,썬데이 메이플,False,주문의 흔적 강화 비용 50% 할인,주문의흔적_비용할인,강화,https://maplestory.nexon.com/News/Event/1390,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-09-20,1390,썬데이 메이플,False,몬스터파크 클리어 경험치 추가 250% 증가,몬스터파크_경험치,성장,https://maplestory.nexon.com/News/Event/1390,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-09-27,1391,스페셜 썬데이 메이플,True,미라클 타임,미라클타임,강화,https://maplestory.nexon.com/News/Event/1391,gemini:gemini-3.5-flash-lite,True,세부 항목: 잠재능력과 에디셔널 잠재능력 재설정 시; 큐브 아이템 사용 시; 소울 잠재능력 재설정 시; 인벤 관례에 따라 미라클 타임 제목1행으로 병합,all,image_checked
+2026-10-04,1396,썬데이 메이플,False,룬 재 등장 및 재사용 대기시간 감소,룬_재등장감소,성장,https://maplestory.nexon.com/News/Event/1396,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-10-04,1396,썬데이 메이플,False,룬 경험치 버프 효과 +100% (기본 경험치의 3배),룬_경험치버프,성장,https://maplestory.nexon.com/News/Event/1396,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-10-04,1396,썬데이 메이플,False,콤보킬 경험치 획득량 +300%,콤보킬_경험치,성장,https://maplestory.nexon.com/News/Event/1396,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-10-04,1396,썬데이 메이플,False,트레져 헌터 경험치 3배,트레져헌터_경험치,사냥효율,https://maplestory.nexon.com/News/Event/1396,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-10-11,1397,썬데이 메이플,False,어빌리티 재설정 명성치 비용 50% 할인,어빌리티_재설정할인,강화,https://maplestory.nexon.com/News/Event/1397,gemini:gemini-3.5-flash-lite,True,미등록 보상: 사람 확인 필요,all,image_checked
+2026-10-11,1397,썬데이 메이플,False,21성 이하에서 스타포스 강화 시 파괴 확률 30% 감소,스타포스_파괴방지,강화,https://maplestory.nexon.com/News/Event/1397,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-10-18,1399,썬데이 메이플,False,트레져 헌터 경험치 3배,트레져헌터_경험치,사냥효율,https://maplestory.nexon.com/News/Event/1399,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-10-18,1399,썬데이 메이플,False,사냥을 통해 획득할 수 있는 솔 에르다 2배 증가,솔에르다_사냥,사냥효율,https://maplestory.nexon.com/News/Event/1399,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-10-18,1399,썬데이 메이플,False,몬스터파크 클리어 경험치 추가 250%,몬스터파크_경험치,성장,https://maplestory.nexon.com/News/Event/1399,gemini:gemini-3.5-flash-lite,True,,all,pattern_approved
+2026-10-25,1405,썬데이 메이플,False,"[HEXA 스탯] 메인 스탯이 5레벨 이상일 때, 메인 스탯의 강화 확률 20% 증가",HEXA스탯_강화확률,강화,https://maplestory.nexon.com/News/Event/1405,gemini:gemini-3.5-flash-lite,True,,all,image_checked
+2026-10-25,1405,썬데이 메이플,False,룬 기본 지속시간 50% 증가,룬_지속시간증가,성장,https://maplestory.nexon.com/News/Event/1405,gemini:gemini-3.5-flash-lite,True,미등록 보상: 사람 확인 필요,all,image_checked
+2026-10-25,1405,썬데이 메이플,False,룬 경험치 버프 효과 + 100%,룬_경험치버프,성장,https://maplestory.nexon.com/News/Event/1405,gemini:gemini-3.5-flash-lite,True,공식 정정 텍스트 우선: 200% → 100%; Claude 이미지/정정문 대조 승인,all,image_checked
+2026-10-25,1405,썬데이 메이플,False,콤보킬 경험치 획득량 +300%,콤보킬_경험치,성장,https://maplestory.nexon.com/News/Event/1405,gemini:gemini-3.5-flash-lite,True,,all,image_checked

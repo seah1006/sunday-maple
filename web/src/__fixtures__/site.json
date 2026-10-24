@@ -35,6 +35,14 @@
         "date_hit_rate": 0.449
       },
       {
+        "method": "random_forest_gated",
+        "label": "랜덤포레스트(게이트)",
+        "accuracy": null,
+        "f1": null,
+        "roc_auc": null,
+        "date_hit_rate": 0.522
+      },
+      {
         "method": "prophet",
         "label": "Prophet",
         "accuracy": null,
@@ -49,10 +57,23 @@
         "actual": [
           "스타포스_비용할인"
         ],
+        "actual_all": [
+          "스타포스_비용할인",
+          "스타포스_파괴방지",
+          "흔적복구_비용할인"
+        ],
+        "outside_candidates": [
+          "스타포스_파괴방지",
+          "흔적복구_비용할인"
+        ],
         "predicted": [
           "스타포스_1+1강화"
         ],
-        "hit": 0
+        "hit": 0,
+        "gated_predicted": [
+          "몬스터컬렉션"
+        ],
+        "gated_hit": 0
       },
       {
         "date": "2026-06-07",
@@ -60,11 +81,24 @@
           "룬_경험치버프",
           "콤보킬_경험치"
         ],
+        "actual_all": [
+          "룬_경험치버프",
+          "룬_재등장감소",
+          "콤보킬_경험치"
+        ],
+        "outside_candidates": [
+          "룬_재등장감소"
+        ],
         "predicted": [
           "스타포스_1+1강화",
           "스타포스_성공확률"
         ],
-        "hit": 0
+        "hit": 0,
+        "gated_predicted": [
+          "몬스터컬렉션",
+          "어빌리티_재설정할인"
+        ],
+        "gated_hit": 0
       }
     ]
   },

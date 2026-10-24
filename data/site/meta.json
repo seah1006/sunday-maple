@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-24T00:30:33.838393+00:00",
-  "data_through": "2026-06-14",
+  "generated_at": "2026-10-24T01:03:20.644171+00:00",
+  "data_through": "2026-10-25",
   "backtest_data_through": "2026-06-07",
-  "target_date": "2026-06-21",
+  "target_date": "2026-11-01",
   "sources": [
     {
       "name": "인벤 역대 썬데이메이플 정리",
@@ -12,6 +12,11 @@
     {
       "name": "수동 관측(공식 공지 확인)",
       "path": "data/interim/manual_obs_20260614.csv"
+    },
+    {
+      "name": "메이플스토리 공식 공지",
+      "url": "https://maplestory.nexon.com/News/Event",
+      "path": "data/observations/official.csv"
     }
   ],
   "split_cutoff": "2025-01-01",

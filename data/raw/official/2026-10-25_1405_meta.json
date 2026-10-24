@@ -1,0 +1,20 @@
+{
+  "id": 1405,
+  "title": "썬데이 메이플",
+  "start_date": "2026-10-25",
+  "end_date": "2026-10-25",
+  "is_special": false,
+  "url": "https://maplestory.nexon.com/News/Event/1405",
+  "period": [
+    "2026-10-25",
+    "2026-10-25"
+  ],
+  "image_url": "https://lwi.nexon.com/maplestory/2026/1022_board/261025_1K16FRPBN1G02THG.png",
+  "fetched_at": "2026-10-24T00:51:06.365040+00:00",
+  "correction_text": "룬 경험치 버프 효과 혜택 부분의 룬 경험치 버프 수치가 잘못 기재되어 해당 수치를 수정하였습니다. (전) 200% (후) 100% (2026년 10월 23일(금) 오후 2시 40분 추가) -----------------------------------",
+  "sha256": "269c2618898ffb3eefb7a6cee398f3b6c8c5d2bd74178a7ab47eb43dd2131767",
+  "skipped_image_uris_count": 0,
+  "used_image_count": 1,
+  "image_robots_status": 403,
+  "image_robots_policy": "rfc9309_4xx_unavailable"
+}

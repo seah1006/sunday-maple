@@ -19,6 +19,7 @@ CATEGORY_BY_NORM = {
     "경험치_배수버프": "성장",
     "경험치쿠폰_지급": "성장",
     "룬_경험치버프": "성장",
+    "룬_지속시간증가": "성장",
     "룬_재등장감소": "성장",
     "콤보킬_경험치": "성장",
     "몬스터파크_경험치": "성장",
@@ -188,6 +189,21 @@ def normalize_reward(reward_raw: str) -> str | None:
             "마스터 라벨",
         ]
     ):
+        return "선물_기타지급"
+
+    if "어빌리티 재설정 명성치 비용" in text and "할인" in text:
+        return "어빌리티_재설정할인"
+    if "룬 기본 지속시간" in text and "증가" in text:
+        return "룬_지속시간증가"
+    if "잠재능력" in text and "승급" in text and "확률 2배" in text:
+        return "미라클타임"
+    if "룬 재 등장" in text:
+        return "룬_재등장감소"
+    if "몬스터파크 클리어 경험치" in text:
+        return "몬스터파크_경험치"
+    if "트레저 헌터 경험치" in text:
+        return "트레져헌터_경험치"
+    if "썬데이 메이플 선물" in text:
         return "선물_기타지급"
 
     return None

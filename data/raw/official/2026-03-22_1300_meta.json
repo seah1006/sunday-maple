@@ -1,0 +1,18 @@
+{
+  "id": 1300,
+  "title": "썬데이 메이플",
+  "start_date": "2026-03-22",
+  "end_date": "2026-03-22",
+  "is_special": false,
+  "url": "https://maplestory.nexon.com/News/Event/1300",
+  "period": [
+    "2026-03-22",
+    "2026-03-22"
+  ],
+  "image_url": "https://lwi.nexon.com/maplestory/2026/0319_board/4605BE06857021D1-a.png",
+  "fetched_at": "2026-10-24T00:48:21.375003+00:00",
+  "correction_text": "",
+  "sha256": "cb18a0f222fb3e551aeb62f85ff9be4b65098852292c9ad6cdda3bc61aa31084",
+  "image_robots_status": 403,
+  "image_robots_policy": "rfc9309_4xx_unavailable"
+}

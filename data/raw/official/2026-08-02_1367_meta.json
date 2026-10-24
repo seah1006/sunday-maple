@@ -1,0 +1,20 @@
+{
+  "id": 1367,
+  "title": "스페셜 썬데이 메이플",
+  "start_date": "2026-08-02",
+  "end_date": "2026-08-02",
+  "is_special": true,
+  "url": "https://maplestory.nexon.com/News/Event/1367",
+  "period": [
+    "2026-08-02",
+    "2026-08-02"
+  ],
+  "image_url": "https://lwi.nexon.com/maplestory/2026/0723_board/260802_G8E2WSBB7F14QWLK.png",
+  "fetched_at": "2026-10-24T00:50:42.351216+00:00",
+  "correction_text": "",
+  "sha256": "42e9e6eb73c99a669890bb35464f196b46a8c183f80bbdff4c8d81bb5f2557e7",
+  "skipped_image_uris_count": 0,
+  "used_image_count": 1,
+  "image_robots_status": 403,
+  "image_robots_policy": "rfc9309_4xx_unavailable"
+}

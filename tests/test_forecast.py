@@ -29,5 +29,17 @@ def test_backtest_rf_date_hit_rate(trained):
     tidy, bundle = trained
     metrics, per_date = backtest(tidy, bundle, include_prophet=False)
     rates = metrics.set_index("method").date_hit_rate.round(4).to_dict()
-    assert rates == {"gap_rule": 0.3478, "prior_rate": 0.3623, "logistic": 0.3913, "random_forest": 0.4493}
+    assert {k: v for k, v in rates.items() if k != "random_forest_gated"} == {"gap_rule": 0.3478, "prior_rate": 0.3623, "logistic": 0.3913, "random_forest": 0.4493}
     assert per_date.rf_hit.mean() == metrics.loc[metrics.method == "random_forest", "date_hit_rate"].iloc[0]
+
+    from src.predict_dataset import _eligible_rows, _candidate_rewards, gate_candidates
+    eligible = _eligible_rows(tidy)
+    candidates = _candidate_rewards(eligible.loc[eligible.date < "2025-01-01"], 20)
+    for row in per_date.itertuples():
+        assert set(row.gated_predicted) <= set(gate_candidates(eligible, candidates, row.date))
+        assert "스타포스_1+1강화" not in row.gated_predicted
+        assert set(row.actual_all) == set(row.actual) | set(row.outside_candidates)
+
+        for reward in row.gated_predicted:
+            last = eligible.loc[(eligible.reward_norm == reward) & (eligible.date < row.date), "date"].max()
+            assert (row.date - last).days <= 180

@@ -1,0 +1,20 @@
+{
+  "id": 1396,
+  "title": "썬데이 메이플",
+  "start_date": "2026-10-04",
+  "end_date": "2026-10-04",
+  "is_special": false,
+  "url": "https://maplestory.nexon.com/News/Event/1396",
+  "period": [
+    "2026-10-04",
+    "2026-10-04"
+  ],
+  "image_url": "https://lwi.nexon.com/maplestory/2026/0917_sundaymaple/260917_721930F0BA9F628F.png",
+  "fetched_at": "2026-10-24T00:51:00.421494+00:00",
+  "correction_text": "",
+  "sha256": "94689afda6aa53b26795052dfd2937e8e6b41bc832270f3d9db0173ac780d8e8",
+  "skipped_image_uris_count": 0,
+  "used_image_count": 1,
+  "image_robots_status": 403,
+  "image_robots_policy": "rfc9309_4xx_unavailable"
+}

@@ -66,10 +66,17 @@ def backtest(tidy, bundle, split_cutoff=SPLIT_CUTOFF, seed=RANDOM_SEED, include_
     metrics = [{"method": method, "label": label, **_evaluate(test.y, score, test.date)} for method, label, score in scores]
     scored = test.assign(score=rf_scores)
     per_date = []
+    eligible = _eligible_rows(tidy)
+    candidates = _candidate_rewards(eligible.loc[eligible.date < pd.Timestamp(split_cutoff)], 20)
+    actual_by_date = {date: set(group.reward_norm) for date, group in eligible.groupby("date", sort=False)}
     for date, group in scored.groupby("date", sort=True):
         actual = group.loc[group.y == 1, "reward_norm"].tolist()
         top = group.nlargest(len(actual), "score")["reward_norm"].tolist()
-        per_date.append({"date": date, "actual": actual, "rf_top": top, "rf_hit": float(bool(set(actual) & set(top))) if actual else np.nan})
+        gated = gate_candidates(eligible, candidates, date)
+        gated_top = group.loc[group.reward_norm.isin(gated)].nlargest(len(actual), "score")["reward_norm"].tolist()
+        actual_all = sorted(actual_by_date.get(date, set()))
+        per_date.append({"date": date, "actual": actual, "actual_all": actual_all, "outside_candidates": sorted(set(actual_all) - set(candidates)), "rf_top": top, "rf_hit": float(bool(set(actual) & set(top))) if actual else np.nan, "gated_predicted": gated_top, "gated_hit": int(bool(set(actual) & set(gated_top))) if actual and gated else np.nan})
+    metrics.append({"method": "random_forest_gated", "label": "랜덤포레스트(게이트)", "date_hit_rate": pd.DataFrame(per_date).gated_hit.mean()})
     if include_prophet:
         eligible = _eligible_rows(tidy)
         candidates = _candidate_rewards(eligible.loc[eligible.date < pd.Timestamp(split_cutoff)], 20)

@@ -8,7 +8,10 @@ from src.site_data import main
 @pytest.fixture(scope="module")
 def exported(tmp_path_factory):
     tmp_path = tmp_path_factory.mktemp("site")
-    main(["--out", str(tmp_path), "--skip-prophet"])
+    from src.observations import load_manual_observations
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setattr('src.site_data.load_reviewed_observations', load_manual_observations)
+        main(["--out", str(tmp_path), "--skip-prophet"])
     return tmp_path
 
 
@@ -37,3 +40,17 @@ def test_appearances_count_unique_dates(exported):
 def test_backtest_hit_is_integer_or_null(exported):
     data = {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in exported.iterdir()}
     assert all(row["hit"] is None or type(row["hit"]) is int and row["hit"] in {0, 1} for row in data["backtest"]["per_date"])
+
+
+def test_reviewed_backfill_reaches_latest_date(tmp_path):
+    main(["--out", str(tmp_path), "--skip-prophet"])
+    meta = json.loads((tmp_path / 'meta.json').read_text(encoding='utf-8'))
+    assert meta['data_through'] == '2026-10-25'
+    assert meta['target_date'] == '2026-11-01'
+    assert meta['backtest_data_through'] == '2026-06-07'
+    history = json.loads((tmp_path / 'history.json').read_text(encoding='utf-8'))
+    latest = history[0]
+    assert latest['date'] == '2026-10-25'
+    rune = next(row for row in latest['rewards'] if row['reward_norm'] == '룬_지속시간증가')
+    assert rune['category'] == '성장'
+    assert rune['scope'] == 'all'

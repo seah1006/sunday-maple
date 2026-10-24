@@ -2,9 +2,9 @@
   {
     "reward_norm": "HEXA스탯_강화확률",
     "category": "강화",
-    "appearances": 8,
+    "appearances": 11,
     "first_seen": "2024-07-21",
-    "last_seen": "2026-04-19",
+    "last_seen": "2026-10-25",
     "median_cycle_days": 91.0,
     "is_discontinued": false
   },
@@ -56,19 +56,28 @@
   {
     "reward_norm": "룬_경험치버프",
     "category": "성장",
-    "appearances": 88,
+    "appearances": 94,
     "first_seen": "2017-03-26",
-    "last_seen": "2026-06-07",
+    "last_seen": "2026-10-25",
     "median_cycle_days": 28.0,
     "is_discontinued": true
   },
   {
     "reward_norm": "룬_재등장감소",
     "category": "성장",
-    "appearances": 23,
+    "appearances": 28,
     "first_seen": "2024-09-22",
-    "last_seen": "2026-06-07",
+    "last_seen": "2026-10-04",
     "median_cycle_days": 28.0,
+    "is_discontinued": false
+  },
+  {
+    "reward_norm": "룬_지속시간증가",
+    "category": "성장",
+    "appearances": 1,
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "median_cycle_days": null,
     "is_discontinued": false
   },
   {
@@ -92,27 +101,27 @@
   {
     "reward_norm": "몬스터컬렉션",
     "category": "수집기타",
-    "appearances": 40,
+    "appearances": 42,
     "first_seen": "2017-12-10",
-    "last_seen": "2026-02-22",
+    "last_seen": "2026-09-13",
     "median_cycle_days": 63.0,
     "is_discontinued": true
   },
   {
     "reward_norm": "몬스터파크_경험치",
     "category": "성장",
-    "appearances": 83,
+    "appearances": 91,
     "first_seen": "2018-10-07",
-    "last_seen": "2026-06-14",
+    "last_seen": "2026-10-18",
     "median_cycle_days": 21.0,
     "is_discontinued": true
   },
   {
     "reward_norm": "미라클타임",
     "category": "강화",
-    "appearances": 16,
+    "appearances": 19,
     "first_seen": "2019-01-13",
-    "last_seen": "2026-05-10",
+    "last_seen": "2026-09-27",
     "median_cycle_days": 182.0,
     "is_discontinued": false
   },
@@ -164,36 +173,36 @@
   {
     "reward_norm": "솔에르다_사냥",
     "category": "사냥효율",
-    "appearances": 14,
+    "appearances": 20,
     "first_seen": "2025-06-08",
-    "last_seen": "2026-05-24",
+    "last_seen": "2026-10-18",
     "median_cycle_days": 28.0,
     "is_discontinued": false
   },
   {
     "reward_norm": "솔에르다_접속지급",
     "category": "수집기타",
-    "appearances": 5,
+    "appearances": 7,
     "first_seen": "2023-12-31",
-    "last_seen": "2026-02-08",
+    "last_seen": "2026-08-09",
     "median_cycle_days": 189.0,
     "is_discontinued": true
   },
   {
     "reward_norm": "스타포스_1+1강화",
     "category": "강화",
-    "appearances": 42,
+    "appearances": 43,
     "first_seen": "2018-02-18",
-    "last_seen": "2026-01-11",
+    "last_seen": "2026-07-12",
     "median_cycle_days": 63.0,
     "is_discontinued": false
   },
   {
     "reward_norm": "스타포스_비용할인",
     "category": "강화",
-    "appearances": 73,
+    "appearances": 76,
     "first_seen": "2017-04-23",
-    "last_seen": "2026-05-31",
+    "last_seen": "2026-09-06",
     "median_cycle_days": 42.0,
     "is_discontinued": false
   },
@@ -209,9 +218,9 @@
   {
     "reward_norm": "스타포스_파괴방지",
     "category": "강화",
-    "appearances": 16,
+    "appearances": 20,
     "first_seen": "2025-03-23",
-    "last_seen": "2026-05-31",
+    "last_seen": "2026-10-11",
     "median_cycle_days": 28.0,
     "is_discontinued": false
   },
@@ -245,9 +254,9 @@
   {
     "reward_norm": "어빌리티_재설정할인",
     "category": "강화",
-    "appearances": 69,
+    "appearances": 73,
     "first_seen": "2017-04-09",
-    "last_seen": "2026-05-17",
+    "last_seen": "2026-10-11",
     "median_cycle_days": 42.0,
     "is_discontinued": false
   },
@@ -263,9 +272,9 @@
   {
     "reward_norm": "엘리트몬스터_증가",
     "category": "사냥효율",
-    "appearances": 19,
+    "appearances": 21,
     "first_seen": "2017-04-23",
-    "last_seen": "2026-02-22",
+    "last_seen": "2026-09-13",
     "median_cycle_days": 70.0,
     "is_discontinued": true
   },
@@ -281,9 +290,9 @@
   {
     "reward_norm": "위대한소울_확률",
     "category": "수집기타",
-    "appearances": 53,
+    "appearances": 55,
     "first_seen": "2017-04-23",
-    "last_seen": "2026-05-17",
+    "last_seen": "2026-09-20",
     "median_cycle_days": 63.0,
     "is_discontinued": false
   },
@@ -317,9 +326,9 @@
   {
     "reward_norm": "주문의흔적_비용할인",
     "category": "강화",
-    "appearances": 70,
+    "appearances": 73,
     "first_seen": "2017-03-12",
-    "last_seen": "2026-04-19",
+    "last_seen": "2026-09-20",
     "median_cycle_days": 35.0,
     "is_discontinued": true
   },
@@ -344,18 +353,18 @@
   {
     "reward_norm": "콤보킬_경험치",
     "category": "성장",
-    "appearances": 87,
+    "appearances": 93,
     "first_seen": "2017-04-16",
-    "last_seen": "2026-06-07",
+    "last_seen": "2026-10-25",
     "median_cycle_days": 28.0,
     "is_discontinued": true
   },
   {
     "reward_norm": "트레져헌터_경험치",
     "category": "사냥효율",
-    "appearances": 13,
+    "appearances": 19,
     "first_seen": "2025-06-22",
-    "last_seen": "2026-05-24",
+    "last_seen": "2026-10-18",
     "median_cycle_days": 24.5,
     "is_discontinued": false
   },
@@ -425,9 +434,9 @@
   {
     "reward_norm": "흔적복구_비용할인",
     "category": "강화",
-    "appearances": 3,
+    "appearances": 6,
     "first_seen": "2026-03-29",
-    "last_seen": "2026-05-31",
+    "last_seen": "2026-09-06",
     "median_cycle_days": 31.5,
     "is_discontinued": false
   }

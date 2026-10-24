@@ -1,0 +1,20 @@
+{
+  "id": 1317,
+  "title": "수정 스페셜 썬데이 메이플",
+  "start_date": "2026-05-10",
+  "end_date": "2026-05-10",
+  "is_special": true,
+  "url": "https://maplestory.nexon.com/News/Event/1317",
+  "period": [
+    "2026-05-10",
+    "2026-05-10"
+  ],
+  "image_url": "https://lwi.nexon.com/maplestory/2026/0508_board/C30CA4F4E37C4D04.png",
+  "fetched_at": "2026-10-24T00:50:18.415051+00:00",
+  "correction_text": "공지 내 아이템명 중 ‘이벤트 링 전용 명장의 큐브’를 ‘이벤트 링 전용 골드 큐브’로 수정하였습니다. (2026 년 5 월 8 일 (금 ) 오전 11 시 5분 수정 ) --------------------------------------------------------",
+  "sha256": "56011c57a47060e43f81aecb2e852845129a25e0353d29ad89214483d4430f9e",
+  "skipped_image_uris_count": 5,
+  "used_image_count": 1,
+  "image_robots_status": 403,
+  "image_robots_policy": "rfc9309_4xx_unavailable"
+}
