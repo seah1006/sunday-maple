@@ -43,3 +43,13 @@ def test_backtest_rf_date_hit_rate(trained):
         for reward in row.gated_predicted:
             last = eligible.loc[(eligible.reward_norm == reward) & (eligible.date < row.date), "date"].max()
             assert (row.date - last).days <= 180
+
+
+def test_operational_training_uses_full_history_and_no_domain_ban(trained):
+    from src.forecast import train_operational_classifier, operational_inference_frame
+    tidy, _ = trained
+    combined = append_observations(tidy, load_manual_observations())
+    bundle = train_operational_classifier(combined)
+    assert bundle.prediction_frame.date.max().strftime('%Y-%m-%d') == '2026-06-14'
+    unfiltered = operational_inference_frame(combined, '2026-06-21', gate=False)
+    assert '스타포스_1+1강화' in set(unfiltered.reward_norm)

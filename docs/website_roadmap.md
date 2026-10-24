@@ -46,7 +46,7 @@
 | 21 | 파이프라인 모듈화 + 사이트용 JSON 내보내기 (Python만) | `src/build_tidy.py`, `src/forecast.py`, `src/site_data.py`, `data/site/*.json` | 완료·리뷰 통과 (2026-10-24). 환경 차이로 RF 개별 점수 기준 갱신, 의존성 버전 고정 |
 | 22 | 프론트엔드 골격: Vite + React + TS, JSON을 읽어 예측 메인·적중 기록·이력 화면 (로컬 실행만) | `web/` | 대기 |
 | 23 | 신규 회차 수집: 공식 공지 탐지 → 보상 추출 → 관측 CSV, 미등록 보상 감지, 06-14 ~ 최신 백필 | `src/official.py`, `src/vision.py`, `data/observations/` | 완료·리뷰 통과 (검증 12/12, 백필 20회차 78행 승인, 데이터 10-25까지) |
-| 24 | 자동화: GitHub Actions 주간 실행, 예측을 일요일 전에 저장(적중 기록의 신뢰성), 정적 배포 | `.github/workflows/` | 배포는 사용자 승인 |
+| 24 | 자동화: GitHub Actions 주간 실행, 예측을 일요일 전에 저장(적중 기록의 신뢰성), 정적 배포 | `.github/workflows/`, `src/weekly.py`, `data/predictions/` | 구현 완료·리뷰 통과 (handoff 누락, 리뷰는 Phase 25 packet에 기록). 첫 스냅샷 11-01. push·공개·Secrets·Pages는 사용자 승인 대기 |
 | 25 | 포트폴리오 마감: README, 분석 페이지(04 EDA 결과), 방법론·한계 페이지 | `README.md`, `web/` | 대기 |
 
 ## 5. 열린 결정 (사용자 확인 필요)

@@ -117,3 +117,30 @@ def prophet_next(tidy, target_date, split_cutoff=SPLIT_CUTOFF):
 def next_sunday_after(date):
     date = pd.Timestamp(date).normalize()
     return date + pd.Timedelta(days=(6 - date.dayofweek) % 7 or 7)
+
+
+def train_operational_classifier(tidy, seed=RANDOM_SEED):
+    frame = build_prediction_frame(tidy)
+    features = pd.get_dummies(frame[FEATURE_COLUMNS], columns=["category"], dummy_na=True).fillna(-1)
+    model = RandomForestClassifier(n_estimators=300, class_weight="balanced", random_state=seed)
+    model.fit(features, frame.y.astype(int))
+    return ClassifierBundle(model, features.columns.tolist(), frame)
+
+
+def operational_inference_frame(tidy, target_date, gate=True):
+    return build_inference_frame(tidy, target_date, candidate_cutoff=None, recency_gate_days=DEFAULT_RECENCY_GATE_DAYS if gate else None, domain_discontinued=frozenset())
+
+
+def predict_operational_next(tidy, bundle, target_date, gate=True):
+    frame = operational_inference_frame(tidy, target_date, gate)
+    features = pd.get_dummies(frame[FEATURE_COLUMNS], columns=["category"], dummy_na=True).reindex(columns=bundle.feature_columns, fill_value=0).fillna(-1)
+    table = frame[["date", "reward_norm"]].copy()
+    table["score"] = bundle.model.predict_proba(features)[:, 1]
+    table = table.sort_values(["score", "reward_norm"], ascending=[False, True]).reset_index(drop=True)
+    table["rank"] = np.arange(1, len(table) + 1)
+    table["score_pct"] = (table.score * 100).round(1)
+    return table
+
+
+def prophet_operational_next(tidy, target_date):
+    return rank_candidates(tidy, None, as_of=target_date, target_date=target_date, domain_discontinued=frozenset())

@@ -16,3 +16,13 @@ describe('화면',()=>{
  it('HashRouter 안에서 사용할 공통 레이아웃을 표시한다',()=>{render(<MemoryRouter><SiteLayout data={data}/></MemoryRouter>);expect(screen.getByText(/데이터 기준 2026-06-14/)).toBeInTheDocument();expect(screen.getByText('넥슨과 무관한 비공식 프로젝트')).toBeInTheDocument()})
  it('데이터 실패시 한글 안내를 표시한다',async()=>{vi.stubGlobal('fetch',vi.fn().mockRejectedValue(new Error('network')));render(<App/>);expect(await screen.findByRole('alert')).toHaveTextContent('데이터를 불러오지 못했어요');vi.unstubAllGlobals()})
 })
+
+
+it('실전 기록이 없으면 첫 회차 안내를 표시한다',()=>{
+ render(<TrackPage data={data}/>);expect(screen.getByText('첫 실전 기록은 11-01 회차 이후 표시됩니다.')).toBeInTheDocument()
+})
+
+it('실전 기록의 저장 시각과 상위5 적중 수를 표시한다',()=>{
+ const record={target_date:'2026-11-01',generated_at:'2026-10-24T01:00:00Z',actual:['몬스터컬렉션'],classifier:{top5:['몬스터컬렉션'],top5_hits:1,k:1,k_hit:1,outside_candidates:[]},prophet:null}
+ render(<TrackPage data={{...data,live_record:[record]}}/>);expect(screen.getByRole('table',{name:'실전 기록'})).toBeInTheDocument();expect(screen.getByText('1개')).toBeInTheDocument()
+})

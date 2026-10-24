@@ -29,3 +29,42 @@
 백필20회차83개 추출행을 Claude가 직접이미지대조9공지/패턴승인11공지로리뷰했고,선물구성품과미라클세부행을제목행으로병합해78행으로확정했다. 미라클타임은인벤관례상보상제목행이며,샤이닝·솔에르다타임은꼬리표다. 공식CSV의review_method와note가승인근거를보존한다. 룬기본지속시간증가는새키룬_지속시간증가/성장으로승인됐다. 2017년룬경험치버프지속시간2배는기존키를유지한다.
 
 향후추출프롬프트는미라클/선물예외를반영한scope_v3다. 본표12/12는scope_v2실측이고,v3는아직실측하지않았다.
+
+## Phase24 scope_v3 실검증
+
+정규화된 (scope,reward_norm) 집합 기준. 인벤 검증셋은all만, 승인백필은전체scope를 비교한다. CSV는변경하지않았다. 검증12/12,백필20/20완전일치로v3기본유지. 모든공지정밀도/재현율1.0.
+
+| ID | 구분 | v2 검증 | v3 완전일치 |
+|---|---|---|---|
+| 1300 | validation | 일치 | True |
+| 1302 | validation | 일치 | True |
+| 1304 | validation | 일치 | True |
+| 1307 | validation | 일치 | True |
+| 1310 | validation | 일치 | True |
+| 1314 | validation | 일치 | True |
+| 1315 | validation | 일치 | True |
+| 1317 | validation | 일치 | True |
+| 1325 | validation | 일치 | True |
+| 1326 | validation | 일치 | True |
+| 1327 | validation | 일치 | True |
+| 1329 | validation | 일치 | True |
+| 1330 | backfill | 사람승인 기준 | True |
+| 1350 | backfill | 사람승인 기준 | True |
+| 1352 | backfill | 사람승인 기준 | True |
+| 1354 | backfill | 사람승인 기준 | True |
+| 1355 | backfill | 사람승인 기준 | True |
+| 1356 | backfill | 사람승인 기준 | True |
+| 1365 | backfill | 사람승인 기준 | True |
+| 1367 | backfill | 사람승인 기준 | True |
+| 1368 | backfill | 사람승인 기준 | True |
+| 1369 | backfill | 사람승인 기준 | True |
+| 1375 | backfill | 사람승인 기준 | True |
+| 1376 | backfill | 사람승인 기준 | True |
+| 1377 | backfill | 사람승인 기준 | True |
+| 1379 | backfill | 사람승인 기준 | True |
+| 1390 | backfill | 사람승인 기준 | True |
+| 1391 | backfill | 사람승인 기준 | True |
+| 1396 | backfill | 사람승인 기준 | True |
+| 1397 | backfill | 사람승인 기준 | True |
+| 1399 | backfill | 사람승인 기준 | True |
+| 1405 | backfill | 사람승인 기준 | True |

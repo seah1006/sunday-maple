@@ -11,7 +11,7 @@ def exported(tmp_path_factory):
     from src.observations import load_manual_observations
     with pytest.MonkeyPatch.context() as patch:
         patch.setattr('src.site_data.load_reviewed_observations', load_manual_observations)
-        main(["--out", str(tmp_path), "--skip-prophet"])
+        main(["--out", str(tmp_path), "--skip-prophet", "--historical-model"])
     return tmp_path
 
 

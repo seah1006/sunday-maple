@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T01:03:20.644171+00:00",
+  "generated_at": "2026-10-24T05:26:23.601364+00:00",
   "data_through": "2026-10-25",
   "backtest_data_through": "2026-06-07",
   "target_date": "2026-11-01",
@@ -20,5 +20,7 @@
     }
   ],
   "split_cutoff": "2025-01-01",
-  "random_seed": 42
+  "random_seed": 42,
+  "training_through": "2026-10-25",
+  "model_policy": "weekly_full_history"
 }

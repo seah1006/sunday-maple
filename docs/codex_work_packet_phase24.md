@@ -18,7 +18,13 @@
 
 - 10-25 회차 공지(1405)는 10-22(목)에 올라왔다. 그러니 "다음 일요일 예측"은 **월~수요일**에 공개돼야 의미가 있다.
 
-## 사용자 결정 항목 ⚠
+## 사용자 결정 (2026-10-24 확정)
+
+- D1 제거, D2 매주 재학습, D3 게이트 RF 메인: **추천안대로**.
+- D4: **저장소 공개 + GitHub Pages**. Vite `base`는 `/sunday-maple/`, 배포는 `actions/upload-pages-artifact` + `actions/deploy-pages`. 공개 전환과 push는 상위 세션이 사용자 최종 확인 후 한다.
+- D5: **Aside 루틴이 검토**. Actions는 PR만 열고 자동 머지하지 않는다. PR 본문에 공지 URL, 이미지 URL, 추출 행 표, 미등록 행을 넣어 루틴이 이미지와 대조할 수 있게 한다. 루틴은 검토 결과를 사용자에게 알리고, 머지는 사용자 승인 후에 한다. 수정이 필요하면 PR 브랜치에서 `official.csv`를 고치고 `reviewed=True`로 바꾼 뒤 머지한다. Actions가 여는 PR의 행은 `reviewed=False`로 두고, `py -m src.weekly approve --pr-rows` 같은 승인 전환 명령(지정 공지 ID의 행을 `reviewed=True`, `review_method` 기록)을 제공한다.
+
+## 사용자 결정 항목 (기록용)
 
 | # | 항목 | Claude 추천 |
 |---|---|---|
@@ -58,7 +64,7 @@
 
 - `/track` 맨 위에 **실전 기록**(`live_record.json`) 섹션: "일요일 전에 저장한 예측" 표(대상일, 저장 시각, 상위 5, 실제, 적중 수). 기록이 없으면 "첫 실전 기록은 11-01 회차 이후 표시" 안내.
 - 이력 화면에 `scope`가 `all`이 아닌 항목은 배지로 표시한다(예: `챌린저스 월드 전용`).
-- Vite `base`: D4 (a)면 `/sunday-maple/`, (b)면 `/`.
+- Vite `base`: `/sunday-maple/`(D4 결정). 로컬 dev에서도 동작하도록 데이터 fetch는 계속 `import.meta.env.BASE_URL` 기준.
 
 ## 검증 기준
 
