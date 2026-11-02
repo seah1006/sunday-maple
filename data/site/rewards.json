@@ -200,9 +200,9 @@
   {
     "reward_norm": "스타포스_비용할인",
     "category": "강화",
-    "appearances": 76,
+    "appearances": 77,
     "first_seen": "2017-04-23",
-    "last_seen": "2026-09-06",
+    "last_seen": "2026-11-01",
     "median_cycle_days": 42.0,
     "is_discontinued": false
   },
@@ -218,9 +218,9 @@
   {
     "reward_norm": "스타포스_파괴방지",
     "category": "강화",
-    "appearances": 20,
+    "appearances": 21,
     "first_seen": "2025-03-23",
-    "last_seen": "2026-10-11",
+    "last_seen": "2026-11-01",
     "median_cycle_days": 28.0,
     "is_discontinued": false
   },
@@ -434,9 +434,9 @@
   {
     "reward_norm": "흔적복구_비용할인",
     "category": "강화",
-    "appearances": 6,
+    "appearances": 7,
     "first_seen": "2026-03-29",
-    "last_seen": "2026-09-06",
+    "last_seen": "2026-11-01",
     "median_cycle_days": 31.5,
     "is_discontinued": false
   }

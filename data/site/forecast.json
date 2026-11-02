@@ -1,201 +1,201 @@
 {
-  "target_date": "2026-11-01",
+  "target_date": "2026-11-08",
   "classifier": [
     {
       "rank": 1,
-      "reward_norm": "룬_재등장감소",
-      "category": "성장",
-      "score": 0.627,
-      "days_since_last": 28,
-      "last_seen": "2026-10-04"
-    },
-    {
-      "rank": 2,
       "reward_norm": "어빌리티_재설정할인",
       "category": "강화",
-      "score": 0.463,
-      "days_since_last": 21,
+      "score": 0.597,
+      "days_since_last": 28,
       "last_seen": "2026-10-11"
     },
     {
+      "rank": 2,
+      "reward_norm": "룬_재등장감소",
+      "category": "성장",
+      "score": 0.513,
+      "days_since_last": 35,
+      "last_seen": "2026-10-04"
+    },
+    {
       "rank": 3,
-      "reward_norm": "트레져헌터_경험치",
-      "category": "사냥효율",
-      "score": 0.26,
-      "days_since_last": 14,
+      "reward_norm": "몬스터파크_경험치",
+      "category": "성장",
+      "score": 0.49,
+      "days_since_last": 21,
       "last_seen": "2026-10-18"
     },
     {
       "rank": 4,
-      "reward_norm": "미라클타임",
-      "category": "강화",
-      "score": 0.217,
-      "days_since_last": 35,
-      "last_seen": "2026-09-27"
+      "reward_norm": "트레져헌터_경험치",
+      "category": "사냥효율",
+      "score": 0.317,
+      "days_since_last": 21,
+      "last_seen": "2026-10-18"
     },
     {
       "rank": 5,
-      "reward_norm": "스타포스_파괴방지",
-      "category": "강화",
-      "score": 0.217,
+      "reward_norm": "솔에르다_사냥",
+      "category": "사냥효율",
+      "score": 0.31,
       "days_since_last": 21,
-      "last_seen": "2026-10-11"
+      "last_seen": "2026-10-18"
     },
     {
       "rank": 6,
-      "reward_norm": "엘리트몬스터_증가",
-      "category": "사냥효율",
-      "score": 0.21,
-      "days_since_last": 49,
+      "reward_norm": "몬스터컬렉션",
+      "category": "수집기타",
+      "score": 0.297,
+      "days_since_last": 56,
       "last_seen": "2026-09-13"
     },
     {
       "rank": 7,
-      "reward_norm": "주문의흔적_비용할인",
-      "category": "강화",
-      "score": 0.21,
-      "days_since_last": 42,
+      "reward_norm": "위대한소울_확률",
+      "category": "수집기타",
+      "score": 0.26,
+      "days_since_last": 49,
       "last_seen": "2026-09-20"
     },
     {
       "rank": 8,
-      "reward_norm": "몬스터컬렉션",
-      "category": "수집기타",
-      "score": 0.2,
+      "reward_norm": "주문의흔적_비용할인",
+      "category": "강화",
+      "score": 0.247,
       "days_since_last": 49,
-      "last_seen": "2026-09-13"
-    },
-    {
-      "rank": 9,
-      "reward_norm": "솔에르다_사냥",
-      "category": "사냥효율",
-      "score": 0.183,
-      "days_since_last": 14,
-      "last_seen": "2026-10-18"
-    },
-    {
-      "rank": 10,
-      "reward_norm": "스타포스_비용할인",
-      "category": "강화",
-      "score": 0.17,
-      "days_since_last": 56,
-      "last_seen": "2026-09-06"
-    },
-    {
-      "rank": 11,
-      "reward_norm": "몬스터파크_경험치",
-      "category": "성장",
-      "score": 0.133,
-      "days_since_last": 14,
-      "last_seen": "2026-10-18"
-    },
-    {
-      "rank": 12,
-      "reward_norm": "스타포스_1+1강화",
-      "category": "강화",
-      "score": 0.123,
-      "days_since_last": 112,
-      "last_seen": "2026-07-12"
-    },
-    {
-      "rank": 13,
-      "reward_norm": "위대한소울_확률",
-      "category": "수집기타",
-      "score": 0.113,
-      "days_since_last": 42,
       "last_seen": "2026-09-20"
     },
     {
-      "rank": 14,
+      "rank": 9,
+      "reward_norm": "엘리트몬스터_증가",
+      "category": "사냥효율",
+      "score": 0.16,
+      "days_since_last": 56,
+      "last_seen": "2026-09-13"
+    },
+    {
+      "rank": 10,
+      "reward_norm": "미라클타임",
+      "category": "강화",
+      "score": 0.15,
+      "days_since_last": 42,
+      "last_seen": "2026-09-27"
+    },
+    {
+      "rank": 11,
+      "reward_norm": "스타포스_비용할인",
+      "category": "강화",
+      "score": 0.123,
+      "days_since_last": 7,
+      "last_seen": "2026-11-01"
+    },
+    {
+      "rank": 12,
       "reward_norm": "콤보킬_경험치",
       "category": "성장",
-      "score": 0.013,
-      "days_since_last": 7,
+      "score": 0.12,
+      "days_since_last": 14,
       "last_seen": "2026-10-25"
     },
     {
-      "rank": 15,
+      "rank": 13,
       "reward_norm": "룬_경험치버프",
       "category": "성장",
-      "score": 0.01,
-      "days_since_last": 7,
+      "score": 0.097,
+      "days_since_last": 14,
       "last_seen": "2026-10-25"
+    },
+    {
+      "rank": 14,
+      "reward_norm": "스타포스_1+1강화",
+      "category": "강화",
+      "score": 0.087,
+      "days_since_last": 119,
+      "last_seen": "2026-07-12"
+    },
+    {
+      "rank": 15,
+      "reward_norm": "스타포스_파괴방지",
+      "category": "강화",
+      "score": 0.03,
+      "days_since_last": 7,
+      "last_seen": "2026-11-01"
     }
   ],
   "prophet": [
     {
       "reward_norm": "몬스터파크_경험치",
-      "yhat": 0.423,
+      "yhat": 0.461,
       "rank": 1
     },
     {
       "reward_norm": "룬_경험치버프",
-      "yhat": 0.312,
+      "yhat": 0.262,
       "rank": 2
     },
     {
-      "reward_norm": "콤보킬_경험치",
-      "yhat": 0.309,
+      "reward_norm": "룬_재등장감소",
+      "yhat": 0.249,
       "rank": 3
     },
     {
-      "reward_norm": "주문의흔적_비용할인",
-      "yhat": 0.305,
+      "reward_norm": "스타포스_파괴방지",
+      "yhat": 0.237,
       "rank": 4
     },
     {
-      "reward_norm": "솔에르다_사냥",
-      "yhat": 0.211,
+      "reward_norm": "콤보킬_경험치",
+      "yhat": 0.233,
       "rank": 5
     },
     {
-      "reward_norm": "스타포스_비용할인",
-      "yhat": 0.21,
+      "reward_norm": "솔에르다_사냥",
+      "yhat": 0.226,
       "rank": 6
     },
     {
       "reward_norm": "트레져헌터_경험치",
-      "yhat": 0.206,
+      "yhat": 0.221,
       "rank": 7
     },
     {
-      "reward_norm": "룬_재등장감소",
-      "yhat": 0.206,
+      "reward_norm": "스타포스_비용할인",
+      "yhat": 0.202,
       "rank": 8
     },
     {
-      "reward_norm": "스타포스_파괴방지",
-      "yhat": 0.187,
+      "reward_norm": "주문의흔적_비용할인",
+      "yhat": 0.19,
       "rank": 9
     },
     {
-      "reward_norm": "어빌리티_재설정할인",
-      "yhat": 0.173,
+      "reward_norm": "위대한소울_확률",
+      "yhat": 0.126,
       "rank": 10
     },
     {
-      "reward_norm": "몬스터컬렉션",
-      "yhat": 0.129,
+      "reward_norm": "어빌리티_재설정할인",
+      "yhat": 0.122,
       "rank": 11
     },
     {
-      "reward_norm": "스타포스_1+1강화",
-      "yhat": 0.119,
+      "reward_norm": "몬스터컬렉션",
+      "yhat": 0.117,
       "rank": 12
     },
     {
-      "reward_norm": "위대한소울_확률",
-      "yhat": 0.112,
+      "reward_norm": "스타포스_1+1강화",
+      "yhat": 0.116,
       "rank": 13
     },
     {
       "reward_norm": "엘리트몬스터_증가",
-      "yhat": 0.09,
+      "yhat": 0.093,
       "rank": 14
     },
     {
       "reward_norm": "미라클타임",
-      "yhat": 0.062,
+      "yhat": 0.048,
       "rank": 15
     }
   ],

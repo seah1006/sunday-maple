@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-24T16:56:42.216540+00:00",
-  "data_through": "2026-10-25",
+  "generated_at": "2026-11-02T17:04:51.917908+00:00",
+  "data_through": "2026-11-01",
   "backtest_data_through": "2026-06-07",
-  "target_date": "2026-11-01",
+  "target_date": "2026-11-08",
   "sources": [
     {
       "name": "인벤 역대 썬데이메이플 정리",
@@ -21,6 +21,6 @@
   ],
   "split_cutoff": "2025-01-01",
   "random_seed": 42,
-  "training_through": "2026-10-25",
+  "training_through": "2026-11-01",
   "model_policy": "weekly_full_history"
 }
