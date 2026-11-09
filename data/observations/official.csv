@@ -80,3 +80,6 @@ date,notice_id,title,is_special,reward_raw,reward_norm,category,source_url,extra
 2026-11-01,1406,스페셜 썬데이 메이플,True,스타포스 강화 비용 30% 할인,스타포스_비용할인,강화,https://maplestory.nexon.com/News/Event/1406,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,image_checked
 2026-11-01,1406,스페셜 썬데이 메이플,True,21성 이하에서 스타포스 강화 시 파괴 확률 30% 감소,스타포스_파괴방지,강화,https://maplestory.nexon.com/News/Event/1406,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,image_checked
 2026-11-01,1406,스페셜 썬데이 메이플,True,흔적 복구 비용 20% 할인,흔적복구_비용할인,강화,https://maplestory.nexon.com/News/Event/1406,gemini:gemini-3.5-flash-lite,True,special_time_header: 샤이닝 스타포스 타임 (scope=all),all,image_checked
+2026-11-08,1407,썬데이 메이플,False,트레져 헌터 경험치 3배,트레져헌터_경험치,사냥효율,https://maplestory.nexon.com/News/Event/1407,gemini:gemini-3.5-flash-lite,False,,all,
+2026-11-08,1407,썬데이 메이플,False,트레져 헌터 등장 확률 2배,,,https://maplestory.nexon.com/News/Event/1407,gemini:gemini-3.5-flash-lite,False,미등록 보상: 사람 확인 필요,all,
+2026-11-08,1407,썬데이 메이플,False,몬스터파크 클리어 경험치 추가 250% 증가,몬스터파크_경험치,성장,https://maplestory.nexon.com/News/Event/1407,gemini:gemini-3.5-flash-lite,False,,all,
